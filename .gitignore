@@ -108,4 +108,7 @@ dist
 
 # SQLite DBs
 *.dev.db3
-*.test.db3
+*.test.db3git 
+
+#yarn.lock
+yarn.lock
