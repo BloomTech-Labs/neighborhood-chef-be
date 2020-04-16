@@ -16,7 +16,7 @@
     "testEnvironment": "node",
     "collectCoverage": true,
     "coverageProvider": "v8",
-    "coverReporters": ["text"]
+    "coverageReporters": ["text"]
   },
   "repository": {
     "type": "git",
