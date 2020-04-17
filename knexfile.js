@@ -1,27 +1,29 @@
 module.exports = {
 
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './data/neighborhood-chef.dev.db3',
+    client: 'pg',
+    // connection: {
+    //   host:     'localhost',
+    //   port:     5432,
+    //   user:     'neighborhoodchef',
+    //   password: 'J4mb4l4y4!',
+    //   database: 'neighborhoodchef_dev',
+    // },
+    connection: 'postgres://neighborhoodchef:J4mb4l4y4!@localhost:5432/neighborhoodchef_dev',
+    pool: {
+      min: 0,
+      max: 2,
     },
-    useNullAsDefault: true,
     migrations: {
       directory: './data/migrations',
       tableName: 'knex_migrations',
     },
-    seeds: {
-      directory: './data/seeds',
-    },
+    seeds: { directory: './data/seeds' },
   },
 
   staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'neighborhood-chef.stg',
-      user:     'LambdaLabsPT9NeighborhoodChef',
-      password: 'p2$5aBk#0GLLV956',
-    },
+    client: 'pg',
+    connection: process.env.POSTGRES_CONNECTION_STRING,
     pool: {
       min: 1,
       max: 4,
@@ -30,15 +32,12 @@ module.exports = {
       directory: './data/migrations',
       tableName: 'knex_migrations',
     },
+    seeds: { directory: './data/seeds' },
   },
 
   production: {
-    client: 'postgresql',
-    connection: {
-      database: 'neighborhood-chef.prd',
-      user:     'LambdaLabsPT9NeighborhoodChef',
-      password: 'p2$5aBk#0GLLV956',
-    },
+    client: 'pg',
+    connection: process.env.POSTGRES_CONNECTION_STRING,
     pool: {
       min: 2,
       max: 8,
@@ -47,6 +46,7 @@ module.exports = {
       directory: './data/migrations',
       tableName: 'knex_migrations',
     },
+    seeds: { directory: './data/seeds' },
   },
 
 };
