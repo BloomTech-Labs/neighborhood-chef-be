@@ -16,7 +16,9 @@
     "testEnvironment": "node",
     "collectCoverage": true,
     "coverageProvider": "v8",
-    "coverageReporters": ["text"]
+    "coverageReporters": [
+      "text"
+    ]
   },
   "repository": {
     "type": "git",
@@ -45,6 +47,7 @@
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "graphql": "^15.0.0",
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.13",
@@ -52,7 +55,6 @@
     "moment": "^2.24.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.3",
-    "pg": "^8.0.2",
-    "sqlite3": "^4.1.1"
+    "pg": "^8.0.2"
   }
 }
