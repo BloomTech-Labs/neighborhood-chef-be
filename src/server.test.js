@@ -1,13 +1,6 @@
 const server = require('./server');
 const request = require('supertest');
 
-describe("example test", () => {
-
-    test("it should work", () => {
-        expect(1).toBe(1);
-    })
-})
-
 describe("Test Apollo Server Initial Functionality", () => {
     
     let status;
