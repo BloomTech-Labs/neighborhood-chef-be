@@ -98,7 +98,7 @@ exports.down = function(knex) {
   return knex.schema
     .dropTableIfExists('Events_Invited')
     .dropTableIfExists('Events_Attending')
-    .dropTableIfExists('Categories')
     .dropTableIfExists('Events')
+    .dropTableIfExists('Categories')
     .dropTableIfExists('Users');
 };
