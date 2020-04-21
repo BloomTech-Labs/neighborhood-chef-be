@@ -16,7 +16,9 @@
     "testEnvironment": "node",
     "collectCoverage": true,
     "coverageProvider": "v8",
-    "coverageReporters": ["text"]
+    "coverageReporters": [
+      "text"
+    ]
   },
   "repository": {
     "type": "git",
@@ -44,15 +46,16 @@
     "dotenv-safe": "^8.2.0",
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
-    "express-session": "^1.17.0",
+    "express-session": "^1.17.1",
+    "graphql": "^14.6.0",
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.20.13",
+    "knex": "^0.20.15",
     "knex-cleaner": "^1.3.0",
+    "luxon": "^1.23.0",
     "moment": "^2.24.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.3",
-    "pg": "^8.0.2",
-    "sqlite3": "^4.1.1"
+    "pg": "^8.0.2"
   }
 }
