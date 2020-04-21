@@ -10,17 +10,19 @@
 
 container=pg-docker
 
-POSTGRES_DATA_PATH="$(grep POSTGRES_DATA_PATH ./.env | cut -d '=' -f 2)"
-# echo POSTGRES_DATA_PATH: $POSTGRES_DATA_PATH && echo
+POSTGRES_DATA_PATH="$HOME$(grep POSTGRES_DATA_PATH ./.env | cut -d '=' -f 2)"
+echo POSTGRES_DATA_PATH: $POSTGRES_DATA_PATH
+
+POSTGRES_DB="$(grep POSTGRES_DB ./.env | cut -d '=' -f 2)"
+echo POSTGRES_DB: $POSTGRES_DB
+
+echo
 
 POSTGRES_USER="$(grep POSTGRES_USER ./.env | cut -d '=' -f 2)"
 echo POSTGRES_USER: $POSTGRES_USER
 
 POSTGRES_PASSWORD="$(grep POSTGRES_PASSWORD ./.env | cut -d '=' -f 2)"
 echo POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-
-POSTGRES_DB="$(grep POSTGRES_DB ./.env | cut -d '=' -f 2)"
-echo POSTGRES_DB: $POSTGRES_DB
 
 echo
 
