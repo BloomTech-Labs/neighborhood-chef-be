@@ -1,18 +1,39 @@
+const userModel = require("../models/users/user-models.js");
 
 const status = () => "Apollo Server is Running!";
 
 const getAllUsers = async () => {
+  return userModel.find();
 };
 
-const getUserById = async (_, { id }) => {
-   
+const getUserById = async (_, args) => {
+  const user = await userModel.findById(args.id);
+  if (user) {
+    return user;
+  } else {
+    throw new Error("The specified user id does not exist");
+  }
 };
 
-const addUser = async (_, { input }) => {};
+const addUser = async (_, args) => {
+  const existing = await userModel.findBy({ Email: args.input.Email }).first();
+  if (existing) {
+    throw new Error("email already taken");
+  } else {
+    return userModel.add(args.input);
+  }
+};
 
 const updateUser = async (_, { id, input }, ___) => {};
 
-const removeUser = async (_, { id }) => {};
+const removeUser = async (_, args) => {
+  const user = await userModel.findById(args.id);
+  if (!user) {
+    throw new Error("The specified user id does not exist");
+  } else {
+    return userModel.remove(args.id);
+  }
+};
 
 const getAllEvents = async () => {};
 
@@ -41,7 +62,7 @@ module.exports = {
     getAllEvents,
     getEventById,
     getCategories,
-    getCategoryById
+    getCategoryById,
   },
   Mutation: {
     addUser,
@@ -51,5 +72,5 @@ module.exports = {
     updateEvent,
     removeEvent,
     addCategory,
-  }
-}
+  },
+};

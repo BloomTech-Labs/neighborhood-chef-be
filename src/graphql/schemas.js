@@ -1,9 +1,7 @@
-const { gql } = require('apollo-server-express');
-
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-
-type User {
+  type User {
     id: ID!
     Email: String!
     Password: String!
@@ -11,25 +9,25 @@ type User {
     LastName: String!
     Gender: String!
     Address: String!
-    Latitude: Int!
-    Longitute: Int!
-    Photo: String!
+    Latitude: Float!
+    Longitude: String!
+    Photo: String
     Events_Owned: [Event]!
     Events_Invited: [Event]!
     Events_Attending: [Event]!
   }
 
   input NewUserInput {
-    id: ID!
+    id: ID
     Email: String!
     Password: String!
     FirstName: String!
     LastName: String!
     Gender: String!
     Address: String!
-    Latitude: Int!
-    Longitute: Int!
-    Photo: String!
+    Latitude: String!
+    Longitude: String!
+    Photo: String
   }
 
   input UpdateUserInput {
@@ -41,7 +39,7 @@ type User {
     Gender: String
     Address: String
     Latitude: Int
-    Longitute: Int
+    Longitude: Int
     Photo: String
   }
 
@@ -101,7 +99,7 @@ type User {
   }
 
   type Query {
-    status: String!,
+    status: String!
     getAllUsers: [User]!
     getUserById(id: ID!): User!
     getAuthoredEvents(id: ID!): [Event]
@@ -120,6 +118,6 @@ type User {
     removeEvent(id: ID!): Event!
     addCategory(input: NewCategoryInput!): Category!
   }
-`
+`;
 
 module.exports = typeDefs;
