@@ -1,4 +1,5 @@
 const userModel = require("../models/users/user-models.js");
+const eventModel = require("../models/events/event-models.js");
 
 const status = () => "Apollo Server is Running!";
 
@@ -24,7 +25,14 @@ const addUser = async (_, args) => {
   }
 };
 
-const updateUser = async (_, { id, input }, ___) => {};
+const updateUser = async (_, args, ___) => {
+  const found = await userModel.findById(args.id);
+  if (found) {
+    return await userModel.update(args.id, args.input);
+  } else {
+    throw new UserInputError("The specified user id does not exist");
+  }
+};
 
 const removeUser = async (_, args) => {
   const user = await userModel.findById(args.id);
@@ -41,7 +49,9 @@ const getEventById = async (_, { id }) => {};
 
 const getAuthoredEvents = async (_, { id }) => {};
 
-const addEvent = async (_, { input }) => {};
+const addEvent = async (_, args) => {
+  return eventModel.add(args.input);
+};
 
 const updateEvent = async (_, { id, input }) => {};
 

@@ -46,31 +46,33 @@ const typeDefs = gql`
   type Event {
     id: ID!
     Date: String!
-    Start_Time: Int!
-    End_Time: Int!
+    Start_Time: String!
+    End_Time: String!
     Title: String!
     Description: String!
     Photo: String!
-    Category_id: Int!
+    category_id: Int!
+    user_id: Int!
     Modifiers: String!
     Address: String!
-    Latitude: Int!
-    Longitude: Int!
+    Latitude: Float!
+    Longitude: String!
   }
 
   input NewEventInput {
-    id: ID!
+    id: ID
     Date: String!
-    Start_Time: Int!
-    End_Time: Int!
+    Start_Time: String!
+    End_Time: String!
     Title: String!
     Description: String!
-    Photo: String!
-    Category_id: Int!
-    Modifiers: String!
+    user_id: Int!
+    Photo: String
+    category_id: Int!
+    Modifiers: String
     Address: String!
-    Latitude: Int!
-    Longitude: Int!
+    Latitude: Float!
+    Longitude: String!
   }
 
   input UpdateEventInput {
@@ -81,7 +83,8 @@ const typeDefs = gql`
     Title: String
     Description: String
     Photo: String
-    Category_id: Int
+    category_id: Int
+    user_id: Int
     Modifiers: String
     Address: String
     Latitude: Int
