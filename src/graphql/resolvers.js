@@ -1,5 +1,6 @@
 const userModel = require("../models/users/user-models.js");
 const eventModel = require("../models/events/event-models.js");
+const categoryModel = require("../models/categories/category-models.js");
 
 const status = () => "Apollo Server is Running!";
 
@@ -57,7 +58,9 @@ const updateEvent = async (_, { id, input }) => {};
 
 const removeEvent = async (_, { id }) => {};
 
-const getCategories = async () => {};
+const getCategories = async () => {
+  return categoryModel.find();
+};
 
 const getCategoryById = async (_, { id }) => {};
 
