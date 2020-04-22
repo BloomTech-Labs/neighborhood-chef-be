@@ -10,8 +10,8 @@ const newEvent = {
   user_id: 1,
   category_id: 1,
   Address: "My house",
-  Latitude: "12.222",
-  Longitude: "2.2333",
+  Latitude: 12.222,
+  Longitude: 2.2333,
 };
 
 const updatedEvent = {
@@ -21,8 +21,8 @@ const updatedEvent = {
   Title: "BBQ Madness",
   category_id: 1,
   Address: "Your house",
-  Latitude: "34.213",
-  Longitude: "55.231",
+  Latitude: 34.213,
+  Longitude: 55.231,
 };
 
 describe("event models", () => {
@@ -30,16 +30,34 @@ describe("event models", () => {
   let eventCount = 0;
 
   beforeAll(async () => {
-    userCount = await (await db("Events")).length;
+    eventCount = await (await db("Events")).length;
   });
 
-  //   test("creates a new event", async () => {
-  //     const event = await eventModels.add(newEvent);
-  //     createdEventId = event.id;
-  //     const events = await db("Events");
-  //     expect(events).toHaveLength(eventCount + 1);
-  //   });
-  test("something", async () => {
-    console.log("fake test");
+  test("creates a new event", async () => {
+    const created = await eventModels.add(newEvent);
+    createdEventId = created.id;
+    const events = await db("Events").select();
+    expect(events.length).toEqual(eventCount + 1);
+  });
+
+  test("finds all events", async () => {
+    const events = await eventModels.find();
+    expect(events.length).toEqual(eventCount + 1);
+  });
+
+  test("finds event by id", async () => {
+    const event = await eventModels.findById(createdEventId);
+    expect(event.Title).toEqual("BBQ Madness");
+  });
+
+  test("event is updated", async () => {
+    const updated = await eventModels.update(createdEventId, updatedEvent);
+    expect(updated.Address).toEqual("Your house");
+  });
+
+  test("deletes created event", async () => {
+    const removed = await eventModels.remove(createdEventId);
+    const events = await db("Events").select();
+    expect(events.length).toEqual(eventCount);
   });
 });

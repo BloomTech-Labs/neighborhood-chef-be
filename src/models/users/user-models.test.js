@@ -8,8 +8,8 @@ const newUser = {
   LastName: "Doe",
   Address: "Portland",
   Gender: "male",
-  Latitude: "22.222",
-  Longitude: "1.22",
+  Latitude: 22.222,
+  Longitude: 1.22,
 };
 
 const updatedUser = {
@@ -19,8 +19,8 @@ const updatedUser = {
   LastName: "Doe",
   Address: "Portland",
   Gender: "female",
-  Latitude: "22.222",
-  Longitude: "5.55",
+  Latitude: 22.222,
+  Longitude: 5.55,
 };
 
 describe("user models", () => {

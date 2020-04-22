@@ -10,7 +10,7 @@ const typeDefs = gql`
     Gender: String!
     Address: String!
     Latitude: Float!
-    Longitude: String!
+    Longitude: Float!
     Photo: String
     Events_Owned: [Event]!
     Events_Invited: [Event]!
@@ -25,8 +25,8 @@ const typeDefs = gql`
     LastName: String!
     Gender: String!
     Address: String!
-    Latitude: String!
-    Longitude: String!
+    Latitude: Float!
+    Longitude: Float!
     Photo: String
   }
 
@@ -38,8 +38,8 @@ const typeDefs = gql`
     LastName: String
     Gender: String
     Address: String
-    Latitude: Int
-    Longitude: Int
+    Latitude: Float
+    Longitude: Float
     Photo: String
   }
 
@@ -47,7 +47,7 @@ const typeDefs = gql`
     id: ID!
     Date: String!
     Start_Time: String!
-    End_Time: String!
+    End_Time: String
     Title: String!
     Description: String!
     Photo: String!
@@ -56,14 +56,14 @@ const typeDefs = gql`
     Modifiers: String!
     Address: String!
     Latitude: Float!
-    Longitude: String!
+    Longitude: Float!
   }
 
   input NewEventInput {
     id: ID
     Date: String!
     Start_Time: String!
-    End_Time: String!
+    End_Time: String
     Title: String!
     Description: String!
     user_id: Int!
@@ -72,7 +72,7 @@ const typeDefs = gql`
     Modifiers: String
     Address: String!
     Latitude: Float!
-    Longitude: String!
+    Longitude: Float!
   }
 
   input UpdateEventInput {
@@ -87,8 +87,8 @@ const typeDefs = gql`
     user_id: Int
     Modifiers: String
     Address: String
-    Latitude: Int
-    Longitude: Int
+    Latitude: Float
+    Longitude: Float
   }
 
   type Category {
@@ -97,7 +97,7 @@ const typeDefs = gql`
   }
 
   input NewCategoryInput {
-    id: ID!
+    id: ID
     Category: String!
   }
 

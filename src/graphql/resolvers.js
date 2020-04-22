@@ -5,13 +5,26 @@ const categoryModel = require("../models/categories/category-models.js");
 const status = () => "Apollo Server is Running!";
 
 const getAllUsers = async () => {
-  return userModel.find();
+  const userList = await userModel.find();
+  const data = userList.map(async (user) => {
+    const event = await eventModel.findBy({ user_id: user.id });
+    return {
+      ...user,
+      Events_Owned: [...event],
+    };
+  });
+  const results = await Promise.all(data);
+  return [...results];
 };
 
 const getUserById = async (_, args) => {
   const user = await userModel.findById(args.id);
   if (user) {
-    return user;
+    const owned = await eventModel.find({ user_id: args.id });
+    return {
+      ...user,
+      Events_Owned: [...owned],
+    };
   } else {
     throw new Error("The specified user id does not exist");
   }
@@ -44,27 +57,54 @@ const removeUser = async (_, args) => {
   }
 };
 
-const getAllEvents = async () => {};
+const getAllEvents = () => {
+  return eventModel.find();
+};
 
-const getEventById = async (_, { id }) => {};
+const getEventById = async (_, args) => {
+  const event = await eventModel.findById(args.id);
+  if (event) {
+    return event;
+  } else {
+    throw new Error("The specified event id does not exist");
+  }
+};
 
-const getAuthoredEvents = async (_, { id }) => {};
+const getAuthoredEvents = (_, { id }) => {
+  //return eventModel.findBy({ user_id: id });
+};
 
-const addEvent = async (_, args) => {
+const addEvent = (_, args) => {
   return eventModel.add(args.input);
 };
 
 const updateEvent = async (_, { id, input }) => {};
 
-const removeEvent = async (_, { id }) => {};
+const removeEvent = async (_, args) => {
+  const event = await eventModel.findById(args.id);
+  if (event) {
+    return await eventModel.remove(args.id);
+  } else {
+    throw new Error("The specified event id does not exist");
+  }
+};
 
 const getCategories = async () => {
   return categoryModel.find();
 };
 
-const getCategoryById = async (_, { id }) => {};
+const getCategoryById = async (_, args) => {
+  const category = await categoryModel.findById(args.id);
+  if (category) {
+    return category;
+  } else {
+    throw new Error("The specified category id does not exist");
+  }
+};
 
-const addCategory = async (_, { input }) => {};
+const addCategory = (_, args) => {
+  return categoryModel.add(args.input);
+};
 
 module.exports = {
   Query: {
