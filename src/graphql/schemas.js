@@ -78,8 +78,8 @@ const typeDefs = gql`
   input UpdateEventInput {
     id: ID
     Date: String
-    Start_Time: Int
-    End_Time: Int
+    Start_Time: String
+    End_Time: String
     Title: String
     Description: String
     Photo: String
