@@ -1,4 +1,5 @@
 const eventModel = require("../../models/events/event-models.js");
+const userModel = require("../../models/users/user-models.js");
 
 const getAllEvents = () => {
   return eventModel.find();
@@ -13,7 +14,14 @@ const getEventById = async (_, args) => {
   }
 };
 
-const getAuthoredEvents = (_, args) => {};
+const getAuthoredEvents = async (_, args) => {
+  const user = await userModel.findById(args.id);
+  if (user) {
+    return await eventModel.findBy({ user_id: args.id });
+  } else {
+    throw new Error("The specified user id does not exist");
+  }
+};
 
 const addEvent = (_, args) => {
   return eventModel.add(args.input);

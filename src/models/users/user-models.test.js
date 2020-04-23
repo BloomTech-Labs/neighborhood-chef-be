@@ -24,11 +24,12 @@ const updatedUser = {
 };
 
 describe("user models", () => {
-  let createdUserId = 0;
-  let userCount = 0;
+  let createdUserId;
+  let userCount;
 
   beforeAll(async () => {
-    userCount = await (await db("Users")).length;
+    const users = await db("Users");
+    userCount = users.length;
   });
 
   test("creates a user", async () => {

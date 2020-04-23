@@ -1,8 +1,7 @@
 module.exports = {
   development: {
     client: "pg",
-    //connection: process.env.DATABASE_URL,
-    connection: "postgres://postgres:Jellos1127@localhost:5432/our-chef",
+    connection: process.env.DATABASE_URL,
     pool: {
       min: 0,
       max: 2,

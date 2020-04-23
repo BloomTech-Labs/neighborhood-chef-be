@@ -40,13 +40,6 @@ const NEW_EVENT = {
 
 describe("event resolvers", () => {
   let testId;
-  let eventCount;
-
-  beforeAll(async () => {
-    const res = await supertest(server).post("/graphql").send(ALL_EVENTS);
-    let parsed = JSON.parse(res.text);
-    eventCount = parsed.data.getAllEvents.length;
-  });
 
   afterAll(async () => {
     await supertest(server)
@@ -69,7 +62,7 @@ describe("event resolvers", () => {
     const parsed = JSON.parse(res.text);
     expect(res.status).toBe(200);
     expect(res.type).toBe("application/json");
-    expect(parsed.data.getAllEvents.length).toEqual(eventCount);
+    expect(parsed.data.getAllEvents).toBeDefined();
   });
 
   test("creates an event", async () => {

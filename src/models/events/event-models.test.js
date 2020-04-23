@@ -26,11 +26,12 @@ const updatedEvent = {
 };
 
 describe("event models", () => {
-  let createdEventId = 0;
-  let eventCount = 0;
+  let createdEventId;
+  let eventCount;
 
   beforeAll(async () => {
-    eventCount = await (await db("Events")).length;
+    const events = await db("Events");
+    eventCount = events.length;
   });
 
   test("creates a new event", async () => {

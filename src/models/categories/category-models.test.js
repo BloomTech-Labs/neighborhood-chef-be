@@ -6,7 +6,8 @@ describe("category models", () => {
   let categoryCount = 0;
 
   beforeAll(async () => {
-    categoryCount = await (await db("Categories")).length;
+    const categories = await db("Categories");
+    categoryCount = categories.length;
   });
 
   test("creates a new category", async () => {
