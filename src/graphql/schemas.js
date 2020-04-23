@@ -7,7 +7,7 @@ const typeDefs = gql`
     Password: String!
     FirstName: String!
     LastName: String!
-    Gender: String!
+    Gender: String
     Address: String!
     Latitude: Float!
     Longitude: Float!
@@ -23,7 +23,7 @@ const typeDefs = gql`
     Password: String!
     FirstName: String!
     LastName: String!
-    Gender: String!
+    Gender: String
     Address: String!
     Latitude: Float!
     Longitude: Float!

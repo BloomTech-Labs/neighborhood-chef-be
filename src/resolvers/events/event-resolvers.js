@@ -20,7 +20,7 @@ const addEvent = (_, args) => {
 };
 
 const updateEvent = async (_, args) => {
-  const event = eventModel.findById(args.id);
+  const event = await eventModel.findById(args.id);
   if (event) {
     return await eventModel.update(args.id, args.input);
   } else {

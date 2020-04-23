@@ -1,14 +1,8 @@
 module.exports = {
   development: {
     client: "pg",
-    connection: {
-      host: "localhost",
-      //port: 5432,
-      // user:     'neighborhoodchef',
-      // password: 'J4mb4l4y4!',
-      database: process.env.DEV_DATABASE,
-    },
-    //connection: 'postgres://neighborhoodchef:J4mb4l4y4!@localhost:5432/neighborhoodchef_dev',
+    //connection: process.env.DATABASE_URL,
+    connection: "postgres://postgres:Jellos1127@localhost:5432/our-chef",
     pool: {
       min: 0,
       max: 2,

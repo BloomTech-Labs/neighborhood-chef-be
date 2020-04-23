@@ -48,6 +48,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "graphql": "^14.6.0",
+    "graphql-tools": "^5.0.0",
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.15",
