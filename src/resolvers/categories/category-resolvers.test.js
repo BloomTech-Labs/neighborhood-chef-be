@@ -3,38 +3,25 @@ const server = require("../../server.js");
 const db = require("../../models/categories/category-models.js");
 
 const ALL_CATEGORIES = {
-  query: `query getCategories {
-            getCategories {
-              Category
-              id
-          }
+  query: `
+    query getCategories {
+      getCategories {
+        Category
+        id
         }
+      }
     `,
   operationName: "getCategories",
 };
 
-const CATEGORY_BY_ID = {
-  query: `query getCategoryById($id:ID!) {
-            getCategoryById(id:$id) {
-              Category
-              id
-          }
-        }
-      `,
-  operationName: "getCategoryById",
-  variables: {
-    id: 1,
-  },
-};
-
 const NEW_CATEGORY = {
   query: `
-  mutation addCategory($input: NewCategoryInput!) {
-    addCategory(input: $input){
-      id
-      Category
-    }
-  }`,
+    mutation addCategory($input: NewCategoryInput!) {
+      addCategory(input: $input){
+        id
+        Category
+      }
+    }`,
   operationName: "addCategory",
   variables: {
     input: {
