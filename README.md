@@ -171,7 +171,7 @@ To get the server running locally:
   }
 ```
 
-#### Category Type
+#### Category Type and Inputs
 
 ---
 
