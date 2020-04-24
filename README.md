@@ -1,120 +1,229 @@
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline. Feel free to add your own flare to it.
-
-🚫 The numbers 1️⃣ through 3️⃣ next to each item represent the week that part of the docs needs to be comepleted by.  Make sure to delete the numbers by the end of Labs.
-
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric.  Contributing to docs does NOT count as a PR to meet your weekly requirements.
-
 # API Documentation
 
-#### 1️⃣ Backend delpoyed at [🚫name service here](🚫add URL here) <br>
+#### 1️⃣ Backend delpoyed at [AWS RDS](https://master.d3oqswdfi1a994.amplifyapp.com/) <br>
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/217cf613842592864005/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/maintainability)
+
+[![Test Coverage](https://api.codeclimate.com/v1/badges/217cf613842592864005/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/test_coverage)
 
 ## 1️⃣ Getting started
 
 To get the server running locally:
 
-🚫 adjust these scripts to match your project
-
 - Clone this repo
 - **yarn install** to install all required dependencies
 - **yarn server** to start the local server
 - **yarn test** to start server using testing environment
+- **yarn test:watch** to continously use testing environment
+- **yarn test:watch:troubleshoot** to debug while using testing environment
+- **yarn test:watch:withLogs** to view logs while using testing environment
+- **yarn test:coverage** to view test coverage
 
-### Backend framework goes here
+### Backend framework
 
-🚫 Why did you choose this framework?
+- Node
+- Express
+- Graphql
+- Knex
+- AWS RDS
+- PostgreSQL
 
--    Point One
--    Point Two
--    Point Three
--    Point Four
+## 2️⃣ Graphql Queries and Mutations
 
-## 2️⃣ Endpoints
+#### User
 
-🚫This is a placeholder, replace the endpoints, access controll, and descriptioin to match your project
+| Type     | Name        | variables                          | Description            |
+| -------- | ----------- | ---------------------------------- | ---------------------- |
+| Query    | getAllUsers | none                               | Returns all users      |
+| Query    | getUserById | (id: ID!)                          | Returns a single user  |
+| Mutation | addUser     | (input: NewUserInput!)             | Adds a user account    |
+| Mutation | updateUser  | (id: ID!, input: UpdateUserInput!) | Updates a user account |
+| Mutation | removeUser  | (id: ID!)                          | Deletes a user account |
 
-#### Organization Routes
+#### Event
 
-| Method | Endpoint                | Access Control | Description                                  |
-| ------ | ----------------------- | -------------- | -------------------------------------------- |
-| GET    | `/organizations/:orgId` | all users      | Returns the information for an organization. |
-| PUT    | `/organizatoins/:orgId` | owners         | Modify an existing organization.             |
-| DELETE | `/organizations/:orgId` | owners         | Delete an organization.                      |
+| Type     | Name              | variables                           | Description                     |
+| -------- | ----------------- | ----------------------------------- | ------------------------------- |
+| Query    | getAllEvents      | none                                | Returns all events              |
+| Query    | getAuthoredEvents | (id: ID!)                           | Returns logged in user's events |
+| Query    | getEventById      | (id: ID!)                           | Returns a single event          |
+| Mutation | addEvent          | (input: NewEventInput!)             | Adds a new event                |
+| Mutation | updateEvent       | (id: ID!, input: UpdateEventInput!) | Updates an event                |
+| Mutation | removeEvent       | (id: ID!)                           | Deletes an event                |
 
-#### User Routes
+#### Category
 
-| Method | Endpoint                | Access Control      | Description                                        |
-| ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| GET    | `/users/current`        | all users           | Returns info for the logged in user.               |
-| GET    | `/users/org/:userId`    | owners, supervisors | Returns all users for an organization.             |
-| GET    | `/users/:userId`        | owners, supervisors | Returns info for a single user.                    |
-| POST   | `/users/register/owner` | none                | Creates a new user as owner of a new organization. |
-| PUT    | `/users/:userId`        | owners, supervisors |                                                    |
-| DELETE | `/users/:userId`        | owners, supervisors |                                                    |
+| Type     | Name            | variables                  | Description               |
+| -------- | --------------- | -------------------------- | ------------------------- |
+| Query    | getCategories   | none                       | Returns all categories    |
+| Query    | getCategoryById | (id: ID!)                  | Returns a single category |
+| Mutation | addCategory     | (input: NewCategoryInput!) | Adds a new category       |
 
 # Data Model
 
-🚫This is just an example. Replace this with your data model
-
-#### 2️⃣ ORGANIZATIONS
+#### 2️⃣ User Type and Inputs
 
 ---
 
 ```
-{
-  id: UUID
-  name: STRING
-  industry: STRING
-  paid: BOOLEAN
-  customer_id: STRING
-  subscription_id: STRING
-}
+  type User {
+    id: ID!
+    Email: String!
+    Password: String!
+    FirstName: String!
+    LastName: String!
+    Gender: String
+    Address: String!
+    Latitude: Float!
+    Longitude: Float!
+    Photo: String
+    Events_Owned: [Event]!
+    Events_Invited: [Event]!
+    Events_Attending: [Event]!
+  }
 ```
 
-#### USERS
+```
+  input NewUserInput {
+    id: ID
+    Email: String!
+    Password: String!
+    FirstName: String!
+    LastName: String!
+    Gender: String
+    Address: String!
+    Latitude: Float!
+    Longitude: Float!
+    Photo: String
+  }
+```
+
+```
+  input UpdateUserInput {
+    id: ID
+    Email: String
+    Password: String
+    FirstName: String
+    LastName: String
+    Gender: String
+    Address: String
+    Latitude: Float
+    Longitude: Float
+    Photo: String
+  }
+```
+
+#### Event Type and Inputs
 
 ---
 
 ```
-{
-  id: UUID
-  organization_id: UUID foreign key in ORGANIZATIONS table
-  first_name: STRING
-  last_name: STRING
-  role: STRING [ 'owner', 'supervisor', 'employee' ]
-  email: STRING
-  phone: STRING
-  cal_visit: BOOLEAN
-  emp_visit: BOOLEAN
-  emailpref: BOOLEAN
-  phonepref: BOOLEAN
-}
+  type Event {
+    id: ID!
+    Date: String!
+    Start_Time: String!
+    End_Time: String
+    Title: String!
+    Description: String!
+    Photo: String!
+    category_id: Int!
+    user_id: Int!
+    Modifiers: String!
+    Address: String!
+    Latitude: Float!
+    Longitude: Float!
+  }
+```
+
+```
+  input NewEventInput {
+    id: ID
+    Date: String!
+    Start_Time: String!
+    End_Time: String
+    Title: String!
+    Description: String!
+    user_id: Int!
+    Photo: String
+    category_id: Int!
+    Modifiers: String
+    Address: String!
+    Latitude: Float!
+    Longitude: Float!
+  }
+```
+
+```
+  input UpdateEventInput {
+    id: ID
+    Date: String
+    Start_Time: String
+    End_Time: String
+    Title: String
+    Description: String
+    Photo: String
+    category_id: Int
+    user_id: Int
+    Modifiers: String
+    Address: String
+    Latitude: Float
+    Longitude: Float
+  }
+```
+
+#### Category Type
+
+---
+
+```
+  type Category {
+    id: ID!
+    Category: String!
+  }
+```
+
+```
+  input NewCategoryInput {
+    id: ID
+    Category: String!
+  }
 ```
 
 ## 2️⃣ Actions
 
-🚫 This is an example, replace this with the actions that pertain to your backend
+`query getAllUsers` -> Returns all users
 
-`getOrgs()` -> Returns all organizations
+`query getUserById(id: ID!)` -> Returns a single user by ID
 
-`getOrg(orgId)` -> Returns a single organization by ID
+`mutation addUser(input: NewUserInput!)` -> Returns a created user
 
-`addOrg(org)` -> Returns the created org
+`mutation updateUser(id: ID!, input: UpdateUserInput!)` -> Update a user by ID
 
-`updateOrg(orgId)` -> Update an organization by ID
-
-`deleteOrg(orgId)` -> Delete an organization by ID
+`mutation removeUser(id: ID!)` -> Delete a user by ID
 <br>
 <br>
 <br>
-`getUsers(orgId)` -> if no param all users
 
-`getUser(userId)` -> Returns a single user by user ID
+`query getAllEvents` -> Returns all events
 
-`addUser(user object)` --> Creates a new user and returns that user. Also creates 7 availabilities defaulted to hours of operation for their organization.
+`query getAuthoredEvents(id: ID!)` -> Returns all events from user by his/her user id
 
-`updateUser(userId, changes object)` -> Updates a single user by ID.
+`query getEventById(id: ID!)` -> Returns a single event by event id
 
-`deleteUser(userId)` -> deletes everything dependent on the user
+`mutation addEvent(input: NewEventInput!)` --> Creates a new event and returns that event
+
+`mutation updateEvent(id: ID!, input: UpdateEventInput!)` -> Updates a single event by ID
+
+`mutation deleteEvent(id: ID!)` -> deletes a sinlge event by id
+<br>
+<br>
+<br>
+
+`query getAllCategories` -> Returns all categories
+
+`query getCategoryById(id: ID!)` -> Returns a single category by category id
+
+`mutation addCategory(input: NewCategoryInput!)` -> Creates a new category and returns that category
 
 ## 3️⃣ Environment Variables
 
@@ -122,14 +231,9 @@ In order for the app to function correctly, the user must set up their own envir
 
 create a .env file that includes the following:
 
-🚫 These are just examples, replace them with the specifics for your app
-    
-    *  STAGING_DB - optional development db for using functionality not available in SQLite
-    *  NODE_ENV - set to "development" until ready for "production"
-    *  JWT_SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;*(-*=+)') for i in range(50)])
-    *  SENDGRID_API_KEY - this is generated in your Sendgrid account
-    *  stripe_secret - this is generated in the Stripe dashboard
-    
+_ NODE_ENV - set to "development" until ready for "production"
+_ PORT - set your local port of choice
+
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -138,11 +242,12 @@ Please note we have a [code of conduct](./code_of_conduct.md). Please follow it 
 
 ### Issue/Bug Request
 
- **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
- - Check first to see if your issue has already been reported.
- - Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
- - Create a live example of the problem.
- - Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
+**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
 
 ### Feature Requests
 
@@ -168,5 +273,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Frontend Documentation](🚫link to your frontend readme here) for details on the fronend of our project.
-🚫 Add DS iOS and/or Andriod links here if applicable.
+See [Frontend Documentation](https://github.com/Lambda-School-Labs/neighborhood-chef-fe/blob/master/README.md) for details on the fronend of our project.
