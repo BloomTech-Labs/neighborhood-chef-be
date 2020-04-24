@@ -2,9 +2,9 @@
 
 #### 1️⃣ Backend delpoyed at [AWS RDS](https://master.d3oqswdfi1a994.amplifyapp.com/) <br>
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/217cf613842592864005/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e704a7d41bbcb50a6783/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/maintainability)
 
-[![Test Coverage](https://api.codeclimate.com/v1/badges/217cf613842592864005/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/e704a7d41bbcb50a6783/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/test_coverage)
 
 ## 1️⃣ Getting started
 
