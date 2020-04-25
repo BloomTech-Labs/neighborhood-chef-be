@@ -1,4 +1,5 @@
 let userModel = require("./user-models.js");
+let eventModel = require("../events/event-models.js");
 const db = require("../../../data/dbConfig.js");
 
 const newUser = {
@@ -52,6 +53,17 @@ describe("user models", () => {
   test("user updates", async () => {
     const user = await userModel.update(createdUserId, updatedUser);
     expect(user.FirstName).toEqual("Jane");
+  });
+
+  test("created user has zero invited events", async () => {
+    const invitedEvents = await eventModel.findInvitedEvents(createdUserId);
+    console.log(invitedEvents);
+    expect(invitedEvents.length).toEqual(0);
+  });
+
+  test("created user is attending zero events", async () => {
+    const attending = await eventModel.findEventsAttending(createdUserId);
+    expect(attending.length).toEqual(0);
   });
 
   test("created user is deleted", async () => {

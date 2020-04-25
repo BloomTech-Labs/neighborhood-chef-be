@@ -7,9 +7,13 @@ const getAllUsers = async () => {
   const userList = await userModel.find();
   const data = userList.map(async (user) => {
     const event = await eventModel.findBy({ user_id: user.id });
+    const invited = await eventModel.findInvitedEvents(user.id);
+    const attending = await eventModel.findEventsAttending(user.id);
     return {
       ...user,
       Events_Owned: [...event],
+      Events_Invited: [...invited],
+      Events_Attending: [...attending],
     };
   });
   const results = await Promise.all(data);
@@ -20,9 +24,13 @@ const getUserById = async (_, args) => {
   const user = await userModel.findById(args.id);
   if (user) {
     const owned = await eventModel.find({ user_id: args.id });
+    const invited = await eventModel.findInvitedEvents(args.id);
+    const attending = await eventModel.findEventsAttending(args.id);
     return {
       ...user,
       Events_Owned: [...owned],
+      Events_Invited: [...invited],
+      Events_Attending: [...attending],
     };
   } else {
     throw new Error("The specified user id does not exist");
