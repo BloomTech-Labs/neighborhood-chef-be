@@ -1,6 +1,6 @@
 const supertest = require("supertest");
 const server = require("../../server.js");
-const db = require("../../models/categories/category-models.js");
+const categoryModel = require("../../models/categories/category-models.js");
 
 const ALL_CATEGORIES = {
   query: `
@@ -25,7 +25,7 @@ const NEW_CATEGORY = {
   operationName: "addCategory",
   variables: {
     input: {
-      Category: "Mostly Beers and hot dogs",
+      Category: "Pizza Party",
     },
   },
 };
@@ -34,15 +34,7 @@ describe("category resolvers", () => {
   let testId;
 
   afterAll(async () => {
-    await db.remove(testId);
-  });
-
-  test("gets all categories", async () => {
-    const res = await supertest(server).post("/graphql").send(ALL_CATEGORIES);
-    const parsed = JSON.parse(res.text);
-    expect(res.status).toBe(200);
-    expect(res.type).toBe("application/json");
-    expect(parsed.data.getCategories.length).toBeGreaterThan(0);
+    await categoryModel.remove(testId);
   });
 
   test("creates a new category", async () => {
@@ -51,6 +43,15 @@ describe("category resolvers", () => {
     testId = parsed.data.addCategory.id;
     expect(res.status).toBe(200);
     expect(res.type).toBe("application/json");
+    expect(parsed.data.addCategory.Category).toEqual("Pizza Party");
+  });
+
+  test("gets all categories", async () => {
+    const res = await supertest(server).post("/graphql").send(ALL_CATEGORIES);
+    const parsed = JSON.parse(res.text);
+    expect(res.status).toBe(200);
+    expect(res.type).toBe("application/json");
+    expect(parsed.data.getCategories.length).toBeGreaterThan(0);
   });
 
   test("get category by id", async () => {
@@ -73,8 +74,6 @@ describe("category resolvers", () => {
     const parsed = JSON.parse(res.text);
     expect(res.status).toBe(200);
     expect(res.type).toBe("application/json");
-    expect(parsed.data.getCategoryById.Category).toEqual(
-      "Mostly Beers and hot dogs"
-    );
+    expect(parsed.data.getCategoryById.Category).toBeDefined();
   });
 });

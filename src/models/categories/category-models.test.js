@@ -2,34 +2,41 @@ const categoryModels = require("./category-models.js");
 const db = require("../../../data/dbConfig.js");
 
 describe("category models", () => {
-  let createdCategoryId = 0;
-  let categoryCount = 0;
+  let createdCategoryId;
+  let intialCategoryCount;
 
   beforeAll(async () => {
     const categories = await db("Categories");
-    categoryCount = categories.length;
+    intialCategoryCount = categories.length;
   });
 
   test("creates a new category", async () => {
-    const newCategory = await categoryModels.add({ Category: "Potluck" });
+    const newCategory = await categoryModels.add({
+      Category: String(Math.random()),
+    });
     createdCategoryId = newCategory.id;
-    const categories = await db("Categories").select();
-    expect(categories.length).toEqual(categoryCount + 1);
+    const found = await db("Categories")
+      .where("Categories.id", createdCategoryId)
+      .first();
+    expect(found).toBeDefined();
+    expect(found.id).toEqual(createdCategoryId);
   });
 
   test("finds all categories", async () => {
     const categories = await categoryModels.find();
-    expect(categories.length).toEqual(categoryCount + 1);
+    expect(categories.length).toEqual(intialCategoryCount + 1);
   });
 
   test("finds category by id", async () => {
     const category = await categoryModels.findById(createdCategoryId);
-    expect(category.Category).toEqual("Potluck");
+    expect(category).toBeDefined();
   });
 
   test("removes created category", async () => {
     const removed = await categoryModels.remove(createdCategoryId);
-    const categories = await db("Categories").select();
-    expect(categories.length).toEqual(categoryCount);
+    const category = await db("Categories")
+      .where({ id: createdCategoryId })
+      .first();
+    expect(category).toBeUndefined();
   });
 });

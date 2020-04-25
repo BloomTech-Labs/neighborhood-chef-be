@@ -1,7 +1,7 @@
 module.exports = {
   development: {
     client: "pg",
-    connection: process.env.DATABASE_URL,
+    connection: process.env.POSTGRES_CONNECTION_STRING,
     pool: {
       min: 0,
       max: 2,
@@ -39,5 +39,19 @@ module.exports = {
       tableName: "knex_migrations",
     },
     // seeds: { directory: './data/seeds' },
+  },
+  testing: {
+    client: "pg",
+    // has trouble connecting to postgres without template literal in testing mode
+    connection: `${process.env.POSTGRES_CONNECTION_STRING}`,
+    pool: {
+      min: 0,
+      max: 2,
+    },
+    migrations: {
+      directory: "./data/migrations",
+      tableName: "knex_migrations",
+    },
+    seeds: { directory: "./data/seeds" },
   },
 };

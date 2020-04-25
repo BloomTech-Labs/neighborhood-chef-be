@@ -3,62 +3,54 @@ const eventModels = require("./event-models.js");
 
 const newEvent = {
   Date: new Date(),
-  Start_Time: "6:00",
-  End_Time: "9:30",
-  Title: "BBQ Madness",
-  Description: "I like ribs, so come over and eat ribs",
+  Start_Time: "6:00pm",
+  End_Time: "9:30pm",
+  Title: "Homemade Pho and Banh Mi Night",
+  Description:
+    "Join us at our home for some homemade pho and banh mi sandwiches. Food will be provided, but please BYOB.",
   user_id: 1,
   category_id: 1,
-  Address: "My house",
-  Latitude: 12.222,
-  Longitude: 2.2333,
-};
-
-const updatedEvent = {
-  Date: new Date(),
-  Start_Time: "6:45",
-  End_Time: "11:30",
-  Title: "BBQ Madness",
-  category_id: 1,
-  Address: "Your house",
-  Latitude: 34.213,
-  Longitude: 55.231,
+  Address: "555 Ocean View Ln",
+  Latitude: 34.39291,
+  Longitude: -24.2333,
 };
 
 describe("event models", () => {
   let createdEventId;
-  let eventCount;
+  let initialEventCount;
 
   beforeAll(async () => {
     const events = await db("Events");
-    eventCount = events.length;
+    initialEventCount = events.length;
   });
 
   test("creates a new event", async () => {
     const created = await eventModels.add(newEvent);
     createdEventId = created.id;
-    const events = await db("Events").select();
-    expect(events.length).toEqual(eventCount + 1);
+    const found = await db("Events").where({ id: createdEventId });
+    expect(found).toBeDefined();
   });
 
   test("finds all events", async () => {
     const events = await eventModels.find();
-    expect(events.length).toEqual(eventCount + 1);
+    expect(events.length).toEqual(initialEventCount + 1);
   });
 
   test("finds event by id", async () => {
     const event = await eventModels.findById(createdEventId);
-    expect(event.Title).toEqual("BBQ Madness");
+    expect(event.Title).toEqual("Homemade Pho and Banh Mi Night");
   });
 
   test("event is updated", async () => {
-    const updated = await eventModels.update(createdEventId, updatedEvent);
-    expect(updated.Address).toEqual("Your house");
+    const updated = await eventModels.update(createdEventId, {
+      Address: "444 Ocean View Ln",
+    });
+    expect(updated.Address).toEqual("444 Ocean View Ln");
   });
 
   test("deletes created event", async () => {
     const removed = await eventModels.remove(createdEventId);
-    const events = await db("Events").select();
-    expect(events.length).toEqual(eventCount);
+    const event = await db("Events").where({ id: createdEventId }).first();
+    expect(event).toBeUndefined();
   });
 });

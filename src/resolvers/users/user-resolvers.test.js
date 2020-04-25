@@ -1,6 +1,5 @@
 const supertest = require("supertest");
 const server = require("../../server.js");
-const db = require("../../models/users/user-models.js");
 
 const NEW_USER = {
   query: `
@@ -15,13 +14,13 @@ const NEW_USER = {
   variables: {
     input: {
       Email: String(Math.random()),
-      Password: "thisissecret",
+      Password: "supersecret",
       FirstName: "John",
       LastName: "Doe",
-      Gender: "male",
-      Latitude: 2.22,
-      Longitude: -2.22,
-      Address: "my house",
+      Gender: "Male",
+      Latitude: -22.1542,
+      Longitude: 10.2289,
+      Address: "12345 ABC St.",
     },
   },
 };
@@ -65,7 +64,7 @@ describe("user resolvers", () => {
     const parsed = JSON.parse(created.text);
     testId = parsed.data.addUser.id;
     expect(created.status).toBe(200);
-    expect(parsed.data.addUser.Address).toEqual("my house");
+    expect(parsed.data.addUser.Address).toEqual("12345 ABC St.");
   });
 
   test("finds user by id", async () => {

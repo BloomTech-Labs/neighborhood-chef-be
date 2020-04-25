@@ -25,15 +25,16 @@ const NEW_EVENT = {
   operationName: "addEvent",
   variables: {
     input: {
-      Date: "Dec 12, 2021",
-      Start_Time: "6:30",
+      Date: "Dec 12, 2020",
+      Start_Time: "7:00pm",
       Title: "Sushi and Sake Night",
       user_id: 1,
-      Description: "Come to my place for tasy eats and drinks!",
+      Description:
+        "Come watch me learn how to make sushi for the first time and taste the finished product. Sake and an assortment of Japanese beers will be provided.",
       category_id: 1,
-      Address: "Portland",
-      Latitude: 2.233,
-      Longitude: -2.23,
+      Address: "555 Hollywood Blvd",
+      Latitude: -42.3932,
+      Longitude: 102.23,
     },
   },
 };
@@ -81,7 +82,7 @@ describe("event resolvers", () => {
         query: `
             query getEventById($id: ID!){
                 getEventById(id: $id) {
-                    Title
+                    Address
                 }
             }
         `,
@@ -92,7 +93,7 @@ describe("event resolvers", () => {
       });
     const parsed = JSON.parse(event.text);
     expect(event.status).toBe(200);
-    expect(parsed.data.getEventById.Title).toEqual("Sushi and Sake Night");
+    expect(parsed.data.getEventById.Address).toEqual("555 Hollywood Blvd");
   });
 
   test("event is updated", async () => {
@@ -103,20 +104,18 @@ describe("event resolvers", () => {
             mutation updateEvent($id: ID!, $input: UpdateEventInput!) {
                 updateEvent(id: $id, input: $input){
                     id 
-                    Title
+                    Start_Time
                 }
             }
           `,
         operationName: "updateEvent",
         variables: {
           id: `${testId}`,
-          input: { Title: "Sushi and Japenese Beer Night" },
+          input: { Start_Time: "6:00pm" },
         },
       });
     const parsed = JSON.parse(updated.text);
     expect(updated.status).toBe(200);
-    expect(parsed.data.updateEvent.Title).toEqual(
-      "Sushi and Japenese Beer Night"
-    );
+    expect(parsed.data.updateEvent.Start_Time).toEqual("18:00:00");
   });
 });
