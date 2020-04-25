@@ -97,6 +97,16 @@ runtime_full_path_with_file_name() {
   echo
 }
 
+confirm_in_data_dir() {
+  d=$(runtime_full_path)
+  l=`expr length $d`
+  x=${d:(($l-4)):4}
+  if [ "$x" != "data" ]; then
+    echo -e "\nERROR: Wrong runtime path\n\nPlease ensure you are running this script from the data subdirectory.\n\nExample:\n\ncd data\n./postgres-docker.bash\n"
+    exit 1
+  fi
+}
+
 pushd() {
   command pushd "$@" > /dev/null
 }
@@ -227,7 +237,7 @@ run_init_scripts() {
   pushd "$d"
   for queryFile in `ls *.sql`; do
     echo -e "\nRunning Query File: $queryFile"
-    echo -e "psql $s -f \"./$queryFile\""
+    echo -e "psql $s -f \"./$POSTGRES_INIT_SCRIPTS_PATH$queryFile\""
     psql $s -f "./$queryFile" >/dev/null 2>&1
   done
   popd
@@ -251,6 +261,7 @@ knex_seed_run() {
 #endregion Functions
 
 
+confirm_in_data_dir
 test_for_requirements
 populate_variables
 populate_init_scripts
