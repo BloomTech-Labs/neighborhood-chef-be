@@ -1,6 +1,6 @@
 # API Documentation
 
-#### 1️⃣ Backend delpoyed at [AWS RDS](https://master.d3oqswdfi1a994.amplifyapp.com/) <br>
+#### 1️⃣ Backend deployed at [AWS RDS](https://master.d3oqswdfi1a994.amplifyapp.com/) <br>
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/e704a7d41bbcb50a6783/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/maintainability)
 
@@ -189,50 +189,9 @@ To get the server running locally:
   }
 ```
 
-## 2️⃣ Actions
-
-`query getAllUsers` -> Returns all users
-
-`query getUserById(id: ID!)` -> Returns a single user by ID
-
-`mutation addUser(input: NewUserInput!)` -> Returns a created user
-
-`mutation updateUser(id: ID!, input: UpdateUserInput!)` -> Update a user by ID
-
-`mutation removeUser(id: ID!)` -> Delete a user by ID
-<br>
-<br>
-<br>
-
-`query getAllEvents` -> Returns all events
-
-`query getAuthoredEvents(id: ID!)` -> Returns all events from user by his/her user id
-
-`query getEventById(id: ID!)` -> Returns a single event by event id
-
-`mutation addEvent(input: NewEventInput!)` --> Creates a new event and returns that event
-
-`mutation updateEvent(id: ID!, input: UpdateEventInput!)` -> Updates a single event by ID
-
-`mutation deleteEvent(id: ID!)` -> deletes a sinlge event by id
-<br>
-<br>
-<br>
-
-`query getAllCategories` -> Returns all categories
-
-`query getCategoryById(id: ID!)` -> Returns a single category by category id
-
-`mutation addCategory(input: NewCategoryInput!)` -> Creates a new category and returns that category
-
 ## 3️⃣ Environment Variables
 
-In order for the app to function correctly, the user must set up their own environment variables.
-
-create a .env file that includes the following:
-
-_ NODE_ENV - set to "development" until ready for "production"
-_ PORT - set your local port of choice
+In order for the app to function correctly, the user must set up their own environment variables. Please refer to the .env.example file contained within the src folder for a list of up to date environment variables.
 
 ## Contributing
 
