@@ -1,6 +1,6 @@
-const supertest = require("supertest");
-const server = require("../../server.js");
-const categoryModel = require("../../models/categories/category-models.js");
+const supertest = require('supertest');
+const server = require('../../server.js');
+const categoryModel = require('../../models/categories/category-models.js');
 
 const ALL_CATEGORIES = {
   query: `
@@ -11,7 +11,7 @@ const ALL_CATEGORIES = {
         }
       }
     `,
-  operationName: "getCategories",
+  operationName: 'getCategories',
 };
 
 const NEW_CATEGORY = {
@@ -22,41 +22,41 @@ const NEW_CATEGORY = {
         Category
       }
     }`,
-  operationName: "addCategory",
+  operationName: 'addCategory',
   variables: {
     input: {
-      Category: "Pizza Party",
+      Category: String(Math.random()),
     },
   },
 };
 
-describe("category resolvers", () => {
+describe('category resolvers', () => {
   let testId;
 
   afterAll(async () => {
     await categoryModel.remove(testId);
   });
 
-  test("creates a new category", async () => {
-    const res = await supertest(server).post("/graphql").send(NEW_CATEGORY);
+  test('creates a new category', async () => {
+    const res = await supertest(server).post('/graphql').send(NEW_CATEGORY);
     const parsed = JSON.parse(res.text);
     testId = parsed.data.addCategory.id;
     expect(res.status).toBe(200);
-    expect(res.type).toBe("application/json");
-    expect(parsed.data.addCategory.Category).toEqual("Pizza Party");
+    expect(res.type).toBe('application/json');
+    expect(parsed.data.addCategory.id).toBeDefined();
   });
 
-  test("gets all categories", async () => {
-    const res = await supertest(server).post("/graphql").send(ALL_CATEGORIES);
+  test('gets all categories', async () => {
+    const res = await supertest(server).post('/graphql').send(ALL_CATEGORIES);
     const parsed = JSON.parse(res.text);
     expect(res.status).toBe(200);
-    expect(res.type).toBe("application/json");
+    expect(res.type).toBe('application/json');
     expect(parsed.data.getCategories.length).toBeGreaterThan(0);
   });
 
-  test("get category by id", async () => {
+  test('get category by id', async () => {
     const res = await supertest(server)
-      .post("/graphql")
+      .post('/graphql')
       .send({
         query: `
           query getCategoryById($id:ID!) {
@@ -66,14 +66,14 @@ describe("category resolvers", () => {
           }
         }
       `,
-        operationName: "getCategoryById",
+        operationName: 'getCategoryById',
         variables: {
           id: `${testId}`,
         },
       });
     const parsed = JSON.parse(res.text);
     expect(res.status).toBe(200);
-    expect(res.type).toBe("application/json");
+    expect(res.type).toBe('application/json');
     expect(parsed.data.getCategoryById.Category).toBeDefined();
   });
 });
