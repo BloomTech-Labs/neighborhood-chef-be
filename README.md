@@ -32,6 +32,8 @@ Then, ensure the script has `execute` permission, and run the script in a Bash o
 
 `cd data; chmod +x postgres-docker.bash; ./postgres-docker.bash`
 
+If prompted for a password, input your currently logged-in user's password to perform the requested command as superuser. This assumes your user has the privilege to do so as a "sudoer".
+
 ### Backend framework goes here
 
 🚫 Why did you choose this framework?
