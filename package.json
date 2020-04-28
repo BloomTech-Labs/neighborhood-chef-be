@@ -10,7 +10,8 @@
     "test:watch:withLogs": "cross-env NODE_ENV=testing jest --watch --runInBand --detectOpenHandles",
     "server": "cd src && nodemon -r dotenv-safe/config index.js",
     "server:testing": "cross-env NODE_ENV=testing nodemon -r dotenv-safe/config index.js",
-    "start": "cd src && node -r dotenv-safe/config index.js"
+    "start": "cd src && node -r dotenv-safe/config index.js",
+    "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
   },
   "jest": {
     "testEnvironment": "node",
@@ -18,6 +19,12 @@
     "coverageProvider": "v8",
     "coverageReporters": [
       "text"
+    ],
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/__tests__/**"
     ]
   },
   "repository": {
