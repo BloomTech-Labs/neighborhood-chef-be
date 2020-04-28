@@ -116,9 +116,9 @@ popd() {
   command popd "$@" > /dev/null
 }
 
-knex() {
-  command ../node_modules/.bin/knex "$@"
-}
+# knex() {
+#   command ../node_modules/.bin/knex "$@"
+# }
 #endregion Helper Functions
 
 #region Functions
@@ -235,7 +235,6 @@ run_container() {
 
 run_init_scripts() {
   echo -e "Running Init Scripts..."
-  l=`expr length $POSTGRES_DATABASE`
   s=${POSTGRES_CONNECTION_STRING%$POSTGRES_DATABASE}postgres
   echo "Init Scripts Connection String: $s"
   d=$(runtime_full_path)/$POSTGRES_INIT_SCRIPTS_PATH
