@@ -176,11 +176,11 @@ populate_init_scripts() {
   #endregion Create User
 
   #region Create Database
-  DBScript_CreateDatabase="SELECT 'CREATE DATABASE $POSTGRES_DATABASE' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '$POSTGRES_DATABASE')\gexec"
+  DBScript_CreateDatabase="SELECT 'CREATE DATABASE "$POSTGRES_DATABASE"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '$POSTGRES_DATABASE')\gexec"
   #endregion Create Database
 
   #region Grant Privileges
-  DBScript_GrantPrivileges="GRANT ALL PRIVILEGES ON DATABASE $POSTGRES_DATABASE TO $POSTGRES_USER;"
+  DBScript_GrantPrivileges="GRANT ALL PRIVILEGES ON DATABASE "$POSTGRES_DATABASE" TO $POSTGRES_USER;"
   #endregion Grant Privileges
 
   create_dir_if_missing "DB Init Scripts" $POSTGRES_INIT_SCRIPTS_PATH
@@ -242,7 +242,7 @@ run_init_scripts() {
   for queryFile in `ls *.sql`; do
     echo -e "\nRunning Query File: $queryFile"
     echo -e "psql $s -f \"./$POSTGRES_INIT_SCRIPTS_PATH$queryFile\""
-    psql $s -f "./$queryFile" >/dev/null 2>&1
+    psql $s -f "./$queryFile" #>/dev/null 2>&1
   done
   popd
 }
