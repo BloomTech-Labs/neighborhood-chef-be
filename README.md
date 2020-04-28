@@ -14,9 +14,23 @@ To get the server running locally:
 
 - Clone this repo
 - **yarn install** to install all required dependencies
-- **cd data; chmod +x postgres-docker.bash; ./postgres-docker.bash** to setup PostgreSQL Docker development instance
+- **Install Postgres Docker** (see section of same name) to setup PostgreSQL Docker development instance
 - **yarn server** to start the local server
 - **yarn test** to start server using testing environment
+
+### Install Postgres Docker
+
+First, ensure you've created a file named `.env` with the same variable names as in the `.env.example` file. The values can differ based on your preferred settings if desired.
+
+Next, ensure you have installed these pre-requisites:
+
+- Docker Desktop and command line application (`docker`)
+- Postgres command line application (`psql`)
+- Knex command line application (`knex`)
+
+Then, ensure the script has `execute` permission, and run the script in a Bash or Zsh Shell session:
+
+`cd data; chmod +x postgres-docker.bash; ./postgres-docker.bash`
 
 ### Backend framework goes here
 
