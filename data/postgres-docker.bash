@@ -231,17 +231,21 @@ stop_if_running() {
 run_container() {
   echo Running PostgreSQL Docker container...
 
+  docker volume create postgres_database
+
   docker run  \
     --detach  \
     --name $container  \
     --publish $POSTGRES_PORT:5432  \
-    --env POSTGRES_USER=$POSTGRES_USER  \
-    --env POSTGRES_PASSWORD=$POSTGRES_PASSWORD  \
+    --env POSTGRES_USER=$POSTGRES_ADMIN_USER  \
+    --env POSTGRES_PASSWORD=$POSTGRES_ADMIN_PASSWORD  \
     --env PGDATA=/var/lib/postgresql/data/pgdata  \
     --env POSTGRES_DB=$POSTGRES_DATABASE  \
-    --volume "$(runtime_full_path)/$POSTGRES_DATA_PATH":/var/lib/postgresql/data  \
+    --volume postgres_database:/var/lib/postgresql/data  \
     --volume "$(runtime_full_path)/$POSTGRES_INIT_SCRIPTS_PATH":/docker-entrypoint-initdb.d  \
     postgres
+    
+    # --volume "$(runtime_full_path)/$POSTGRES_DATA_PATH":/var/lib/postgresql/data  \
 }
 
 run_init_scripts() {
