@@ -14,9 +14,9 @@ exports.up = function(knex) {
       tbl.string('Gender', 64);
       tbl.string('Address', 255)
         .notNullable();
-      tbl.decimal('Latitude')
+      tbl.decimal('Latitude', 9, 6)
         .notNullable();
-      tbl.decimal('Longitude')
+      tbl.decimal('Longitude', 9, 6)
         .notNullable();
       tbl.binary('Photo');
     })
@@ -28,6 +28,10 @@ exports.up = function(knex) {
     })
     .createTable('Events', tbl => {
       tbl.increments();
+      tbl.integer('user_id')
+        .notNullable()
+        .unsigned()
+        .references('Users.id');
       tbl.date('Date')
         .notNullable();
       tbl.time('Start_Time')
@@ -45,26 +49,26 @@ exports.up = function(knex) {
       tbl.json('Modifiers');
       tbl.string('Address', 255)
         .notNullable();
-      tbl.decimal('Latitude')
+      tbl.decimal('Latitude', 9, 6)
         .notNullable();
-      tbl.decimal('Longitude')
+      tbl.decimal('Longitude', 9, 6)
         .notNullable();
     })
     //Bridge Tables below
     .createTable('Events_Attending', tbl => {
-      tbl.integer('user_id')
-        .notNullable()
-        .unsigned()
-        .references('Users.id')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE');
       tbl.integer('event_id')
         .notNullable()
         .unsigned()
         .references('Events.id')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
-      tbl.primary(['user_id', 'event_id']);
+      tbl.integer('user_id')
+        .notNullable()
+        .unsigned()
+        .references('Users.id')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
+        tbl.primary(['event_id', 'user_id']);
     })
     .createTable('Events_Invited', tbl => {
       tbl.integer('event_id')
@@ -98,7 +102,7 @@ exports.down = function(knex) {
   return knex.schema
     .dropTableIfExists('Events_Invited')
     .dropTableIfExists('Events_Attending')
-    .dropTableIfExists('Categories')
     .dropTableIfExists('Events')
+    .dropTableIfExists('Categories')
     .dropTableIfExists('Users');
 };
