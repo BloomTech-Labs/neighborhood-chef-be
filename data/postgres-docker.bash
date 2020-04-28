@@ -142,6 +142,14 @@ populate_variables() {
 
   echo
 
+  POSTGRES_ADMIN_USER=$(fetch_env_value POSTGRES_ADMIN_USER)
+  echo -e "POSTGRES_ADMIN_USER:\t\t$POSTGRES_ADMIN_USER"
+
+  POSTGRES_ADMIN_PASSWORD=$(fetch_env_value POSTGRES_ADMIN_PASSWORD)
+  echo -e "POSTGRES_ADMIN_PASSWORD:\t$POSTGRES_ADMIN_PASSWORD"
+
+  echo
+
   POSTGRES_USER=$(fetch_env_value POSTGRES_USER)
   echo -e "POSTGRES_USER:\t\t\t$POSTGRES_USER"
 
@@ -156,14 +164,17 @@ populate_variables() {
   POSTGRES_INIT_SCRIPTS_PATH=$(fetch_env_value POSTGRES_INIT_SCRIPTS_PATH)
   echo -e "POSTGRES_INIT_SCRIPTS_PATH:\t$POSTGRES_INIT_SCRIPTS_PATH"
 
+  POSTGRES_HOSTNAME=$(fetch_env_value POSTGRES_HOSTNAME)
+  echo -e "POSTGRES_HOSTNAME:\t\t$POSTGRES_HOSTNAME"
+
+  POSTGRES_PORT=$(fetch_env_value POSTGRES_PORT)
+  echo -e "POSTGRES_PORT:\t\t\t$POSTGRES_PORT"
+
   # POSTGRES_DB=$(fetch_env_value POSTGRES_DB)
   # echo -e "POSTGRES_DB:\t\t\t$POSTGRES_DB"
 
   POSTGRES_DATABASE=$(fetch_env_value POSTGRES_DATABASE)
   echo -e "POSTGRES_DATABASE:\t\t$POSTGRES_DATABASE"
-
-  POSTGRES_PORT=$(fetch_env_value POSTGRES_PORT)
-  echo -e "POSTGRES_PORT:\t\t\t$POSTGRES_PORT"
 
   echo
 }
@@ -235,7 +246,8 @@ run_container() {
 
 run_init_scripts() {
   echo -e "Running Init Scripts..."
-  s=${POSTGRES_CONNECTION_STRING%$POSTGRES_DATABASE}postgres
+  # s=${POSTGRES_CONNECTION_STRING%$POSTGRES_DATABASE}postgres
+  s="postgres://$POSTGRES_ADMIN_USER:$POSTGRES_ADMIN_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/postgres"
   echo "Init Scripts Connection String: $s"
   d=$(runtime_full_path)/$POSTGRES_INIT_SCRIPTS_PATH
   pushd "$d"
