@@ -14,7 +14,7 @@ To get the server running locally:
 
 - Clone this repo
 - **yarn install** to install all required dependencies
-- **cd data; ./postgres-docker.bash** to setup PostgreSQL Docker development instance
+- **cd data; chmod +x postgres-docker.bash; ./postgres-docker.bash** to setup PostgreSQL Docker development instance
 - **yarn server** to start the local server
 - **yarn test** to start server using testing environment
 
