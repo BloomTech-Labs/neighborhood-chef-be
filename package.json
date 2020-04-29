@@ -21,10 +21,14 @@
       "text"
     ],
     "collectCoverageFrom": [
-      "**/*.js",
-      "!**/node_modules/**",
-      "!**/vendor/**",
-      "!**/__tests__/**"
+    "**/*.{js,jsx}",
+		"!**/node_modules/**",
+    "!**/vendor/**",
+		"!**/database/**",
+		"!**/tests/**",
+		"!**/spec/**",
+    "!**/*.spec.{js,jsx}",
+		"!**/coverage/**"
     ]
   },
   "repository": {
