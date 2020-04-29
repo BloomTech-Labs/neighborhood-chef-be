@@ -10,14 +10,23 @@
     "test:watch:withLogs": "cross-env NODE_ENV=testing jest --watch --runInBand --detectOpenHandles",
     "server": "cd src && nodemon -r dotenv-safe/config index.js",
     "server:testing": "cross-env NODE_ENV=testing nodemon -r dotenv-safe/config index.js",
-    "start": "cd src && node -r dotenv-safe/config index.js"
+    "start": "cd src && node -r dotenv-safe/config index.js",
+    "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
   },
   "jest": {
     "testEnvironment": "node",
     "collectCoverage": true,
     "coverageProvider": "v8",
-    "coverageReporters": [
-      "text"
+    "collectCoverageFrom": [
+    		"**/*.{js,jsx}",
+		"!**/node_modules/**",
+    		"!**/vendor/**",
+		"!**/database/**",
+		"!**/tests/**",
+		"!**/spec/**",
+    		"!**/*.spec.{js,jsx}",
+		"!**/*.test.{js,jsx}"
+		"!**/coverage/**"
     ]
   },
   "repository": {
@@ -49,6 +58,7 @@
     "express-session": "^1.17.1",
     "fs": "^0.0.1-security",
     "graphql": "^14.6.0",
+    "graphql-tools": "^5.0.0",
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.0",

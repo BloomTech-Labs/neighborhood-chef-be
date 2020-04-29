@@ -1,36 +1,26 @@
+const {
+  status,
+  getAllUsers,
+  getUserById,
+  addUser,
+  updateUser,
+  removeUser,
+} = require("../resolvers/users/user-resolvers.js");
 
-const status = () => "Apollo Server is Running!";
+const {
+  getAllEvents,
+  getEventById,
+  getAuthoredEvents,
+  addEvent,
+  updateEvent,
+  removeEvent,
+} = require("../resolvers/events/event-resolvers.js");
 
-const getAllUsers = async () => {
-};
-
-const getUserById = async (_, { id }) => {
-   
-};
-
-const addUser = async (_, { input }) => {};
-
-const updateUser = async (_, { id, input }, ___) => {};
-
-const removeUser = async (_, { id }) => {};
-
-const getAllEvents = async () => {};
-
-const getEventById = async (_, { id }) => {};
-
-const getAuthoredEvents = async (_, { id }) => {};
-
-const addEvent = async (_, { input }) => {};
-
-const updateEvent = async (_, { id, input }) => {};
-
-const removeEvent = async (_, { id }) => {};
-
-const getCategories = async () => {};
-
-const getCategoryById = async (_, { id }) => {};
-
-const addCategory = async (_, { input }) => {};
+const {
+  getCategories,
+  getCategoryById,
+  addCategory,
+} = require("../resolvers/categories/category-resolvers.js");
 
 module.exports = {
   Query: {
@@ -41,7 +31,7 @@ module.exports = {
     getAllEvents,
     getEventById,
     getCategories,
-    getCategoryById
+    getCategoryById,
   },
   Mutation: {
     addUser,
@@ -51,5 +41,5 @@ module.exports = {
     updateEvent,
     removeEvent,
     addCategory,
-  }
-}
+  },
+};
