@@ -26,7 +26,7 @@ Next, ensure you have installed these pre-requisites:
 
 - Docker Desktop and command line application (`docker`) in your path and available when issuing the command `docker`
 - Postgres command line application (`psql`) in your path and available when issuing the command `psql`
-- Knex command line application (`knex`) globally so that it is in your path and available when issuing the command `knex`
+- Knex command line application (`knex`) globally installed so that it is in your path and available when issuing the command `knex`
 
 Then, ensure the script has `execute` permission, and run the script in a Bash (Linux/WSL) or Zsh (macOS) Shell session:
 
