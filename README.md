@@ -23,7 +23,7 @@ To get the server running locally:
 
 First, ensure you've created a file named `/src/.env` with the same variable names as in the `/src/.env.example` file. The values can differ from the examples based on your preferred settings, if desired.
 
-On Windows, it's probably best to setup `Windows Subsystem for Linux v2` (`WSL2`) and the `Microsoft Terminal (preview)` app from the Microsoft App Store. Instructions below for Ubuntu Linux can be followed in `WSL2` if you install the Ubuntu instance. `Docker Desktop` for Windows only works on Windows 10 Professional or Enterprise/Workstation editions, it will not install on Home edition. You can use the older `docker toolkit` on Windows 10 Home and run the script in it's included Bash shell.
+On Windows, it's probably best to setup `Windows Subsystem for Linux v2` (`WSL2`), [available in Windows 10, version 2004](https://devblogs.microsoft.com/commandline/wsl2-will-be-generally-available-in-windows-10-version-2004/), and the `Microsoft Terminal (preview)` app from the Microsoft App Store. Instructions below for Ubuntu Linux can be followed in `WSL2` if you install the Ubuntu instance. `Docker Desktop` for Windows only works on Windows 10 Professional or Enterprise/Workstation editions, it will not install on Home edition. You can use the older `docker toolkit` on Windows 10 Home and run the script in it's included Bash shell.
 
 Ensure you have installed these pre-requisites:
 
