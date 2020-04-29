@@ -17,9 +17,6 @@
     "testEnvironment": "node",
     "collectCoverage": true,
     "coverageProvider": "v8",
-    "coverageReporters": [
-      "text"
-    ],
     "collectCoverageFrom": [
     "**/*.{js,jsx}",
 		"!**/node_modules/**",
