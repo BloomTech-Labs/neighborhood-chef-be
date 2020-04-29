@@ -24,9 +24,16 @@ First, ensure you've created a file named `/src/.env` with the same variable nam
 
 Next, ensure you have installed these pre-requisites:
 
+On Windows, it's probably best to setup Windows Subsystem for Linux (WSL) and the Microsoft Terminal (preview) app from the Microsoft App Store. Instructions below for Ubuntu Linux can be followed in WSL if you use the Ubuntu instance.
+
 - Docker Desktop and command line application (`docker`) in your path and available when issuing the command `docker`
+  - Ubuntu Linux: `sudo apt install docker.io`
+  - Windows/macOS: download & install Docker Desktop
 - Postgres command line application (`psql`) in your path and available when issuing the command `psql`
+  - Ubuntu Linux: `sudo apt install postgresql-client` (and its dependencies)
+  - Windows/macOS: download PostgreSQL and install at minimum the command line application
 - Knex command line application (`knex`) globally installed so that it is in your path and available when issuing the command `knex`
+  - All (in terminal): `sudo yarn global add knex` or `sudo npm i -g knex`
 
 Then, ensure the script has `execute` permission, and run the script in a Bash (Linux/WSL) or Zsh (macOS) Shell session:
 
