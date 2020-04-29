@@ -112,3 +112,6 @@ dist
 
 #yarn.lock
 yarn.lock
+
+#Local docker data files
+data/docker

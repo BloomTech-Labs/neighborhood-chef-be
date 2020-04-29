@@ -3,7 +3,6 @@
 #### 1️⃣ Backend deployed at [AWS RDS](https://master.d3oqswdfi1a994.amplifyapp.com/) <br>
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/e704a7d41bbcb50a6783/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/maintainability)
-
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e704a7d41bbcb50a6783/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/test_coverage)
 
 ## 1️⃣ Getting started
@@ -12,12 +11,36 @@ To get the server running locally:
 
 - Clone this repo
 - **yarn install** to install all required dependencies
+- **Install Postgres Docker** (see section of same name) to setup PostgreSQL Docker development instance
 - **yarn server** to start the local server
 - **yarn test** to start server using testing environment
 - **yarn test:watch** to continously use testing environment
 - **yarn test:watch:troubleshoot** to debug while using testing environment
 - **yarn test:watch:withLogs** to view logs while using testing environment
 - **yarn test:coverage** to view test coverage
+
+### Install Postgres Docker
+
+First, ensure you've created a file named `/src/.env` with the same variable names as in the `/src/.env.example` file. The values can differ from the examples based on your preferred settings, if desired.
+
+Next, ensure you have installed these pre-requisites:
+
+On Windows, it's probably best to setup Windows Subsystem for Linux (WSL) and the Microsoft Terminal (preview) app from the Microsoft App Store. Instructions below for Ubuntu Linux can be followed in WSL if you use the Ubuntu instance.
+
+- Docker Desktop and command line application (`docker`) in your path and available when issuing the command `docker`
+  - Ubuntu Linux: `sudo apt install docker.io`
+  - Windows/macOS: download & install Docker Desktop
+- Postgres command line application (`psql`) in your path and available when issuing the command `psql`
+  - Ubuntu Linux: `sudo apt install postgresql-client` (and its dependencies)
+  - Windows/macOS: download PostgreSQL and install at minimum the command line application
+- Knex command line application (`knex`) globally installed so that it is in your path and available when issuing the command `knex`
+  - All (in terminal): `sudo yarn global add knex` or `sudo npm i -g knex`
+
+Then, ensure the script has `execute` permission, and run the script in a Bash (Linux/WSL) or Zsh (macOS) Shell session:
+
+`cd data; chmod +x postgres-docker.bash; ./postgres-docker.bash`
+
+If prompted for a password, input your currently logged-in user's password to perform the requested command as superuser. This assumes your user has the privilege to do so as a "sudoer".
 
 ### Backend framework
 
@@ -65,7 +88,7 @@ To get the server running locally:
 
 ---
 
-```
+```json
   type User {
     id: ID!
     Email: String!
@@ -83,7 +106,7 @@ To get the server running locally:
   }
 ```
 
-```
+```json
   input NewUserInput {
     id: ID
     Email: String!
@@ -98,7 +121,7 @@ To get the server running locally:
   }
 ```
 
-```
+```json
   input UpdateUserInput {
     id: ID
     Email: String
@@ -117,7 +140,7 @@ To get the server running locally:
 
 ---
 
-```
+```json
   type Event {
     id: ID!
     Date: String!
@@ -135,7 +158,7 @@ To get the server running locally:
   }
 ```
 
-```
+```json
   input NewEventInput {
     id: ID
     Date: String!
@@ -153,7 +176,7 @@ To get the server running locally:
   }
 ```
 
-```
+```json
   input UpdateEventInput {
     id: ID
     Date: String
@@ -175,14 +198,14 @@ To get the server running locally:
 
 ---
 
-```
+```json
   type Category {
     id: ID!
     Category: String!
   }
 ```
 
-```
+```json
   input NewCategoryInput {
     id: ID
     Category: String!
@@ -191,7 +214,7 @@ To get the server running locally:
 
 ## 3️⃣ Environment Variables
 
-In order for the app to function correctly, the user must set up their own environment variables. Please refer to the .env.example file contained within the src folder for a list of up to date environment variables.
+In order for the app to function correctly, the user must set up their own environment variables. Please refer to the .env.example file contained within the src folder for a list of up to date environment variables with examples.
 
 ## Contributing
 
