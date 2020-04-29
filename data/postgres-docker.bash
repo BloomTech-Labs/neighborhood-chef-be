@@ -286,8 +286,8 @@ run_init_scripts() {
   pushd "$(runtime_full_path)"
   for queryFile in `ls $POSTGRES_INIT_SCRIPTS_PATH*.sql`; do
     echo -e "\nRunning Query File: $queryFile"
-    echo -e "psql $s -f \"./$queryFile\""
-    psql $s -f "./$queryFile" #>/dev/null 2>&1
+    echo -e "psql -f \"./$queryFile\" $s"
+    psql -f "./$queryFile" $s #>/dev/null 2>&1
   done
   popd
 }
