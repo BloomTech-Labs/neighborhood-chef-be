@@ -1,35 +1,33 @@
-const { gql } = require('apollo-server-express');
-
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-
-type User {
+  type User {
     id: ID!
     Email: String!
     Password: String!
     FirstName: String!
     LastName: String!
-    Gender: String!
+    Gender: String
     Address: String!
-    Latitude: Int!
-    Longitute: Int!
-    Photo: String!
+    Latitude: Float!
+    Longitude: Float!
+    Photo: String
     Events_Owned: [Event]!
     Events_Invited: [Event]!
     Events_Attending: [Event]!
   }
 
   input NewUserInput {
-    id: ID!
+    id: ID
     Email: String!
     Password: String!
     FirstName: String!
     LastName: String!
-    Gender: String!
+    Gender: String
     Address: String!
-    Latitude: Int!
-    Longitute: Int!
-    Photo: String!
+    Latitude: Float!
+    Longitude: Float!
+    Photo: String
   }
 
   input UpdateUserInput {
@@ -40,54 +38,57 @@ type User {
     LastName: String
     Gender: String
     Address: String
-    Latitude: Int
-    Longitute: Int
+    Latitude: Float
+    Longitude: Float
     Photo: String
   }
 
   type Event {
     id: ID!
     Date: String!
-    Start_Time: Int!
-    End_Time: Int!
+    Start_Time: String!
+    End_Time: String
     Title: String!
     Description: String!
     Photo: String!
-    Category_id: Int!
+    category_id: Int!
+    user_id: Int!
     Modifiers: String!
     Address: String!
-    Latitude: Int!
-    Longitude: Int!
+    Latitude: Float!
+    Longitude: Float!
   }
 
   input NewEventInput {
-    id: ID!
+    id: ID
     Date: String!
-    Start_Time: Int!
-    End_Time: Int!
+    Start_Time: String!
+    End_Time: String
     Title: String!
     Description: String!
-    Photo: String!
-    Category_id: Int!
-    Modifiers: String!
+    user_id: Int!
+    Photo: String
+    category_id: Int!
+    Modifiers: String
     Address: String!
-    Latitude: Int!
-    Longitude: Int!
+    Latitude: Float!
+    Longitude: Float!
   }
 
   input UpdateEventInput {
     id: ID
     Date: String
-    Start_Time: Int
-    End_Time: Int
+    Start_Time: String
+    End_Time: String
     Title: String
     Description: String
     Photo: String
-    Category_id: Int
+    category_id: Int
+    user_id: Int
     Modifiers: String
     Address: String
-    Latitude: Int
-    Longitude: Int
+    Latitude: Float
+    Longitude: Float
   }
 
   type Category {
@@ -96,12 +97,12 @@ type User {
   }
 
   input NewCategoryInput {
-    id: ID!
+    id: ID
     Category: String!
   }
 
   type Query {
-    status: String!,
+    status: String!
     getAllUsers: [User]!
     getUserById(id: ID!): User!
     getAuthoredEvents(id: ID!): [Event]
@@ -120,6 +121,6 @@ type User {
     removeEvent(id: ID!): Event!
     addCategory(input: NewCategoryInput!): Category!
   }
-`
+`;
 
 module.exports = typeDefs;
