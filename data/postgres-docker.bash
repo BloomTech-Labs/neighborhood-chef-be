@@ -39,10 +39,10 @@ split() {
 test_uname() {
   unameOut="$(uname -s)"
   case "${unameOut}" in
-    Linux*)     machine=Linux;;
-    Darwin*)    machine=Mac;;
-    CYGWIN*)    machine=Cygwin;;
-    MINGW*)     machine=MinGw;;
+    Linux*)     machine="Linux";;
+    Darwin*)    machine="Mac";;
+    CYGWIN*)    machine="Cygwin";;
+    MINGW*)     machine="MinGw";;
     *)          machine="UNKNOWN:${unameOut}"
   esac
   echo ${machine}
@@ -70,6 +70,16 @@ test_wsl() {
   # set -e
   if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
       echo "Windows 10 WSL Bash"
+  fi
+}
+
+test_sudo() {
+  u=$(test_uname)
+
+  if [ "$u" == "Linux" ] || [ "$u" == "Mac" ]; then
+    echo 1
+  else
+    echo 0
   fi
 }
 
@@ -116,9 +126,23 @@ popd() {
   command popd "$@" > /dev/null
 }
 
-# knex() {
-#   command ../node_modules/.bin/knex "$@"
-# }
+get_username() {
+  local u=$USER
+  local un=$USERNAME
+
+  if [ -n "$u" ]; then
+    # echo -e "User: $USER"
+    echo $u
+  else
+    if [ -n "$un" ]; then
+      # echo -e "Username: $USERNAME"
+      echo $un
+    else
+      echo -e "Unable to determine Username! Cannot continue."
+      exit 1
+    fi
+  fi
+}
 #endregion Helper Functions
 
 #region Functions
@@ -195,7 +219,7 @@ populate_init_scripts() {
   #endregion Grant Privileges
 
   create_dir_if_missing "DB Init Scripts" $POSTGRES_INIT_SCRIPTS_PATH
-  change_owner_recursively $USER $POSTGRES_INIT_SCRIPTS_PATH
+  change_owner_recursively $(get_username) $POSTGRES_INIT_SCRIPTS_PATH
 
   echo -e "$DBScript_CreateUser"      > $POSTGRES_INIT_SCRIPTS_PATH/01_CreateUser.sql
   echo -e "$DBScript_CreateDatabase"  > $POSTGRES_INIT_SCRIPTS_PATH/02_CreateDatabase.sql
@@ -206,14 +230,23 @@ create_dir_if_missing() {
   if [ ! -d "$2" ]; then
     echo -e "Creating directory for:\t\t$1..."
     # echo Please input your password if/when prompted:
-    sudo mkdir -p "$2"
+    if [ $(test_sudo) -eq 1 ]; then
+      sudo mkdir -p "$2"
+    else
+      mkdir -p "$2"
+    fi
   else
     echo -e "Directory exists for:\t\t$1"
   fi
 }
 
 change_owner_recursively() {
-  sudo chown -R $1 "$2"
+  # echo -e "[sudo] chown -R $1 \"$2\""
+  if [ $(test_sudo) -eq 1 ]; then
+    sudo chown -R $1 "$2"
+  else
+    chown -R $1 "$2"
+  fi
 }
 
 stop_if_running() {
@@ -279,15 +312,17 @@ knex_seed_run() {
 #endregion Functions
 
 
+test_ostype
 confirm_in_data_dir
 test_for_requirements
 populate_variables
 populate_init_scripts
 create_dir_if_missing Data $POSTGRES_DATA_PATH
-change_owner_recursively $USER $POSTGRES_DATA_PATH
+change_owner_recursively $(get_username) $POSTGRES_DATA_PATH
 echo
 stop_if_running
 run_container
+sleep 2s  #wait for postgres in docker to start up
 echo
 run_init_scripts
 echo
