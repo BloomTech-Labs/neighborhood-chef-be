@@ -281,14 +281,12 @@ run_container() {
 
 run_init_scripts() {
   echo -e "Running Init Scripts..."
-  # s=${POSTGRES_CONNECTION_STRING%$POSTGRES_DATABASE}postgres
   s="postgres://$POSTGRES_ADMIN_USER:$POSTGRES_ADMIN_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/postgres"
   echo "Init Scripts Connection String: $s"
-  d=$(runtime_full_path)/$POSTGRES_INIT_SCRIPTS_PATH
-  pushd "$d"
-  for queryFile in `ls *.sql`; do
+  pushd "$(runtime_full_path)"
+  for queryFile in `ls $POSTGRES_INIT_SCRIPTS_PATH*.sql`; do
     echo -e "\nRunning Query File: $queryFile"
-    echo -e "psql $s -f \"./$POSTGRES_INIT_SCRIPTS_PATH$queryFile\""
+    echo -e "psql $s -f \"./$queryFile\""
     psql $s -f "./$queryFile" #>/dev/null 2>&1
   done
   popd
