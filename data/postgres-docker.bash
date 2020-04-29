@@ -244,8 +244,6 @@ run_container() {
     --volume postgres_database:/var/lib/postgresql/data  \
     --volume "$(runtime_full_path)/$POSTGRES_INIT_SCRIPTS_PATH":/docker-entrypoint-initdb.d  \
     postgres
-    
-    # --volume "$(runtime_full_path)/$POSTGRES_DATA_PATH":/var/lib/postgresql/data  \
 }
 
 run_init_scripts() {
