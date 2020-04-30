@@ -21,7 +21,7 @@ To get the server running locally:
 
 ### Install Postgres Docker
 
-First, ensure you've created a file named `/src/.env` with the same variable names as in the `/src/.env.example` file. The values can differ from the examples based on your preferred settings, if desired.
+First, ensure you've created a file named `/.env` with the same variable names as in the `/.env.example` file. The values can differ from the examples based on your preferred settings, if desired.
 
 Next, ensure you have installed these pre-requisites:
 
