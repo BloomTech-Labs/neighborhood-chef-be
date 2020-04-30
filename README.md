@@ -89,7 +89,7 @@ If prompted for a password, input your currently logged-in user's password to pe
 
 ---
 
-```json
+```graphql
   type User {
     id: ID!
     Email: String!
@@ -107,7 +107,7 @@ If prompted for a password, input your currently logged-in user's password to pe
   }
 ```
 
-```json
+```graphql
   input NewUserInput {
     id: ID
     Email: String!
@@ -122,7 +122,7 @@ If prompted for a password, input your currently logged-in user's password to pe
   }
 ```
 
-```json
+```graphql
   input UpdateUserInput {
     id: ID
     Email: String
@@ -141,7 +141,7 @@ If prompted for a password, input your currently logged-in user's password to pe
 
 ---
 
-```json
+```graphql
   type Event {
     id: ID!
     Date: String!
@@ -159,7 +159,7 @@ If prompted for a password, input your currently logged-in user's password to pe
   }
 ```
 
-```json
+```graphql
   input NewEventInput {
     id: ID
     Date: String!
@@ -177,7 +177,7 @@ If prompted for a password, input your currently logged-in user's password to pe
   }
 ```
 
-```json
+```graphql
   input UpdateEventInput {
     id: ID
     Date: String
@@ -199,14 +199,14 @@ If prompted for a password, input your currently logged-in user's password to pe
 
 ---
 
-```json
+```graphql
   type Category {
     id: ID!
     Category: String!
   }
 ```
 
-```json
+```graphql
   input NewCategoryInput {
     id: ID
     Category: String!
