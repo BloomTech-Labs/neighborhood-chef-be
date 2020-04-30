@@ -4,7 +4,7 @@
   "description": "Neighborhood Chef - Backend/API",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=testing jest --coverage",
+    "test": "cross-env NODE_ENV=testing jest --runInBand --detectOpenHandles --coverage",
     "test:watch": "cross-env NODE_ENV=testing NO_LOGGER=true jest --watch --runInBand --detectOpenHandles --coverage",
     "test:watch:troubleshoot": "cross-env NODE_ENV=testing NO_LOGGER=true jest --watch --runInBand --detectOpenHandles",
     "test:watch:withLogs": "cross-env NODE_ENV=testing jest --watch --runInBand --detectOpenHandles",
