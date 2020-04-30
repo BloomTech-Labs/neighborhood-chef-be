@@ -23,17 +23,17 @@ To get the server running locally:
 
 First, ensure you've created a file named `/src/.env` with the same variable names as in the `/src/.env.example` file. The values can differ from the examples based on your preferred settings, if desired.
 
-Next, ensure you have installed these pre-requisites:
+On Windows, it's probably best to setup `Windows Subsystem for Linux v2` (`WSL2`), [available in Windows 10, version 2004](https://devblogs.microsoft.com/commandline/wsl2-will-be-generally-available-in-windows-10-version-2004/), and the `Microsoft Terminal (preview)` app from the Microsoft App Store. Instructions below for Ubuntu Linux can be followed in `WSL2` if you install the Ubuntu instance. `Docker Desktop` for Windows only works on Windows 10 Professional or Enterprise/Workstation editions, it will not install on Home edition. You can use the older `docker toolkit` on Windows 10 Home and run the script in it's included Bash shell.
 
-On Windows, it's probably best to setup Windows Subsystem for Linux (WSL) and the Microsoft Terminal (preview) app from the Microsoft App Store. Instructions below for Ubuntu Linux can be followed in WSL if you use the Ubuntu instance.
+Ensure you have installed these pre-requisites:
 
-- Docker Desktop and command line application (`docker`) in your path and available when issuing the command `docker`
+- `Docker Desktop`, `docker toolkit`, or `docker.io` Community Edition. Ensure the command line application (`docker`) is in your path and available when issuing the command `docker`.
   - Ubuntu Linux: `sudo apt install docker.io`
   - Windows/macOS: download & install Docker Desktop
-- Postgres command line application (`psql`) in your path and available when issuing the command `psql`
-  - Ubuntu Linux: `sudo apt install postgresql-client` (and its dependencies)
-  - Windows/macOS: download PostgreSQL and install at minimum the command line application
-- Knex command line application (`knex`) globally installed so that it is in your path and available when issuing the command `knex`
+- Postgres command line application (`psql`) in your path and available when issuing the command `psql`.
+  - Ubuntu Linux: `sudo apt install postgresql-client` (and its dependencies). You do not need to install the server.
+  - Windows/macOS: download PostgreSQL and install at minimum the command line application. If you install the PostgreSQL service, it will conflict with the docker instance we're trying to setup, so be sure to disable the PostgreSQL service provided by the installer if you install it.
+- Knex command line application (`knex`) globally installed so that it is in your path and available when issuing the command `knex`.
   - All (in terminal): `sudo yarn global add knex` or `sudo npm i -g knex`
 
 Then, ensure the script has `execute` permission, and run the script in a Bash (Linux/WSL) or Zsh (macOS) Shell session:
