@@ -15,10 +15,13 @@ To get the server running locally:
 - **yarn install** to install all required dependencies
 - **Install Postgres Docker** (see section of same name) to setup PostgreSQL Docker development instance
 - **yarn server** to start the local server
+
+Testing:
+
 - **yarn test** to start server using testing environment
-- **yarn test:watch** to continously use testing environment
-- **yarn test:watch:troubleshoot** to debug while using testing environment
-- **yarn test:watch:withLogs** to view logs while using testing environment
+- **yarn test:watch** to continuously use testing environment
+- **yarn test:watchTroubleshoot** to debug while using testing environment
+- **yarn test:watchWithLogs** to view logs while using testing environment
 - **yarn test:coverage** to view test coverage
 
 ### Install Postgres Docker

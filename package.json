@@ -6,8 +6,8 @@
   "scripts": {
     "test": "cross-env NODE_ENV=testing jest --runInBand --detectOpenHandles --coverage",
     "test:watch": "cross-env NODE_ENV=testing NO_LOGGER=true jest --watch --runInBand --detectOpenHandles --coverage",
-    "test:watch:troubleshoot": "cross-env NODE_ENV=testing NO_LOGGER=true jest --watch --runInBand --detectOpenHandles",
-    "test:watch:withLogs": "cross-env NODE_ENV=testing jest --watch --runInBand --detectOpenHandles",
+    "test:watchTroubleshoot": "cross-env NODE_ENV=testing NO_LOGGER=true jest --watch --runInBand --detectOpenHandles",
+    "test:watchWithLogs": "cross-env NODE_ENV=testing jest --watch --runInBand --detectOpenHandles",
     "server": "nodemon -r dotenv-safe/config index.js",
     "server:testing": "cross-env NODE_ENV=testing nodemon -r dotenv-safe/config index.js",
     "start": "node -r dotenv-safe/config index.js",
