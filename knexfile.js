@@ -3,7 +3,7 @@ require('dotenv-safe').config({
 });
 
 module.exports = {
-  testing: {
+  development: {
     client: 'pg',
     connection: process.env.POSTGRES_CONNECTION_STRING,
     pool: {
@@ -17,7 +17,7 @@ module.exports = {
     seeds: { directory: './data/seeds' },
   },
 
-  development: {
+  testing: {
     client: 'pg',
     connection: process.env.POSTGRES_CONNECTION_STRING,
     pool: {
