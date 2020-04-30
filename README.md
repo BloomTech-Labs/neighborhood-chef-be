@@ -5,6 +5,7 @@
 ![build](https://github.com/Lambda-School-Labs/neighborhood-chef-be/workflows/build/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e704a7d41bbcb50a6783/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e704a7d41bbcb50a6783/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/test_coverage)
+![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 
 ## 1️⃣ Getting started
 
