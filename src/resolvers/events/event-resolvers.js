@@ -39,7 +39,8 @@ const updateEvent = async (_, args) => {
 const removeEvent = async (_, args) => {
   const event = await eventModel.findById(args.id);
   if (event) {
-    return await eventModel.remove(args.id);
+    await eventModel.remove(args.id);
+    return event;
   } else {
     throw new Error("The specified event id does not exist");
   }
