@@ -15,15 +15,18 @@ To get the server running locally:
 - **yarn install** to install all required dependencies
 - **Install Postgres Docker** (see section of same name) to setup PostgreSQL Docker development instance
 - **yarn server** to start the local server
+
+Testing:
+
 - **yarn test** to start server using testing environment
-- **yarn test:watch** to continously use testing environment
-- **yarn test:watch:troubleshoot** to debug while using testing environment
-- **yarn test:watch:withLogs** to view logs while using testing environment
+- **yarn test:watch** to continuously use testing environment
+- **yarn test:watchTroubleshoot** to debug while using testing environment
+- **yarn test:watchWithLogs** to view logs while using testing environment
 - **yarn test:coverage** to view test coverage
 
 ### Install Postgres Docker
 
-First, ensure you've created a file named `/src/.env` with the same variable names as in the `/src/.env.example` file. The values can differ from the examples based on your preferred settings, if desired.
+First, ensure you've created a file named `/.env` with the same variable names as in the `/.env.example` file. The values can differ from the examples based on your preferred settings, if desired.
 
 On Windows, it's probably best to setup `Windows Subsystem for Linux v2` (`WSL2`), [available in Windows 10, version 2004](https://devblogs.microsoft.com/commandline/wsl2-will-be-generally-available-in-windows-10-version-2004/), and the `Microsoft Terminal (preview)` app from the Microsoft App Store. Instructions below for Ubuntu Linux can be followed in `WSL2` if you install the Ubuntu instance. `Docker Desktop` for Windows only works on Windows 10 Professional or Enterprise/Workstation editions, it will not install on Home edition. You can use the older `docker toolkit` on Windows 10 Home and run the script in it's included Bash shell.
 

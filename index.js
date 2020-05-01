@@ -1,4 +1,4 @@
-const server = require('./server');
+const server = require('./src/server');
 require('dotenv-safe').config({
     allowEmptyValues: true
 });

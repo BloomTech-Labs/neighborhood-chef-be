@@ -4,13 +4,13 @@
   "description": "Neighborhood Chef - Backend/API",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=testing jest --coverage",
+    "test": "cross-env NODE_ENV=testing jest --runInBand --detectOpenHandles --coverage",
     "test:watch": "cross-env NODE_ENV=testing NO_LOGGER=true jest --watch --runInBand --detectOpenHandles --coverage",
-    "test:watch:troubleshoot": "cross-env NODE_ENV=testing NO_LOGGER=true jest --watch --runInBand --detectOpenHandles",
-    "test:watch:withLogs": "cross-env NODE_ENV=testing jest --watch --runInBand --detectOpenHandles",
-    "server": "cd src && nodemon -r dotenv-safe/config index.js",
+    "test:watchTroubleshoot": "cross-env NODE_ENV=testing NO_LOGGER=true jest --watch --runInBand --detectOpenHandles",
+    "test:watchWithLogs": "cross-env NODE_ENV=testing jest --watch --runInBand --detectOpenHandles",
+    "server": "nodemon -r dotenv-safe/config index.js",
     "server:testing": "cross-env NODE_ENV=testing nodemon -r dotenv-safe/config index.js",
-    "start": "cd src && node -r dotenv-safe/config index.js",
+    "start": "node -r dotenv-safe/config index.js",
     "coverage": "cross-env NODE_ENV=testing jest --coverage --detectOpenHandles --forceExit || true"
   },
   "jest": {
