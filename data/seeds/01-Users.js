@@ -1,12 +1,8 @@
-const bcrypt = require('bcryptjs');
-const passwordStrength = 12;
-
 exports.seed = function(knex) {
   return knex('Users').insert([
     {
       //id: 1,
       Email: 'LambdaLabsPT9NeighborhoodChef+SwedishChef@gmail.com',
-      Password: bcrypt.hashSync('B0rkB0rkB0rk', passwordStrength),
       FirstName: 'Swedish',
       LastName: 'Chef',
       Gender: 'Male',
@@ -18,7 +14,6 @@ exports.seed = function(knex) {
     {
       //id: 2,
       Email: 'LambdaLabsPT9NeighborhoodChef+GordonRamsay@gmail.com',
-      Password: bcrypt.hashSync('F*ckOff!', passwordStrength),
       FirstName: 'Gordon',
       LastName: 'Ramsay',
       Gender: 'Male',

@@ -1,3 +1,7 @@
+require('dotenv-safe').config({
+  allowEmptyValues: true
+});
+
 module.exports = {
   development: {
     client: 'pg',
