@@ -15,9 +15,7 @@ const router = express.Router();
 router.post('/register', buildHTML, async (req ,res) => {
     try{
 
-        console.log("here");
         const { Email } = req.body
-        
 
         const transport = nodemailer.createTransport({
             service: process.env.EMAIL_SERVICE_PROVIDER,
@@ -34,7 +32,7 @@ router.post('/register', buildHTML, async (req ,res) => {
             html: await readFile(`./html/${req.hash}.html`),
             replyTo: process.env.EMAIL_NAME
         }
-        console.log(mailOptions);
+     
         await transport.sendMail(mailOptions, async (err, response) => {
             try{
                 if(err) res.status(500).json({success: false, message: err.message}); 
@@ -42,12 +40,12 @@ router.post('/register', buildHTML, async (req ,res) => {
                 res.status(500).json({success: false, message: err.message})
             }
         });
-        fs.unlinkSync(`./html/${req.hash}.html`)
+        await fs.unlinkSync(`./html/${req.hash}.html`);
         const addedUser = await users.add(req.body);
         
         addedUser ? 
         res.status(201).json({success: true, message: "User created -- activation required"}) :
-        res.status(500).json({success: false, message: "There was issue with registration"})
+        res.status(500).json({success: false, message: "There was an issue with registration"})
 
     }catch(err){
         res.status(500).json(err.message);
@@ -70,18 +68,18 @@ router.get('/activate', async (req, res, next) => {
 
             const oktaUser = {
                 "profile": {
-                    "firstName": user.FirstName,
-                    "lastName": user.lastName,
-                    "email": user.Email,
-                    "login": user.Email
+                    "firstName": user[0].FirstName,
+                    "lastName": user[0].LastName,
+                    "email": user[0].Email,
+                    "login": user[0].Email
                 },
                 "credentials": {
                     "password": { "value": tempPass }
                 },
                 "groupIds": [process.env.OKTA_GROUP_ID]
             }
-
-            const fetcher = await fetch(`${process.env.OKTA_BASE_URL}/api/v1/users`,{
+        
+            const response = await fetch(`${process.env.OKTA_BASE_URL}/api/v1/users`,{
                 method: 'post',
                 body: JSON.stringify(oktaUser),
                 headers: {
@@ -91,9 +89,16 @@ router.get('/activate', async (req, res, next) => {
                 },
                 
             });
-            console.log(fetcher, "fetcher");
-            res.status(301).redirect('https://facebook.com');
+
+
+            activatedUser = await users.update(user[0].id, {...user[0], Activated: true});
+
+            if(response.status === 200) {
+            res.status(301).redirect(`${process.env.PASSWORD_CHANGE_REDIRECT}`);
             next;
+            } else {
+                res.status(500).json({success: false, message: "Issue Creating Credentials with Okta"});
+            }
         }else {
             res.status(400).json({success: false, message: "Not authorized"});
         }

@@ -75,6 +75,7 @@ async function buildHTML  (req , res, next) {
         const close = await asynclose(file);
         
         req.hash = base64Hash;
+        console.log(template);
         next();   
     }catch(err){
         res.status(500).json({where: "BuildHTML", success: false, message: err.message, err})
