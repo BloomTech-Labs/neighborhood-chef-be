@@ -5,7 +5,7 @@ require('dotenv-safe').config({
 module.exports = {
   development: {
     client: 'pg',
-    connection: process.env.POSTGRES_CONNECTION_STRING,
+    connection: process.env.POSTGRES_CONNECTION_STRING || 'postgres://neighborhoodchef:J4mb4l4y4!@localhost:5432/neighborhoodchef_dev',
     pool: {
       min: 0,
       max: 2,
