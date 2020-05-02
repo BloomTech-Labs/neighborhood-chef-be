@@ -1,11 +1,9 @@
-require('dotenv-safe').config({
-  allowEmptyValues: true
-});
+require('dotenv');
 
 module.exports = {
   development: {
     client: 'pg',
-    connection: process.env.POSTGRES_CONNECTION_STRING,
+    connection: process.env.POSTGRES_CONNECTION_STRING || 'postgres://neighborhoodchef:J4mb4l4y4!@localhost:5432/neighborhoodchef_dev',
     pool: {
       min: 0,
       max: 2,
@@ -19,7 +17,7 @@ module.exports = {
 
   testing: {
     client: 'pg',
-    connection: process.env.POSTGRES_CONNECTION_STRING,
+    connection: process.env.POSTGRES_CONNECTION_STRING || 'postgres://neighborhoodchef:Str0g4n0v@localhost:5432/neighborhoodchef_tst',
     pool: {
       min: 0,
       max: 2,
