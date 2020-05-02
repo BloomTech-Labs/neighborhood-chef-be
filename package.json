@@ -18,15 +18,15 @@
     "collectCoverage": true,
     "coverageProvider": "v8",
     "collectCoverageFrom": [
-    		"**/*.{js,jsx}",
-		"!**/node_modules/**",
-    		"!**/vendor/**",
-		"!**/database/**",
-		"!**/tests/**",
-		"!**/spec/**",
-    		"!**/*.spec.{js,jsx}",
-		"!**/*.test.{js,jsx}",
-		"!**/coverage/**"
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/database/**",
+      "!**/tests/**",
+      "!**/spec/**",
+      "!**/*.spec.{js,jsx}",
+      "!**/*.test.{js,jsx}",
+      "!**/coverage/**"
     ]
   },
   "repository": {
