@@ -7,6 +7,30 @@ on: [push, pull_request]
 
 # The jobs that will be run, usually in parallel
 jobs:
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    # Send a build notification email
+    - name: Send email
+      uses: dawidd6/action-send-mail@v2.2.0
+      with:
+        server_address: smtp.gmail.com
+        server_port: 465
+        username: ${{secrets.MAIL_USERNAME}}
+        password: ${{secrets.MAIL_PASSWORD}}
+        subject: Github Actions build result
+        body: Build job of ${{github.repository}} completed!
+        to: ${{secrets.BUILD_NOTICE_RECIPIENTS}}
+        from: Neighborhood Chef <${{secrets.MAIL_USERNAME}}>
+        # Optional content type (defaults to text/plain):
+        content_type: text/html
+
   # A job to generate and publish code coverage
   coverage:
     # A more descriptive name of the job
