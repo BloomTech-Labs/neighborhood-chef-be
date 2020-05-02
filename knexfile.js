@@ -1,5 +1,5 @@
 const dotenvsafe = require('dotenv-safe');
-if (dotenvsafe) {
+if (dotenvsafe.config) {
   dotenvsafe.config({
     allowEmptyValues: true
   });
