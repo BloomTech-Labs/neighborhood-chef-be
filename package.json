@@ -26,7 +26,10 @@
       "!**/spec/**",
       "!**/*.spec.{js,jsx}",
       "!**/*.test.{js,jsx}",
-      "!**/coverage/**"
+      "!**/coverage/**",
+      "!**/data/migrations/**",
+      "!**/data/seeds/**",
+      "!**/index.js"
     ]
   },
   "repository": {
