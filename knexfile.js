@@ -1,6 +1,9 @@
-require('dotenv-safe').config({
-  allowEmptyValues: true
-});
+const dotenvsafe = require('dotenv-safe');
+if (dotenvsafe) {
+  dotenvsafe.config({
+    allowEmptyValues: true
+  });
+}
 
 module.exports = {
   development: {
