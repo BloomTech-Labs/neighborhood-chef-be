@@ -27,6 +27,7 @@ exports.up = function(knex) {
       tbl.binary('Photo');
       tbl.integer('category_id').notNullable().unsigned().references('Categories.id');
       tbl.json('Modifiers');
+      tbl.json('Hashtags');
       tbl.string('Address', 255).notNullable();
       tbl.decimal('Latitude', 9, 6).notNullable();
       tbl.decimal('Longitude', 9, 6).notNullable();

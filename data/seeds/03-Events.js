@@ -43,6 +43,7 @@ exports.seed = function(knex) {
       Photo: TexasBBQimageData,
       category_id: 1,
       Modifiers: {},
+      Hashtags: {},
       Address: 'Djupebäcksgatan 15, 461 32 Trollhättan, Sweden',
       Latitude: 58.284325,
       Longitude: 12.295076
@@ -58,6 +59,7 @@ exports.seed = function(knex) {
       Photo: RamsayimageData,
       category_id: 4,
       Modifiers: {},
+      Hashtags: {},
       Address: '68 Royal Hospital Rd, Chelsea, London SW3 4HP, United Kingdom',
       Latitude: 51.4854801,
       Longitude: -0.1643167
