@@ -111,6 +111,17 @@ const typeDefs = gql`
     status: String!
   }
 
+  input UpdateInviteInput {
+    event_id: Int!
+    user_id: Int!
+    status: String!
+  }
+
+  input RemoveInviteInput {
+    event_id: Int!
+    user_id: Int!
+  }
+
   type Query {
     status: String!
     getAllUsers: [User]!
@@ -131,6 +142,8 @@ const typeDefs = gql`
     removeEvent(id: ID!): Event!
     addCategory(input: NewCategoryInput!): Category!
     inviteUserToEvent(input: EventInviteInput!): Event!
+    updateInvitation(input: UpdateInviteInput!): Event!
+    removeInvitation(input: RemoveInviteInput!): Event!
   }
 `;
 

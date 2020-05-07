@@ -9,7 +9,9 @@ module.exports = {
   remove,
   findUsersForEvent,
   inviteUserToEvent,
-  findIfUserIsAlreadyInvited
+  findIfUserIsAlreadyInvited,
+  updateInvite,
+  removeInvite
 };
 
 function find() {
@@ -50,12 +52,6 @@ function findUsersForEvent(id) {
     .where("Events.id", id);
 }
 
-async function inviteUserToEvent(invite) {
-  const invitation = await db("Events_Status").insert(invite);
-
-  return findById(invite.event_id);
-}
-
 function findIfUserIsAlreadyInvited(invite) {
   return db("Events_Status")
     .where("Events_Status.user_id", invite.user_id)
@@ -63,9 +59,24 @@ function findIfUserIsAlreadyInvited(invite) {
     .first();
 }
 
-// function removeInvite(invite) {
-//   return db("Events_Status")
-//     .where("Events_Status.event_id", invite.event_id)
-//     .andWhere()
-//     .del();
-// }
+async function inviteUserToEvent(invite) {
+  const invitation = await db("Events_Status").insert(invite);
+
+  return findById(invite.event_id);
+}
+
+async function updateInvite(invite) {
+  const updated = await db("Events_Status")
+    .where("Events_Status.event_id", invite.event_id)
+    .andWhere("Events_Status.user_id", invite.user_id)
+    .update(invite)
+
+  return db("Events").where("id", invite.event_id).first();
+}
+
+function removeInvite(invite) {
+  return db("Events_Status")
+    .where("Events_Status.event_id", invite.event_id)
+    .andWhere("Events_Status.user_id", invite.user_id)
+    .del();
+}
