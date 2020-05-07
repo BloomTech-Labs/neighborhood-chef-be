@@ -57,16 +57,16 @@ const constructHTMLTemplate = (name, email, tempPassword, hash) => {
 async function buildHTML  (req , res, next) {
 
     try {
-        const {FirstName, Email } = req.body;
+        const {firstName, email } = req.body;
 
         const base64Hash = crypto
                         .createHmac('sha256', `${process.env.EMAIL_HASH_SECRET}`)
-                        .update(Email)
+                        .update(email)
                         .digest('base64');
         console.log('here', base64Hash);
         const tempPassword = makeTempPassword(7);
         console.log('here', tempPassword);
-        const template = constructHTMLTemplate(FirstName, Email, tempPassword, base64Hash);
+        const template = constructHTMLTemplate(firstName, email, tempPassword, base64Hash);
         
         const file = await writeToFile(`./html/${base64Hash}.html`, 'w+', (err, file) => {
             return file

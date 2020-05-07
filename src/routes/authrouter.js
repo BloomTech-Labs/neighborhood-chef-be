@@ -15,7 +15,7 @@ const router = express.Router();
 router.post('/register', buildHTML, async (req ,res) => {
     try{
 
-        const { Email } = req.body
+        const { email } = req.body
 
         const transport = nodemailer.createTransport({
             service: process.env.EMAIL_SERVICE_PROVIDER,
@@ -27,7 +27,7 @@ router.post('/register', buildHTML, async (req ,res) => {
 
         const mailOptions = {
             from: process.env.EMAIL_NAME,
-            to: Email,
+            to: email,
             subject:"NeighborhoodChef",
             html: await readFile(`./html/${req.hash}.html`),
             replyTo: process.env.EMAIL_NAME
@@ -64,14 +64,14 @@ router.get('/activate', async (req, res, next) => {
 
         if(compareHash.toString() === formattedId){
 
-            const user = await users.findBy({Email: email});
+            const user = await users.findBy({email});
 
             const oktaUser = {
                 "profile": {
-                    "firstName": user[0].FirstName,
-                    "lastName": user[0].LastName,
-                    "email": user[0].Email,
-                    "login": user[0].Email
+                    "firstName": user[0].firstName,
+                    "lastName": user[0].lastName,
+                    "email": user[0].email,
+                    "login": user[0].email
                 },
                 "credentials": {
                     "password": { "value": tempPass }
@@ -91,7 +91,7 @@ router.get('/activate', async (req, res, next) => {
             });
 
 
-            activatedUser = await users.update(user[0].id, {...user[0], Activated: true});
+            activatedUser = await users.update(user[0].id, {...user[0], activated: true});
 
             if(response.status === 200) {
             res.status(301).redirect(`${process.env.PASSWORD_CHANGE_REDIRECT}`);
