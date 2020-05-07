@@ -1,18 +1,18 @@
 exports.seed = function(knex) {
-  return knex('Events_Invited').insert([
+  return knex('Events_Status').insert([
     {
       //id: 1,
       event_id: 1,
       user_id: 2,
       inviter_id: 1,
-      approved: false,
+      status: 'Not Approved',
     },
     {
       //id: 2,
       event_id: 2,
       user_id: 1,
       inviter_id: 2,
-      approved: true,
+      status: 'Going',
     },
   ]);
 };
