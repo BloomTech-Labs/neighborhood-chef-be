@@ -7,7 +7,9 @@ module.exports = {
   add,
   update,
   remove,
-  findUsersForEvent
+  findUsersForEvent,
+  inviteUserToEvent,
+  findIfUserIsAlreadyInvited
 };
 
 function find() {
@@ -45,5 +47,25 @@ function findUsersForEvent(id) {
     .select("Users.*", "Events_Status.status")
     .join("Events_Status", "Events_Status.event_id", "Events.id")
     .join("Users", "Users.id", "Events_Status.user_id")
-    .where("Events.id", id)
+    .where("Events.id", id);
 }
+
+async function inviteUserToEvent(invite) {
+  const invitation = await db("Events_Status").insert(invite);
+
+  return findById(invite.event_id);
+}
+
+function findIfUserIsAlreadyInvited(invite) {
+  return db("Events_Status")
+    .where("Events_Status.user_id", invite.user_id)
+    .andWhere("Events_Status.event_id", invite.event_id)
+    .first();
+}
+
+// function removeInvite(invite) {
+//   return db("Events_Status")
+//     .where("Events_Status.event_id", invite.event_id)
+//     .andWhere()
+//     .del();
+// }

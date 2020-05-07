@@ -12,7 +12,7 @@ const typeDefs = gql`
     latitude: Float!
     longitude: Float!
     photo: String
-    Events_Owned: [Event]!
+    eventsOwned: [Event]!
     status: String
   }
 
@@ -53,6 +53,7 @@ const typeDefs = gql`
     category_id: Int!
     user_id: Int!
     modifiers: String!
+    hashtags: String!
     address: String!
     latitude: Float!
     longitude: Float!
@@ -70,6 +71,7 @@ const typeDefs = gql`
     photo: String
     category_id: Int!
     modifiers: String
+    hashtags: String
     address: String!
     latitude: Float!
     longitude: Float!
@@ -86,6 +88,7 @@ const typeDefs = gql`
     category_id: Int
     user_id: Int
     modifiers: String
+    hashtags: String
     address: String
     latitude: Float
     longitude: Float
@@ -99,6 +102,13 @@ const typeDefs = gql`
   input NewCategoryInput {
     id: ID
     category: String!
+  }
+
+  input EventInviteInput {
+    event_id: Int!
+    user_id: Int!
+    inviter_id: Int!
+    status: String!
   }
 
   type Query {
@@ -120,6 +130,7 @@ const typeDefs = gql`
     updateEvent(id: ID!, input: UpdateEventInput!): Event!
     removeEvent(id: ID!): Event!
     addCategory(input: NewCategoryInput!): Category!
+    inviteUserToEvent(input: EventInviteInput!): Event!
   }
 `;
 

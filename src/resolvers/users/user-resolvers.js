@@ -9,7 +9,7 @@ const getAllUsers = async () => {
     const owned = await eventModel.findBy({ user_id: user.id });
     return {
       ...user,
-      Events_Owned: [...owned],
+      eventsOwned: [...owned],
     };
   });
   const results = await Promise.all(allUserEvents);
@@ -22,7 +22,7 @@ const getUserById = async (_, args) => {
     const owned = await eventModel.findBy({ user_id: args.id });
     return {
       ...user,
-      Events_Owned: [...owned]
+      eventsOwned: [...owned]
     };
   } else {
     throw new Error("The specified user id does not exist");

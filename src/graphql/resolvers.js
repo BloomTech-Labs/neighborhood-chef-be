@@ -14,6 +14,7 @@ const {
   addEvent,
   updateEvent,
   removeEvent,
+  inviteUserToEvent
 } = require("../resolvers/events/event-resolvers.js");
 
 const {
@@ -41,5 +42,6 @@ module.exports = {
     updateEvent,
     removeEvent,
     addCategory,
+    inviteUserToEvent
   },
 };
