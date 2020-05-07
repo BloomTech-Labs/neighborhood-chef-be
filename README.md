@@ -91,6 +91,9 @@ If prompted for a password, input your currently logged-in user's password to pe
 | Mutation | addEvent          | (input: NewEventInput!)             | Adds a new event                |
 | Mutation | updateEvent       | (id: ID!, input: UpdateEventInput!) | Updates an event                |
 | Mutation | removeEvent       | (id: ID!)                           | Deletes an event                |
+| Mutation | inviteUserToEvent | (input: EventInviteInput!)          | Invites user to event           |
+| Mutation | updateInvitation  | (input: UpdateInviteInput!)          | Update invitation status        |
+| Mutation | removeInvitation  | (input: RemoveInviteInput!)         | Deletes an invitation           |
 
 #### Category
 
@@ -109,48 +112,47 @@ If prompted for a password, input your currently logged-in user's password to pe
 ```graphql
   type User {
     id: ID!
-    Email: String!
-    Password: String!
-    FirstName: String!
-    LastName: String!
-    Gender: String
-    Address: String!
-    Latitude: Float!
-    Longitude: Float!
-    Photo: String
-    Events_Owned: [Event]!
-    Events_Invited: [Event]!
-    Events_Attending: [Event]!
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    gender: String
+    address: String!
+    latitude: Float!
+    longitude: Float!
+    photo: String
+    eventsOwned: [Event]!
+    status: String
   }
 ```
 
 ```graphql
   input NewUserInput {
     id: ID
-    Email: String!
-    Password: String!
-    FirstName: String!
-    LastName: String!
-    Gender: String
-    Address: String!
-    Latitude: Float!
-    Longitude: Float!
-    Photo: String
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    gender: String
+    address: String!
+    latitude: Float!
+    longitude: Float!
+    photo: String
   }
 ```
 
 ```graphql
   input UpdateUserInput {
     id: ID
-    Email: String
-    Password: String
-    FirstName: String
-    LastName: String
-    Gender: String
-    Address: String
-    Latitude: Float
-    Longitude: Float
-    Photo: String
+    email: String
+    password: String
+    firstName: String
+    lastName: String
+    gender: String
+    address: String
+    latitude: Float
+    longitude: Float
+    photo: String
   }
 ```
 
@@ -161,54 +163,84 @@ If prompted for a password, input your currently logged-in user's password to pe
 ```graphql
   type Event {
     id: ID!
-    Date: String!
-    Start_Time: String!
-    End_Time: String
-    Title: String!
-    Description: String!
-    Photo: String!
+    date: String!
+    startTime: String!
+    endTime: String
+    title: String!
+    description: String!
+    photo: String!
     category_id: Int!
     user_id: Int!
-    Modifiers: String!
-    Address: String!
-    Latitude: Float!
-    Longitude: Float!
+    modifiers: String!
+    hashtags: String!
+    address: String!
+    latitude: Float!
+    longitude: Float!
+    users: [User!]
   }
 ```
 
 ```graphql
   input NewEventInput {
     id: ID
-    Date: String!
-    Start_Time: String!
-    End_Time: String
-    Title: String!
-    Description: String!
+    date: String!
+    startTime: String!
+    endTime: String
+    title: String!
+    description: String!
     user_id: Int!
-    Photo: String
+    photo: String
     category_id: Int!
-    Modifiers: String
-    Address: String!
-    Latitude: Float!
-    Longitude: Float!
+    modifiers: String
+    hashtags: String
+    address: String!
+    latitude: Float!
+    longitude: Float!
   }
 ```
 
 ```graphql
   input UpdateEventInput {
     id: ID
-    Date: String
-    Start_Time: String
-    End_Time: String
-    Title: String
-    Description: String
-    Photo: String
+    date: String
+    startTime: String
+    endTime: String
+    title: String
+    description: String
+    photo: String
     category_id: Int
     user_id: Int
-    Modifiers: String
-    Address: String
-    Latitude: Float
-    Longitude: Float
+    modifiers: String
+    hashtags: String
+    address: String
+    latitude: Float
+    longitude: Float
+  }
+```
+
+#### EventInvite Inputs
+
+```graphql
+  input EventInviteInput {
+    event_id: Int!
+    user_id: Int!
+    inviter_id: Int!
+    status: String!
+  }
+```
+
+```graphql
+  input UpdateInviteInput {
+    event_id: Int!
+    user_id: Int!
+    status: String!
+  }
+```
+
+```graphql
+ input RemoveInviteInput {
+    event_id: Int!
+    user_id: Int!
   }
 ```
 
@@ -219,14 +251,14 @@ If prompted for a password, input your currently logged-in user's password to pe
 ```graphql
   type Category {
     id: ID!
-    Category: String!
+    category: String!
   }
 ```
 
 ```graphql
-  input NewCategoryInput {
+ input NewCategoryInput {
     id: ID
-    Category: String!
+    category: String!
   }
 ```
 

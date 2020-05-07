@@ -31,7 +31,7 @@ const getUserById = async (_, args) => {
     const events = await eventModel.findBy({ user_id: args.id });
     const data = events.map(async event => {
       await stringifyHashtagsAndMods(event)
-      const users = await eventModel.findUsersForEvent(args.id);
+      const users = await eventModel.findUsersForEvent(event.id);
       return {
         ...event,
         users: [...users]
