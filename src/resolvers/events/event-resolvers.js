@@ -36,8 +36,13 @@ const getAuthoredEvents = async (_, args) => {
   if (user) {
     const events = await eventModel.findBy({ user_id: args.id });
     const data = events.map(async (event) => {
+      const users = await eventModel.findUsersForEvent(args.id);
       stringifyHashtagsAndMods(event);
-      return event;
+
+      return {
+        ...event,
+        users: [...users]
+      };
     })
     return data;
   } else {
@@ -55,8 +60,12 @@ const updateEvent = async (_, args) => {
   const event = await eventModel.findById(args.id);
   if (event) {
     const updatedEvent = await eventModel.update(args.id, args.input);
+    const users = await eventModel.findUsersForEvent(args.id);
     stringifyHashtagsAndMods(updatedEvent);
-    return updatedEvent;
+    return {
+      ...updatedEvent,
+      users: [...users]
+    };
   } else {
     throw new Error("The specified event id does not exist");
   }

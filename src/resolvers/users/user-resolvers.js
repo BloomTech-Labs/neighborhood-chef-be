@@ -1,5 +1,6 @@
 const userModel = require("../../models/users/user-models.js");
 const eventModel = require("../../models/events/event-models.js");
+const { stringifyHashtagsAndMods } = require('../events/event-resolvers.js')
 
 const status = () => "Apollo Server is Running!";
 
@@ -7,9 +8,17 @@ const getAllUsers = async () => {
   const userList = await userModel.find();
   const allUserEvents = userList.map(async (user) => {
     const owned = await eventModel.findBy({ user_id: user.id });
+    const events = owned.map(async event => {
+      await stringifyHashtagsAndMods(event)
+      const users = await eventModel.findUsersForEvent(event.id);
+      return {
+        ...event,
+        users: [...users]
+      }
+    })
     return {
       ...user,
-      eventsOwned: [...owned],
+      eventsOwned: [...events],
     };
   });
   const results = await Promise.all(allUserEvents);
@@ -19,10 +28,18 @@ const getAllUsers = async () => {
 const getUserById = async (_, args) => {
   const user = await userModel.findById(args.id);
   if (user) {
-    const owned = await eventModel.findBy({ user_id: args.id });
+    const events = await eventModel.findBy({ user_id: args.id });
+    const data = events.map(async event => {
+      await stringifyHashtagsAndMods(event)
+      const users = await eventModel.findUsersForEvent(args.id);
+      return {
+        ...event,
+        users: [...users]
+      }
+    })
     return {
       ...user,
-      eventsOwned: [...owned]
+      eventsOwned: [...data]
     };
   } else {
     throw new Error("The specified user id does not exist");
