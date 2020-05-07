@@ -6,8 +6,8 @@ const ALL_CATEGORIES = {
   query: `
     query getCategories {
       getCategories {
-        Category
         id
+        category
         }
       }
     `,
@@ -19,13 +19,13 @@ const NEW_CATEGORY = {
     mutation addCategory($input: NewCategoryInput!) {
       addCategory(input: $input){
         id
-        Category
+        category
       }
     }`,
   operationName: 'addCategory',
   variables: {
     input: {
-      Category: String(Math.random()),
+      category: String(Math.random()),
     },
   },
 };
@@ -61,8 +61,8 @@ describe('category resolvers', () => {
         query: `
           query getCategoryById($id:ID!) {
             getCategoryById(id:$id) {
-              Category
               id
+              category
           }
         }
       `,
@@ -74,6 +74,6 @@ describe('category resolvers', () => {
     const parsed = JSON.parse(res.text);
     expect(res.status).toBe(200);
     expect(res.type).toBe('application/json');
-    expect(parsed.data.getCategoryById.Category).toBeDefined();
+    expect(parsed.data.getCategoryById.category).toBeDefined();
   });
 });

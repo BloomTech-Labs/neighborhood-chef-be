@@ -7,8 +7,7 @@ module.exports = {
   add,
   update,
   remove,
-  findInvitedEvents,
-  findEventsAttending,
+  findUsersForEvent
 };
 
 function find() {
@@ -41,16 +40,10 @@ function remove(id) {
   return db("Events").where({ id }).del();
 }
 
-function findInvitedEvents(id) {
+function findUsersForEvent(id) {
   return db("Events")
-    .select("Events.*")
-    .join("Events_Invited", "Events_Invited.event_id", "Events.id")
-    .where("Events_Invited.user_id", id);
-}
-
-function findEventsAttending(id) {
-  return db("Events")
-    .select("Events.*")
-    .join("Events_Attending", "Events_Attending.event_id", "Events.id")
-    .where("Events_Attending.user_id", id);
+    .select("Users.*", "Events_Status.status")
+    .join("Events_Status", "Events_Status.event_id", "Events.id")
+    .join("Users", "Users.id", "Events_Status.user_id")
+    .where("Events.id", id)
 }

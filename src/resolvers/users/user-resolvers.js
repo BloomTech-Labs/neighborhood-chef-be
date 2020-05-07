@@ -7,13 +7,9 @@ const getAllUsers = async () => {
   const userList = await userModel.find();
   const allUserEvents = userList.map(async (user) => {
     const owned = await eventModel.findBy({ user_id: user.id });
-    const invited = await eventModel.findInvitedEvents(user.id);
-    const attending = await eventModel.findEventsAttending(user.id);
     return {
       ...user,
       Events_Owned: [...owned],
-      Events_Invited: [...invited],
-      Events_Attending: [...attending],
     };
   });
   const results = await Promise.all(allUserEvents);
@@ -24,13 +20,9 @@ const getUserById = async (_, args) => {
   const user = await userModel.findById(args.id);
   if (user) {
     const owned = await eventModel.findBy({ user_id: args.id });
-    const invited = await eventModel.findInvitedEvents(args.id);
-    const attending = await eventModel.findEventsAttending(args.id);
     return {
       ...user,
-      Events_Owned: [...owned],
-      Events_Invited: [...invited],
-      Events_Attending: [...attending],
+      Events_Owned: [...owned]
     };
   } else {
     throw new Error("The specified user id does not exist");
@@ -38,7 +30,7 @@ const getUserById = async (_, args) => {
 };
 
 const addUser = async (_, args) => {
-  const existing = await userModel.findBy({ Email: args.input.Email }).first();
+  const existing = await userModel.findBy({ email: args.input.email }).first();
   if (existing) {
     throw new Error("email already taken");
   } else {

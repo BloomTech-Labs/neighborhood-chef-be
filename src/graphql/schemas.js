@@ -3,102 +3,102 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type User {
     id: ID!
-    Email: String!
-    Password: String!
-    FirstName: String!
-    LastName: String!
-    Gender: String
-    Address: String!
-    Latitude: Float!
-    Longitude: Float!
-    Photo: String
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    gender: String
+    address: String!
+    latitude: Float!
+    longitude: Float!
+    photo: String
     Events_Owned: [Event]!
-    Events_Invited: [Event]!
-    Events_Attending: [Event]!
+    status: String
   }
 
   input NewUserInput {
     id: ID
-    Email: String!
-    Password: String!
-    FirstName: String!
-    LastName: String!
-    Gender: String
-    Address: String!
-    Latitude: Float!
-    Longitude: Float!
-    Photo: String
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    gender: String
+    address: String!
+    latitude: Float!
+    longitude: Float!
+    photo: String
   }
 
   input UpdateUserInput {
     id: ID
-    Email: String
-    Password: String
-    FirstName: String
-    LastName: String
-    Gender: String
-    Address: String
-    Latitude: Float
-    Longitude: Float
-    Photo: String
+    email: String
+    password: String
+    firstName: String
+    lastName: String
+    gender: String
+    address: String
+    latitude: Float
+    longitude: Float
+    photo: String
   }
 
   type Event {
     id: ID!
-    Date: String!
-    Start_Time: String!
-    End_Time: String
-    Title: String!
-    Description: String!
-    Photo: String!
+    date: String!
+    startTime: String!
+    endTime: String
+    title: String!
+    description: String!
+    photo: String!
     category_id: Int!
     user_id: Int!
-    Modifiers: String!
-    Address: String!
-    Latitude: Float!
-    Longitude: Float!
+    modifiers: String!
+    address: String!
+    latitude: Float!
+    longitude: Float!
+    users: [User!]
   }
 
   input NewEventInput {
     id: ID
-    Date: String!
-    Start_Time: String!
-    End_Time: String
-    Title: String!
-    Description: String!
+    date: String!
+    startTime: String!
+    endTime: String
+    title: String!
+    description: String!
     user_id: Int!
-    Photo: String
+    photo: String
     category_id: Int!
-    Modifiers: String
-    Address: String!
-    Latitude: Float!
-    Longitude: Float!
+    modifiers: String
+    address: String!
+    latitude: Float!
+    longitude: Float!
   }
 
   input UpdateEventInput {
     id: ID
-    Date: String
-    Start_Time: String
-    End_Time: String
-    Title: String
-    Description: String
-    Photo: String
+    date: String
+    startTime: String
+    endTime: String
+    title: String
+    description: String
+    photo: String
     category_id: Int
     user_id: Int
-    Modifiers: String
-    Address: String
-    Latitude: Float
-    Longitude: Float
+    modifiers: String
+    address: String
+    latitude: Float
+    longitude: Float
   }
 
   type Category {
     id: ID!
-    Category: String!
+    category: String!
   }
 
   input NewCategoryInput {
     id: ID
-    Category: String!
+    category: String!
   }
 
   type Query {

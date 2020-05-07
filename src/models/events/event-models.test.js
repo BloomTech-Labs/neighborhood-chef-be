@@ -2,17 +2,17 @@ const db = require('../../../data/dbConfig.js');
 const eventModels = require('./event-models.js');
 
 const newEvent = {
-  Date: new Date(),
-  Start_Time: '6:00pm',
-  End_Time: '9:30pm',
-  Title: 'Homemade Pho and Banh Mi Night',
-  Description:
+  date: new Date(),
+  startTime: '6:00pm',
+  endTime: '9:30pm',
+  title: 'Homemade Pho and Banh Mi Night',
+  description:
     'Join us at our home for some homemade pho and banh mi sandwiches. Food will be provided, but please BYOB.',
   user_id: 1,
   category_id: 1,
-  Address: '555 Ocean View Ln',
-  Latitude: 34.39291,
-  Longitude: -24.2333,
+  address: '555 Ocean View Ln',
+  latitude: 34.39291,
+  longitude: -24.2333,
 };
 
 describe('event models', () => {
@@ -33,16 +33,16 @@ describe('event models', () => {
   test('finds event by id', async () => {
     const event = await eventModels.findById(createdEventId);
     expect(event).toBeDefined();
-    expect(event.Title).toEqual('Homemade Pho and Banh Mi Night');
+    expect(event.title).toEqual('Homemade Pho and Banh Mi Night');
   });
 
   test('event is updated', async () => {
     const updated = await eventModels.update(createdEventId, {
-      Address: '444 Ocean View Ln',
-      Latitude: -34.392009,
+      address: '444 Ocean View Ln',
+      latitude: -34.392009,
     });
-    expect(updated.Address).toEqual('444 Ocean View Ln');
-    expect(updated.Latitude).toEqual('-34.392009');
+    expect(updated.address).toEqual('444 Ocean View Ln');
+    expect(updated.latitude).toEqual('-34.392009');
   });
 
   test('deletes created event', async () => {
