@@ -60,7 +60,8 @@ const removeUser = async (_, args) => {
   if (!user) {
     throw new Error("The specified user id does not exist");
   } else {
-    return userModel.remove(args.id);
+    await userModel.remove(args.id);
+    return user;
   }
 };
 

@@ -1,9 +1,24 @@
+# Neighborhood Chef
+
+## Contributors
+
+|                                                          [Kyle Richardson](https://github.com/kyle-richardson)                                                           |                                                       [Paul Edwards](https://github.com/PaulMEdwards)                                                        |                                                      [Aaron Merrifield-Lucier](https://github.com/Aaroneld)                                                       |                                                       [Brennan Neilson](https://github.com/bvneilson)                                                        |                                                      [Patrick Replogle](https://github.com/patrick-replogle)                                                       |                                                          [Miguel Leal](https://twitter.com/lealitos)                                                           |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://avatars3.githubusercontent.com/u/52683176?s=400&u=864097615ff093d54d380d2d7d9d36bc0aebf60b&v=4" width = "200" />](https://github.com/kyle-richardson) | [<img src="https://avatars1.githubusercontent.com/u/153847?s=400&u=9ce092b1023143bff17fd34191c0768a1f8fe5ea&v=4" width = "200" />](https://github.com/PaulMEdwards) | [<img src="https://avatars2.githubusercontent.com/u/52682445?s=400&u=158e754213409df82f96c0f9f9a52821e9c81d1d&v=4" width = "200" />](https://github.com/Aaroneld) | [<img src="https://avatars3.githubusercontent.com/u/12500686?s=400&u=9ab949e147ba9fe8c58fe50a891c3daf8dcd21b4&v=4" width = "200" />](https://github.com/bvneilson) | [<img src="https://avatars2.githubusercontent.com/u/50844285?s=400&u=7ffa88c4c221bf888b1771fec72530ac156d90c6&v=4" width = "200" />](https://github.com/patrick-replogle) | [<img src="https://avatars3.githubusercontent.com/u/50895333?s=400&u=26d4e7b29f44be371e3dffec0aff81c960937093&v=4" width = "200" />](https://twitter.com/lealitos) |
+|                                       [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/kyle-richardson)                                       |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/PaulMEdwards)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Aaroneld)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/bvneilson)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/patrick-replogle)                            |  [<img src="https://twitter.com/favicon.ico" width="15"> ](https://twitter.com/lealitos)                            |
+|                      [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://linkedin.com/in/kyle-m-richardson)                       |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/paulmedwards/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/aaron-merrifield-234477195/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/brennanneilson/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/patrick-replogle-409a92193/)                |               [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/miguel-leal-6b6905168/)            |
+
+<br>
+
+
 # API Documentation
 
 #### 1️⃣ Backend deployed at [AWS RDS](https://master.d3oqswdfi1a994.amplifyapp.com/) <br>
 
+![build](https://github.com/Lambda-School-Labs/neighborhood-chef-be/workflows/build/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e704a7d41bbcb50a6783/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e704a7d41bbcb50a6783/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/test_coverage)
+![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 
 ## 1️⃣ Getting started
 
@@ -13,15 +28,18 @@ To get the server running locally:
 - **yarn install** to install all required dependencies
 - **Install Postgres Docker** (see section of same name) to setup PostgreSQL Docker development instance
 - **yarn server** to start the local server
+
+Testing:
+
 - **yarn test** to start server using testing environment
-- **yarn test:watch** to continously use testing environment
-- **yarn test:watch:troubleshoot** to debug while using testing environment
-- **yarn test:watch:withLogs** to view logs while using testing environment
+- **yarn test:watch** to continuously use testing environment
+- **yarn test:watchTroubleshoot** to debug while using testing environment
+- **yarn test:watchWithLogs** to view logs while using testing environment
 - **yarn test:coverage** to view test coverage
 
 ### Install Postgres Docker
 
-First, ensure you've created a file named `/src/.env` with the same variable names as in the `/src/.env.example` file. The values can differ from the examples based on your preferred settings, if desired.
+First, ensure you've created a file named `/.env` with the same variable names as in the `/.env.example` file. The values can differ from the examples based on your preferred settings, if desired.
 
 On Windows, it's probably best to setup `Windows Subsystem for Linux v2` (`WSL2`), [available in Windows 10, version 2004](https://devblogs.microsoft.com/commandline/wsl2-will-be-generally-available-in-windows-10-version-2004/), and the `Microsoft Terminal (preview)` app from the Microsoft App Store. Instructions below for Ubuntu Linux can be followed in `WSL2` if you install the Ubuntu instance. `Docker Desktop` for Windows only works on Windows 10 Professional or Enterprise/Workstation editions, it will not install on Home edition. You can use the older `docker toolkit` on Windows 10 Home and run the script in it's included Bash shell.
 
@@ -88,7 +106,7 @@ If prompted for a password, input your currently logged-in user's password to pe
 
 ---
 
-```json
+```graphql
   type User {
     id: ID!
     Email: String!
@@ -106,7 +124,7 @@ If prompted for a password, input your currently logged-in user's password to pe
   }
 ```
 
-```json
+```graphql
   input NewUserInput {
     id: ID
     Email: String!
@@ -121,7 +139,7 @@ If prompted for a password, input your currently logged-in user's password to pe
   }
 ```
 
-```json
+```graphql
   input UpdateUserInput {
     id: ID
     Email: String
@@ -140,7 +158,7 @@ If prompted for a password, input your currently logged-in user's password to pe
 
 ---
 
-```json
+```graphql
   type Event {
     id: ID!
     Date: String!
@@ -158,7 +176,7 @@ If prompted for a password, input your currently logged-in user's password to pe
   }
 ```
 
-```json
+```graphql
   input NewEventInput {
     id: ID
     Date: String!
@@ -176,7 +194,7 @@ If prompted for a password, input your currently logged-in user's password to pe
   }
 ```
 
-```json
+```graphql
   input UpdateEventInput {
     id: ID
     Date: String
@@ -198,14 +216,14 @@ If prompted for a password, input your currently logged-in user's password to pe
 
 ---
 
-```json
+```graphql
   type Category {
     id: ID!
     Category: String!
   }
 ```
 
-```json
+```graphql
   input NewCategoryInput {
     id: ID
     Category: String!

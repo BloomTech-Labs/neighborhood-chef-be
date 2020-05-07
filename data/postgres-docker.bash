@@ -21,7 +21,7 @@ print_usage() {
 }
 
 fetch_env_value() {
-  echo "$(grep $1 ../src/.env | cut -d '=' -f 2)"
+  echo "$(grep $1 ../.env | cut -d '=' -f 2)"
 }
 
 split() {
