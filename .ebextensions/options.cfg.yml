@@ -1,7 +1,6 @@
 packages:
   yum:
-    pgdg-redhat-repo-latest: https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
-    postgresql12: []
+    postgresql.x86_64: []
 commands:
   01a_psql_create_role:
     test: "[ -x /usr/bin/psql ]"
