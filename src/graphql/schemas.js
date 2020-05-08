@@ -126,7 +126,9 @@ const typeDefs = gql`
     status: String!
     getAllUsers: [User]!
     getUserById(id: ID!): User!
-    getAuthoredEvents(id: ID!): [Event]
+    getAuthoredEvents(id: ID!): [Event]!
+    getInvitedEvents(id: ID!): [Event]!
+    getAttendingEvents(id: ID!): [Event]!
     getAllEvents: [Event]!
     getEventById(id: ID!): Event!
     getCategories: [Category]!

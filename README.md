@@ -73,27 +73,29 @@ If prompted for a password, input your currently logged-in user's password to pe
 
 #### User
 
-| Type     | Name        | variables                          | Description            |
-| -------- | ----------- | ---------------------------------- | ---------------------- |
-| Query    | getAllUsers | none                               | Returns all users      |
-| Query    | getUserById | (id: ID!)                          | Returns a single user  |
-| Mutation | addUser     | (input: NewUserInput!)             | Adds a user account    |
-| Mutation | updateUser  | (id: ID!, input: UpdateUserInput!) | Updates a user account |
-| Mutation | removeUser  | (id: ID!)                          | Deletes a user account |
+| Type     | Name               | variables                          | Description                             |
+| -------- | ------------------ | ---------------------------------- | --------------------------------------- |
+| Query    | getAllUsers        | none                               | Returns all users                       |
+| Query    | getUserById        | (id: ID!)                          | Returns a single user                   |
+| Query    | getAuthoredEvents  | (id: ID!)                          | Returns logged in user's events         |
+| Query    | getInvitedEvents   | (id: ID!)                          | Returns events that user is invited too |
+| Query    | getAttendingEvents | (id: ID!)                          | Returns events user is attending        |
+| Mutation | addUser            | (input: NewUserInput!)             | Adds a user account                     |
+| Mutation | updateUser         | (id: ID!, input: UpdateUserInput!) | Updates a user account                  |
+| Mutation | removeUser         | (id: ID!)                          | Deletes a user account                  |
 
 #### Event
 
-| Type     | Name              | variables                           | Description                     |
-| -------- | ----------------- | ----------------------------------- | ------------------------------- |
-| Query    | getAllEvents      | none                                | Returns all events              |
-| Query    | getAuthoredEvents | (id: ID!)                           | Returns logged in user's events |
-| Query    | getEventById      | (id: ID!)                           | Returns a single event          |
-| Mutation | addEvent          | (input: NewEventInput!)             | Adds a new event                |
-| Mutation | updateEvent       | (id: ID!, input: UpdateEventInput!) | Updates an event                |
-| Mutation | removeEvent       | (id: ID!)                           | Deletes an event                |
-| Mutation | inviteUserToEvent | (input: EventInviteInput!)          | Invites user to event           |
-| Mutation | updateInvitation  | (input: UpdateInviteInput!)          | Update invitation status        |
-| Mutation | removeInvitation  | (input: RemoveInviteInput!)         | Deletes an invitation           |
+| Type     | Name              | variables                           | Description                             |
+| -------- | ----------------- | ----------------------------------- | --------------------------------------- |
+| Query    | getAllEvents      | none                                | Returns all events                      |
+| Query    | getEventById      | (id: ID!)                           | Returns a single event                  |
+| Mutation | addEvent          | (input: NewEventInput!)             | Adds a new event                        |
+| Mutation | updateEvent       | (id: ID!, input: UpdateEventInput!) | Updates an event                        |
+| Mutation | removeEvent       | (id: ID!)                           | Deletes an event                        |
+| Mutation | inviteUserToEvent | (input: EventInviteInput!)          | Invites user to event                   |
+| Mutation | updateInvitation  | (input: UpdateInviteInput!)         | Update invitation status                |
+| Mutation | removeInvitation  | (input: RemoveInviteInput!)         | Deletes an invitation                   |
 
 #### Category
 

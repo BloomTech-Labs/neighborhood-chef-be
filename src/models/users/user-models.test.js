@@ -42,15 +42,15 @@ describe('user models', () => {
     expect(user.gender).toEqual('Female');
   });
 
-  // test('created user has zero invited events', async () => {
-  //   const invitedEvents = await eventModel.findInvitedEvents(createdUserId);
-  //   expect(invitedEvents.length).toEqual(0);
-  // });
+  test('created user has zero invited events', async () => {
+    const invitedEvents = await eventModel.findInvitedEvents(createdUserId);
+    expect(invitedEvents.length).toEqual(0);
+  });
 
-  // test('created user is attending zero events', async () => {
-  //   const attending = await eventModel.findEventsAttending(createdUserId);
-  //   expect(attending.length).toEqual(0);
-  // });
+  test('created user is attending zero events', async () => {
+    const attending = await eventModel.findAttendingEvents(createdUserId);
+    expect(attending.length).toEqual(0);
+  });
 
   test('created user is deleted', async () => {
     const deleted = await userModel.remove(createdUserId);

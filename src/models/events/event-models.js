@@ -10,6 +10,8 @@ module.exports = {
   findUsersForEvent,
   inviteUserToEvent,
   findIfUserIsAlreadyInvited,
+  findInvitedEvents,
+  findAttendingEvents,
   updateInvite,
   removeInvite
 };
@@ -79,4 +81,19 @@ function removeInvite(invite) {
     .where("Events_Status.event_id", invite.event_id)
     .andWhere("Events_Status.user_id", invite.user_id)
     .del();
+}
+
+function findInvitedEvents(id) {
+  return db("Events")
+    .select("Events.*")
+    .join("Events_Status", "Events_Status.event_id", "Events.id")
+    .where("Events_Status.user_id", id);
+}
+
+function findAttendingEvents(id) {
+  return db("Events")
+    .select("Events.*")
+    .join("Events_Status", "Events_Status.event_id", "Events.id")
+    .where("Events_Status.user_id", id)
+    .andWhere("Events_Status.status", "Going")
 }

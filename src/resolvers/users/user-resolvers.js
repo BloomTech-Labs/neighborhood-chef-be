@@ -46,6 +46,61 @@ const getUserById = async (_, args) => {
   }
 };
 
+const getAuthoredEvents = async (_, args) => {
+  const user = await userModel.findById(args.id);
+  if (user) {
+    const events = await eventModel.findBy({ user_id: args.id });
+    const data = events.map(async (event) => {
+      const users = await eventModel.findUsersForEvent(args.id);
+      stringifyHashtagsAndMods(event);
+
+      return {
+        ...event,
+        users: [...users]
+      };
+    })
+    return data;
+  } else {
+    throw new Error("The specified user id does not exist");
+  }
+};
+
+const getInvitedEvents = async (_, args) => {
+  const user = await userModel.findById(args.id);
+  if (user) {
+    const events = await eventModel.findInvitedEvents(args.id);
+    const invited = events.map(async event => {
+      stringifyHashtagsAndMods(event);
+      const users = await eventModel.findUsersForEvent(event.id);
+      return {
+        ...event,
+        users: [...users]
+      }
+    });
+    return invited;
+  } else {
+    throw new Error("The specified user id does not exist")
+  }
+};
+
+const getAttendingEvents = async (_, args) => {
+  const user = await userModel.findById(args.id);
+  if (user) {
+    const events = await eventModel.findAttendingEvents(args.id);
+    const attending = events.map(async event => {
+      stringifyHashtagsAndMods(event);
+      const users = await eventModel.findUsersForEvent(event.id);
+      return {
+        ...event,
+        users: [...users]
+      }
+    });
+    return attending;
+  } else {
+    throw new Error("The specified user id does not exist");
+  }
+};
+
 const addUser = async (_, args) => {
   const existing = await userModel.findBy({ email: args.input.email }).first();
   if (existing) {
@@ -78,6 +133,9 @@ module.exports = {
   status,
   getAllUsers,
   getUserById,
+  getAuthoredEvents,
+  getInvitedEvents,
+  getAttendingEvents,
   addUser,
   updateUser,
   removeUser,
