@@ -8,7 +8,7 @@
     "test:watch": "cross-env NODE_ENV=development NO_LOGGER=true jest --watch --runInBand --detectOpenHandles --coverage",
     "test:watchTroubleshoot": "cross-env NODE_ENV=development NO_LOGGER=true jest --watch --runInBand --detectOpenHandles",
     "test:watchWithLogs": "cross-env NODE_ENV=development jest --watch --runInBand --detectOpenHandles",
-    "prestart": "knex migrate:latest",
+    "prestart": "npx knex migrate:latest",
     "server": "nodemon -r dotenv-safe/config index.js",
     "server:testing": "cross-env NODE_ENV=development nodemon -r dotenv-safe/config index.js",
     "start": "node -r dotenv-safe/config index.js",
