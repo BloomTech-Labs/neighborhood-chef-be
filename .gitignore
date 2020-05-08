@@ -73,7 +73,10 @@ typings/
 
 # dotenv environment variables file
 .env
-.env.test
+.env.dev*
+.env.test*
+.env.stag*
+.env.prod*
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -115,3 +118,8 @@ yarn.lock
 
 #Local docker data files
 data/docker
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
