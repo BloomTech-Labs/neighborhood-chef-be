@@ -51,7 +51,7 @@ const getAuthoredEvents = async (_, args) => {
   if (user) {
     const events = await eventModel.findBy({ user_id: args.id });
     const data = events.map(async (event) => {
-      const users = await eventModel.findUsersForEvent(args.id);
+      const users = await eventModel.findUsersForEvent(event.id);
       stringifyHashtagsAndMods(event);
 
       return {
