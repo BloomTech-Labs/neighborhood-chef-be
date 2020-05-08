@@ -1,2 +1,2 @@
 #!/bin/bash
-# sudo yum -y install postgresql.x86_64
+sudo yum -y install postgresql.x86_64
