@@ -1,0 +1,20 @@
+packages:
+  yum:
+    pgdg-redhat-repo-latest: https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+    postgresql12: []
+commands:
+  01a_psql_create_role:
+    test: "[ -x /usr/bin/psql ]"
+    command: |
+      psql -c "CREATE ROLE $POSTGRES_USER LOGIN PASSWORD '$POSTGRES_PASSWORD';" postgres://$POSTGRES_ADMIN_USER:$POSTGRES_ADMIN_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/postgres
+    ignoreErrors: true
+  01b_psql_create_database:
+    test: "[ -x /usr/bin/psql ]"
+    command: |
+      psql -c "CREATE DATABASE \"$POSTGRES_DATABASE\"" postgres://$POSTGRES_ADMIN_USER:$POSTGRES_ADMIN_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/postgres
+    ignoreErrors: true
+  01c_psql_grant_privileges:
+    test: "[ -x /usr/bin/psql ]"
+    command: |
+      psql -c "GRANT ALL PRIVILEGES ON DATABASE "$POSTGRES_DATABASE" TO $POSTGRES_USER;" postgres://$POSTGRES_ADMIN_USER:$POSTGRES_ADMIN_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/postgres
+    ignoreErrors: true
