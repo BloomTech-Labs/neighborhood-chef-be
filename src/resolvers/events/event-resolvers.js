@@ -43,6 +43,7 @@ const updateEvent = async (_, args) => {
     const updatedEvent = await eventModel.update(args.id, args.input);
     const users = await eventModel.findUsersForEvent(args.id);
     stringifyHashtagsAndMods(updatedEvent);
+
     return {
       ...updatedEvent,
       users: [...users]
@@ -67,7 +68,7 @@ const inviteUserToEvent = async (_, args) => {
   isStatusValid(args.input.status);
   const event = await eventModel.findById(args.input.event_id);
   const user = await userModel.findById(args.input.user_id);
-  const duplicate = await eventModel.findIfUserIsAlreadyInvited(args.input)
+  const duplicate = await eventModel.findIfUserIsAlreadyInvited(args.input);
 
   if (!event || !user || duplicate) {
     throw new Error("The specified event id or user id does not exist, or user is already invited");
@@ -82,9 +83,6 @@ const inviteUserToEvent = async (_, args) => {
     }
   }
 };
-
-
-
 
 const updateInvitation = async (_, args) => {
   isStatusValid(args.input.status);
@@ -134,7 +132,9 @@ function isStatusValid(status) {
     status === 'Maybe Going' ||
     status === 'Going') {
     return;
-  } else throw new Error("Invalid status")
+  } else {
+    throw new Error("Invalid status");
+  }
 };
 
 module.exports = {
