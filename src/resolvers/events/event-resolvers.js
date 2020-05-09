@@ -64,6 +64,7 @@ const removeEvent = async (_, args) => {
 };
 
 const inviteUserToEvent = async (_, args) => {
+  isStatusValid(args.input.status);
   const event = await eventModel.findById(args.input.event_id);
   const user = await userModel.findById(args.input.user_id);
   const duplicate = await eventModel.findIfUserIsAlreadyInvited(args.input)
@@ -82,8 +83,12 @@ const inviteUserToEvent = async (_, args) => {
   }
 };
 
+
+
+
 const updateInvitation = async (_, args) => {
-  const invited = await eventModel.findIfUserIsAlreadyInvited(args.input)
+  isStatusValid(args.input.status);
+  const invited = await eventModel.findIfUserIsAlreadyInvited(args.input);
   if (invited) {
     const updated = await eventModel.updateInvite(args.input);
     const users = await eventModel.findUsersForEvent(args.input.event_id);
@@ -94,9 +99,9 @@ const updateInvitation = async (_, args) => {
       users: [...users]
     }
   } else {
-    throw new Error("There is no invitation for the specified user id and event id")
+    throw new Error("There is no invitation for the specified user id and event id");
   }
-}
+};
 
 const removeInvitation = async (_, args) => {
   const isInvited = await eventModel.findIfUserIsAlreadyInvited(args.input);
@@ -111,16 +116,26 @@ const removeInvitation = async (_, args) => {
       users: [...users]
     }
   } else {
-    throw new Error("There is no invitation for the specified user id and event id")
+    throw new Error("There is no invitation for the specified user id and event id");
   }
-}
+};
 
-// helper function to convert hashtags and modifiers
+// helper functions
 function stringifyHashtagsAndMods(event) {
   event.hashtags = JSON.stringify(event.hashtags);
   event.modifiers = JSON.stringify(event.modifiers);
   return event;
-}
+};
+
+function isStatusValid(status) {
+  if (status === 'Not Approved' ||
+    status === 'Approved' ||
+    status === 'Not Going' ||
+    status === 'Maybe Going' ||
+    status === 'Going') {
+    return;
+  } else throw new Error("Invalid status")
+};
 
 module.exports = {
   getAllEvents,
