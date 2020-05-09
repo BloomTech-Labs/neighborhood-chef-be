@@ -2,6 +2,9 @@ const {
   status,
   getAllUsers,
   getUserById,
+  getAuthoredEvents,
+  getInvitedEvents,
+  getAttendingEvents,
   addUser,
   updateUser,
   removeUser,
@@ -10,10 +13,12 @@ const {
 const {
   getAllEvents,
   getEventById,
-  getAuthoredEvents,
   addEvent,
   updateEvent,
   removeEvent,
+  inviteUserToEvent,
+  updateInvitation,
+  removeInvitation
 } = require("../resolvers/events/event-resolvers.js");
 
 const {
@@ -28,6 +33,8 @@ module.exports = {
     getAllUsers,
     getUserById,
     getAuthoredEvents,
+    getInvitedEvents,
+    getAttendingEvents,
     getAllEvents,
     getEventById,
     getCategories,
@@ -41,5 +48,8 @@ module.exports = {
     updateEvent,
     removeEvent,
     addCategory,
+    inviteUserToEvent,
+    updateInvitation,
+    removeInvitation
   },
 };

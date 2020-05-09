@@ -7,8 +7,13 @@ module.exports = {
   add,
   update,
   remove,
+  findUsersForEvent,
+  inviteUserToEvent,
+  findIfUserIsAlreadyInvited,
   findInvitedEvents,
-  findEventsAttending,
+  findAttendingEvents,
+  updateInvite,
+  removeInvite
 };
 
 function find() {
@@ -41,16 +46,54 @@ function remove(id) {
   return db("Events").where({ id }).del();
 }
 
+function findUsersForEvent(id) {
+  return db("Events")
+    .select("Users.*", "Events_Status.status")
+    .join("Events_Status", "Events_Status.event_id", "Events.id")
+    .join("Users", "Users.id", "Events_Status.user_id")
+    .where("Events.id", id);
+}
+
+function findIfUserIsAlreadyInvited(invite) {
+  return db("Events_Status")
+    .where("Events_Status.user_id", invite.user_id)
+    .andWhere("Events_Status.event_id", invite.event_id)
+    .first();
+}
+
+async function inviteUserToEvent(invite) {
+  const invitation = await db("Events_Status").insert(invite);
+
+  return findById(invite.event_id);
+}
+
+async function updateInvite(invite) {
+  const updated = await db("Events_Status")
+    .where("Events_Status.event_id", invite.event_id)
+    .andWhere("Events_Status.user_id", invite.user_id)
+    .update(invite)
+
+  return db("Events").where("id", invite.event_id).first();
+}
+
+function removeInvite(invite) {
+  return db("Events_Status")
+    .where("Events_Status.event_id", invite.event_id)
+    .andWhere("Events_Status.user_id", invite.user_id)
+    .del();
+}
+
 function findInvitedEvents(id) {
   return db("Events")
     .select("Events.*")
-    .join("Events_Invited", "Events_Invited.event_id", "Events.id")
-    .where("Events_Invited.user_id", id);
+    .join("Events_Status", "Events_Status.event_id", "Events.id")
+    .where("Events_Status.user_id", id);
 }
 
-function findEventsAttending(id) {
+function findAttendingEvents(id) {
   return db("Events")
     .select("Events.*")
-    .join("Events_Attending", "Events_Attending.event_id", "Events.id")
-    .where("Events_Attending.user_id", id);
+    .join("Events_Status", "Events_Status.event_id", "Events.id")
+    .where("Events_Status.user_id", id)
+    .andWhere("Events_Status.status", "Going")
 }

@@ -7,7 +7,7 @@ const ALL_EVENTS = {
         query getAllEvents {
             getAllEvents {
                 id
-                Title
+                title
             }
         }
     `,
@@ -19,23 +19,23 @@ const NEW_EVENT = {
         mutation addEvent($input: NewEventInput!) {
             addEvent(input: $input) {
                 id,
-                Title
+                title
             }
         }
     `,
   operationName: 'addEvent',
   variables: {
     input: {
-      Date: 'Dec 12, 2020',
-      Start_Time: '7:00pm',
-      Title: 'Sushi and Sake Night',
+      date: new Date(),
+      startTime: '7:00pm',
+      title: 'Sushi and Sake Night',
       user_id: 1,
-      Description:
+      description:
         'Come watch me learn how to make sushi for the first time and taste the finished product. Sake and an assortment of Japanese beers will be provided.',
       category_id: 1,
-      Address: '555 Hollywood Blvd',
-      Latitude: -42.3932,
-      Longitude: 102.23,
+      address: '555 Hollywood Blvd',
+      latitude: -42.3932,
+      longitude: 102.23,
     },
   },
 };
@@ -43,8 +43,13 @@ const NEW_EVENT = {
 describe('event resolvers', () => {
   let testId;
 
-  afterAll(async () => {
-    await server.close();
+  test('creates an event', async () => {
+    const created = await supertest(server).post('/graphql').send(NEW_EVENT);
+    const parsed = JSON.parse(created.text);
+    testId = parsed.data.addEvent.id;
+    expect(created.status).toBe(200);
+    expect(created.type).toBe('application/json');
+    expect(parsed.data.addEvent.title).toEqual('Sushi and Sake Night');
   });
 
   test('gets all events', async () => {
@@ -55,15 +60,6 @@ describe('event resolvers', () => {
     expect(parsed.data.getAllEvents).toBeDefined();
   });
 
-  test('creates an event', async () => {
-    const created = await supertest(server).post('/graphql').send(NEW_EVENT);
-    const parsed = JSON.parse(created.text);
-    testId = parsed.data.addEvent.id;
-    expect(created.status).toBe(200);
-    expect(created.type).toBe('application/json');
-    expect(parsed.data.addEvent.Title).toEqual('Sushi and Sake Night');
-  });
-
   test('finds event by id', async () => {
     const event = await supertest(server)
       .post('/graphql')
@@ -71,7 +67,7 @@ describe('event resolvers', () => {
         query: `
             query getEventById($id: ID!){
                 getEventById(id: $id) {
-                    Address
+                    address
                 }
             }
         `,
@@ -82,7 +78,7 @@ describe('event resolvers', () => {
       });
     const parsed = JSON.parse(event.text);
     expect(event.status).toBe(200);
-    expect(parsed.data.getEventById.Address).toEqual('555 Hollywood Blvd');
+    expect(parsed.data.getEventById.address).toEqual('555 Hollywood Blvd');
   });
 
   test('event is updated', async () => {
@@ -93,19 +89,19 @@ describe('event resolvers', () => {
             mutation updateEvent($id: ID!, $input: UpdateEventInput!) {
                 updateEvent(id: $id, input: $input){
                     id
-                    Start_Time
+                    startTime
                 }
             }
           `,
         operationName: 'updateEvent',
         variables: {
           id: `${testId}`,
-          input: { Start_Time: '6:00pm' },
+          input: { startTime: '6:00pm' },
         },
       });
     const parsed = JSON.parse(updated.text);
     expect(updated.status).toBe(200);
-    expect(parsed.data.updateEvent.Start_Time).toEqual('18:00:00');
+    expect(parsed.data.updateEvent.startTime).toEqual('18:00:00');
   });
 
   test('created event is deleted', async () => {
