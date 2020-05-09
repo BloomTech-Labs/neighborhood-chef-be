@@ -6,7 +6,7 @@ describe('category models', () => {
 
   test('creates a new category', async () => {
     const newCategory = await categoryModels.add({
-      Category: String(Math.random()),
+      category: String(Math.random()),
     });
     createdCategoryId = newCategory.id;
     const found = await db('Categories')

@@ -4,14 +4,16 @@
   "description": "Neighborhood Chef - Backend/API",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=testing jest --runInBand --detectOpenHandles --coverage",
-    "test:watch": "cross-env NODE_ENV=testing NO_LOGGER=true jest --watch --runInBand --detectOpenHandles --coverage",
-    "test:watchTroubleshoot": "cross-env NODE_ENV=testing NO_LOGGER=true jest --watch --runInBand --detectOpenHandles",
-    "test:watchWithLogs": "cross-env NODE_ENV=testing jest --watch --runInBand --detectOpenHandles",
+    "test": "cross-env NODE_ENV=development jest --runInBand --detectOpenHandles --coverage",
+    "test:watch": "cross-env NODE_ENV=development NO_LOGGER=true jest --watch --runInBand --detectOpenHandles --coverage",
+    "test:watchTroubleshoot": "cross-env NODE_ENV=development NO_LOGGER=true jest --watch --runInBand --detectOpenHandles",
+    "test:watchWithLogs": "cross-env NODE_ENV=development jest --watch --runInBand --detectOpenHandles",
+    "prestart": "knex migrate:latest",
     "server": "nodemon -r dotenv-safe/config index.js",
-    "server:testing": "cross-env NODE_ENV=testing nodemon -r dotenv-safe/config index.js",
+    "server:testing": "cross-env NODE_ENV=development nodemon -r dotenv-safe/config index.js",
     "start": "node -r dotenv-safe/config index.js",
-    "coverage": "cross-env NODE_ENV=testing jest --coverage --detectOpenHandles --forceExit || true"
+    "poststart": "",
+    "coverage": "cross-env NODE_ENV=development jest --coverage --detectOpenHandles --forceExit || true"
   },
   "jest": {
     "testEnvironment": "node",
@@ -62,6 +64,7 @@
     "express-session": "^1.17.1",
     "fs": "^0.0.1-security",
     "graphql": "^14.6.0",
+    "graphql-depth-limit": "^1.1.0",
     "graphql-tools": "^5.0.0",
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",

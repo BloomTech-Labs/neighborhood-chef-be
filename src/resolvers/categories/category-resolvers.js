@@ -13,8 +13,13 @@ const getCategoryById = async (_, args) => {
   }
 };
 
-const addCategory = (_, args) => {
-  return categoryModel.add(args.input);
+const addCategory = async (_, args) => {
+  const found = await categoryModel.findBy({ category: args.input.category }).first();
+  if (found) {
+    throw new Error("Category already exists");
+  } else {
+    return await categoryModel.add(args.input);
+  }
 };
 
 module.exports = {

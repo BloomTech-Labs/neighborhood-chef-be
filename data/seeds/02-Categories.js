@@ -2,35 +2,35 @@ exports.seed = function(knex) {
   return knex('Categories').insert([
     {
       //id: 1,
-      Category: 'BBQ'
+      category: 'BBQ'
     },
     {
       //id: 2,
-      Category: 'Picnic'
+      category: 'Picnic'
     },
     {
       //id: 3,
-      Category: 'Wine & Cheese'
+      category: 'Wine & Cheese'
     },
     {
       //id: 4,
-      Category: 'Multi-course meal'
+      category: 'Multi-course meal'
     },
     {
       //id: 5,
-      Category: 'Sunday Sports'
+      category: 'Sunday Sports'
     },
     {
       //id: 6,
-      Category: 'Kids\' Play Date'
+      category: 'Kids\' Play Date'
     },
     {
       //id: 7,
-      Category: 'Puppy Play Date'
+      category: 'Puppy Play Date'
     },
     {
       //id: 8,
-      Category: 'Cat Play Date'
+      category: 'Cat Play Date'
     },
   ]);
 };
