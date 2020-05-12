@@ -1,5 +1,6 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
+const depthLimit = require('graphql-depth-limit');
 
 const typeDefs = require('./graphql/schemas');
 const resolvers = require('./graphql/resolvers');
@@ -15,14 +16,15 @@ const server = new ApolloServer({
     resolvers,
     mocks,
     mockEntireSchema: false,
+    validationRules: [depthLimit(3)],
     playground: {
         path: path,
         settings: {
-        'editor.theme': "dark"
+            'editor.theme': "dark"
         }
     }
 });
 
-server.applyMiddleware({app, path});
+server.applyMiddleware({ app, path });
 
 module.exports = app;
