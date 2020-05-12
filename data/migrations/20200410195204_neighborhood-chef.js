@@ -18,6 +18,7 @@ exports.up = function(knex) {
     })
     .createTable('Events', tbl => {
       tbl.increments();
+      tbl.datetime('createDateTime').notNullable();
       tbl.integer('user_id').notNullable().unsigned().references('Users.id');
       tbl.date('date').notNullable();
       tbl.time('startTime').notNullable();
@@ -37,7 +38,7 @@ exports.up = function(knex) {
       tbl.integer('event_id').notNullable().unsigned().references('Events.id').onUpdate('CASCADE').onDelete('CASCADE');
       tbl.integer('user_id').notNullable().unsigned().references('Users.id').onUpdate('CASCADE').onDelete('CASCADE');
       tbl.integer('inviter_id').notNullable().unsigned().references('Users.id').onUpdate('CASCADE');
-      tbl.enum('status', [ 'Not Approved', 'Approved', 'Not Going', 'Maybe Going', 'Going' ]).notNullable().defaultTo('false');
+      tbl.enum('status', [ 'Not Approved', 'Approved', 'Not Going', 'Maybe Going', 'Going' ]).notNullable().defaultTo('Not Approved');
       tbl.primary(['event_id', 'user_id']);
     })
     ;
@@ -45,6 +46,8 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return knex.schema
+    .dropTableIfExists('Events_Attending')
+    .dropTableIfExists('Events_Invited')
     .dropTableIfExists('Events_Status')
     .dropTableIfExists('Events')
     .dropTableIfExists('Categories')
