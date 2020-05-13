@@ -18,7 +18,7 @@ exports.up = function(knex) {
     })
     .createTable('Events', tbl => {
       tbl.increments();
-      tbl.datetime('createDateTime').notNullable();
+      tbl.datetime('createDateTime').notNullable().defaultTo(knex.fn.now());
       tbl.integer('user_id').notNullable().unsigned().references('Users.id');
       tbl.date('date').notNullable();
       tbl.time('startTime').notNullable();
