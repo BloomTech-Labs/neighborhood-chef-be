@@ -35,6 +35,7 @@ exports.seed = function(knex) {
   return knex('Events').insert([
     {
       //id: 1,
+      createDateTime: dt,
       user_id: 1,
       date: dTodayPlus3DaysAt6pm.toLocaleString(DateTime.DATE_SHORT),
       startTime: dTodayPlus3DaysAt6pm.toLocaleString(DateTime.TIME_SIMPLE),
@@ -50,6 +51,7 @@ exports.seed = function(knex) {
     },
     {
       //id: 2,
+      createDateTime: dt,
       user_id: 2,
       date: dTodayPlus7DaysAt8pm.toLocaleString(DateTime.DATE_SHORT),
       startTime: dTodayPlus7DaysAt8pm.toLocaleString(DateTime.TIME_SIMPLE),
