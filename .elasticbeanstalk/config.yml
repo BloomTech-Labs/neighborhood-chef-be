@@ -1,6 +1,8 @@
 branch-defaults:
   feature/database-setup_elastic-beanstalk:
     environment: NeighborhoodChef-BE-prod
+  master:
+    environment: NeighborhoodChef-BE-prod
 environment-defaults:
   NeighborhoodChef-BE-prod:
     branch: null
