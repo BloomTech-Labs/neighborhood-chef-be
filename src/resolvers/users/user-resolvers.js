@@ -10,7 +10,7 @@ const status = async (_, __, context) => {
  return  "Apollo Server is Running!";
 }
 
-const getAllUsers = async () => {
+const getAllUsers = async (_, __, context) => {
 
   const authenticated = await context.authenticated
   if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
@@ -31,7 +31,7 @@ const getAllUsers = async () => {
   return [...results];
 };
 
-const getUserById = async (_, args) => {
+const getUserById = async (_, args, context) => {
 
   const authenticated = await context.authenticated
   if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
@@ -52,7 +52,7 @@ const getUserById = async (_, args) => {
   }
 };
 
-const addUser = async (_, args) => {
+const addUser = async (_, args, context) => {
 
   const authenticated = await context.authenticated
   if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
@@ -65,7 +65,7 @@ const addUser = async (_, args) => {
   }
 };
 
-const updateUser = async (_, args, ___) => {
+const updateUser = async (_, args, context) => {
 
   const authenticated = await context.authenticated
   if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
@@ -78,11 +78,11 @@ const updateUser = async (_, args, ___) => {
   }
 };
 
-const removeUser = async (_, args) => {
+const removeUser = async (_, args, context) => {
 
   const authenticated = await context.authenticated
   if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
-  
+
   const user = await userModel.findById(args.id);
   if (!user) {
     throw new Error("The specified user id does not exist");

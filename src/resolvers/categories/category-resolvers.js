@@ -1,6 +1,6 @@
 const categoryModel = require("../../models/categories/category-models.js");
 
-const getCategories = () => {
+const getCategories = (_, __, context) => {
 
  const authenticated = await context.authenticated
  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
@@ -8,7 +8,7 @@ const getCategories = () => {
   return categoryModel.find();
 };
 
-const getCategoryById = async (_, args) => {
+const getCategoryById = async (_, args, context) => {
 
 const authenticated = await context.authenticated
  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
@@ -21,11 +21,11 @@ const authenticated = await context.authenticated
   }
 };
 
-const addCategory = (_, args) => {
+const addCategory = (_, args, context) => {
 
   const authenticated = await context.authenticated
  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
- 
+
   return categoryModel.add(args.input);
 };
 

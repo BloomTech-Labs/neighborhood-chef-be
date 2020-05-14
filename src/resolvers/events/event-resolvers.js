@@ -1,7 +1,7 @@
 const eventModel = require("../../models/events/event-models.js");
 const userModel = require("../../models/users/user-models.js");
 
-const getAllEvents = () => {
+const getAllEvents = (_, __, context) => {
 
  const authenticated = await context.authenticated
  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
@@ -9,7 +9,7 @@ const getAllEvents = () => {
   return eventModel.find();
 };
 
-const getEventById = async (_, args) => {
+const getEventById = async (_, args, context) => {
 
  const authenticated = await context.authenticated
  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
@@ -22,7 +22,7 @@ const getEventById = async (_, args) => {
   }
 };
 
-const getAuthoredEvents = async (_, args) => {
+const getAuthoredEvents = async (_, args, context) => {
 
  const authenticated = await context.authenticated
  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
@@ -35,7 +35,7 @@ const getAuthoredEvents = async (_, args) => {
   }
 };
 
-const addEvent = (_, args) => {
+const addEvent = (_, args, context) => {
 
  const authenticated = await context.authenticated
  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
@@ -43,7 +43,7 @@ const addEvent = (_, args) => {
   return eventModel.add(args.input);
 };
 
-const updateEvent = async (_, args) => {
+const updateEvent = async (_, args, context) => {
 
  const authenticated = await context.authenticated
  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
@@ -56,7 +56,7 @@ const updateEvent = async (_, args) => {
   }
 };
 
-const removeEvent = async (_, args) => {
+const removeEvent = async (_, args, context) => {
 
  const authenticated = await context.authenticated
  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
