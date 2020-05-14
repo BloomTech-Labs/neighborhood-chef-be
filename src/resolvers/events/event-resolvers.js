@@ -2,7 +2,7 @@ const eventModel = require("../../models/events/event-models.js");
 const userModel = require("../../models/users/user-models.js");
 
 
-const getAllEvents = (_, __, context) => {
+const getAllEvents = async (_, __, context) => {
 
  const authenticated = await context.authenticated
  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
