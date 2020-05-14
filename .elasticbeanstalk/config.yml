@@ -1,0 +1,21 @@
+branch-defaults:
+  feature/database-setup_elastic-beanstalk:
+    environment: NeighborhoodChef-BE-prod
+  master:
+    environment: NeighborhoodChef-BE-prod
+environment-defaults:
+  NeighborhoodChef-BE-prod:
+    branch: null
+    repository: null
+global:
+  application_name: NeighborhoodChef-BE
+  default_ec2_keyname: aws-eb
+  default_platform: Node.js 12 running on 64bit Amazon Linux 2
+  default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  sc: git
+  workspace_type: Application
