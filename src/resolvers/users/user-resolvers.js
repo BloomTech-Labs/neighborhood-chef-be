@@ -1,9 +1,20 @@
 const userModel = require("../../models/users/user-models.js");
 const eventModel = require("../../models/events/event-models.js");
+const { AuthenticationError } = require("apollo-server-express");
+;
+const status = async (_, __, context) => { 
 
-const status = () => "Apollo Server is Running!";
+ const authenticated = await context.authenticated
+ if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+
+ return  "Apollo Server is Running!";
+}
 
 const getAllUsers = async () => {
+
+  const authenticated = await context.authenticated
+  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+
   const userList = await userModel.find();
   const allUserEvents = userList.map(async (user) => {
     const owned = await eventModel.findBy({ user_id: user.id });
@@ -21,6 +32,10 @@ const getAllUsers = async () => {
 };
 
 const getUserById = async (_, args) => {
+
+  const authenticated = await context.authenticated
+  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+
   const user = await userModel.findById(args.id);
   if (user) {
     const owned = await eventModel.findBy({ user_id: args.id });
@@ -38,6 +53,10 @@ const getUserById = async (_, args) => {
 };
 
 const addUser = async (_, args) => {
+
+  const authenticated = await context.authenticated
+  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+
   const existing = await userModel.findBy({ Email: args.input.Email }).first();
   if (existing) {
     throw new Error("email already taken");
@@ -47,6 +66,10 @@ const addUser = async (_, args) => {
 };
 
 const updateUser = async (_, args, ___) => {
+
+  const authenticated = await context.authenticated
+  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+
   const found = await userModel.findById(args.id);
   if (found) {
     return await userModel.update(args.id, args.input);
@@ -56,6 +79,10 @@ const updateUser = async (_, args, ___) => {
 };
 
 const removeUser = async (_, args) => {
+
+  const authenticated = await context.authenticated
+  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+  
   const user = await userModel.findById(args.id);
   if (!user) {
     throw new Error("The specified user id does not exist");
