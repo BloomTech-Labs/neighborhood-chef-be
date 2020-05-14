@@ -7,6 +7,7 @@ const authRouter = require('./routes/authrouter');
 const typeDefs = require('./graphql/schemas');
 const resolvers = require('./graphql/resolvers');
 const mocks = require('./mocks');
+const authenticationRequired = require('./middleware/oktaAuthentication');
 
 const app = express();
 app.use(express.json());
@@ -19,7 +20,15 @@ const server = new ApolloServer({
     resolvers,
     mocks,
     mockEntireSchema: false,
+    context: async ({req}) => {
+        const token = req.headers.authorization;
+
+        const authenticated =  authenticationRequired(token);
+
+        return { authenticated }
+    }, 
     validationRules: [depthLimit(3)],
+
     playground: {
         path: path,
         settings: {
