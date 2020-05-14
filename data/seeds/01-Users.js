@@ -1,6 +1,3 @@
-const bcrypt = require('bcryptjs');
-const passwordStrength = 12;
-
 exports.seed = function(knex) {
   return knex('Users').insert([
     {
