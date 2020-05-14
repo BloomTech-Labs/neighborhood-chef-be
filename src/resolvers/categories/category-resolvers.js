@@ -23,10 +23,14 @@ const authenticated = await context.authenticated
 
 const addCategory = (_, args, context) => {
 
-  const authenticated = await context.authenticated
+ const authenticated = await context.authenticated
  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
-  return categoryModel.add(args.input);
+  const found = await categoryModel.findBy({ category: args.input.category }).first();
+  if (found) {
+    throw new Error("Category already exists");
+  } else {
+    return await categoryModel.add(args.input);
 };
 
 module.exports = {

@@ -3,109 +3,132 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type User {
     id: ID!
-    Email: String!
-    Password: String!
-    FirstName: String!
-    LastName: String!
-    Gender: String
-    Address: String!
-    Latitude: Float!
-    Longitude: Float!
-    Photo: String
-    Events_Owned: [Event]!
-    Events_Invited: [Event]!
-    Events_Attending: [Event]!
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    gender: String
+    address: String!
+    latitude: Float!
+    longitude: Float!
+    photo: String
+    eventsOwned: [Event]!
+    status: String
   }
 
   input NewUserInput {
     id: ID
-    Email: String!
-    Password: String!
-    FirstName: String!
-    LastName: String!
-    Gender: String
-    Address: String!
-    Latitude: Float!
-    Longitude: Float!
-    Photo: String
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    gender: String
+    address: String!
+    latitude: Float!
+    longitude: Float!
+    photo: String
   }
 
   input UpdateUserInput {
     id: ID
-    Email: String
-    Password: String
-    FirstName: String
-    LastName: String
-    Gender: String
-    Address: String
-    Latitude: Float
-    Longitude: Float
-    Photo: String
+    email: String
+    password: String
+    firstName: String
+    lastName: String
+    gender: String
+    address: String
+    latitude: Float
+    longitude: Float
+    photo: String
   }
 
   type Event {
     id: ID!
-    Date: String!
-    Start_Time: String!
-    End_Time: String
-    Title: String!
-    Description: String!
-    Photo: String!
+    date: String!
+    startTime: String!
+    endTime: String
+    title: String!
+    description: String!
+    photo: String!
     category_id: Int!
     user_id: Int!
-    Modifiers: String!
-    Address: String!
-    Latitude: Float!
-    Longitude: Float!
+    modifiers: String!
+    hashtags: String!
+    address: String!
+    latitude: Float!
+    longitude: Float!
+    users: [User!]
   }
 
   input NewEventInput {
     id: ID
-    Date: String!
-    Start_Time: String!
-    End_Time: String
-    Title: String!
-    Description: String!
+    date: String!
+    startTime: String!
+    endTime: String
+    title: String!
+    description: String!
     user_id: Int!
-    Photo: String
+    photo: String
     category_id: Int!
-    Modifiers: String
-    Address: String!
-    Latitude: Float!
-    Longitude: Float!
+    modifiers: String
+    hashtags: String
+    address: String!
+    latitude: Float!
+    longitude: Float!
   }
 
   input UpdateEventInput {
     id: ID
-    Date: String
-    Start_Time: String
-    End_Time: String
-    Title: String
-    Description: String
-    Photo: String
+    date: String
+    startTime: String
+    endTime: String
+    title: String
+    description: String
+    photo: String
     category_id: Int
     user_id: Int
-    Modifiers: String
-    Address: String
-    Latitude: Float
-    Longitude: Float
+    modifiers: String
+    hashtags: String
+    address: String
+    latitude: Float
+    longitude: Float
   }
 
   type Category {
     id: ID!
-    Category: String!
+    category: String!
   }
 
   input NewCategoryInput {
     id: ID
-    Category: String!
+    category: String!
+  }
+
+  input EventInviteInput {
+    event_id: Int!
+    user_id: Int!
+    inviter_id: Int!
+    status: String!
+  }
+
+  input UpdateInviteInput {
+    event_id: Int!
+    user_id: Int!
+    status: String!
+  }
+
+  input RemoveInviteInput {
+    event_id: Int!
+    user_id: Int!
   }
 
   type Query {
     status: String!
     getAllUsers: [User]!
     getUserById(id: ID!): User!
-    getAuthoredEvents(id: ID!): [Event]
+    getAuthoredEvents(id: ID!): [Event]!
+    getInvitedEvents(id: ID!): [Event]!
+    getAttendingEvents(id: ID!): [Event]!
     getAllEvents: [Event]!
     getEventById(id: ID!): Event!
     getCategories: [Category]!
@@ -120,6 +143,9 @@ const typeDefs = gql`
     updateEvent(id: ID!, input: UpdateEventInput!): Event!
     removeEvent(id: ID!): Event!
     addCategory(input: NewCategoryInput!): Category!
+    inviteUserToEvent(input: EventInviteInput!): Event!
+    updateInvitation(input: UpdateInviteInput!): Event!
+    removeInvitation(input: RemoveInviteInput!): Event!
   }
 `;
 

@@ -1,7 +1,8 @@
 const userModel = require("../../models/users/user-models.js");
 const eventModel = require("../../models/events/event-models.js");
 const { AuthenticationError } = require("apollo-server-express");
-;
+const { stringifyHashtagsAndMods } = require('../events/event-resolvers.js')
+
 const status = async (_, __, context) => { 
 
  const authenticated = await context.authenticated
@@ -18,13 +19,17 @@ const getAllUsers = async (_, __, context) => {
   const userList = await userModel.find();
   const allUserEvents = userList.map(async (user) => {
     const owned = await eventModel.findBy({ user_id: user.id });
-    const invited = await eventModel.findInvitedEvents(user.id);
-    const attending = await eventModel.findEventsAttending(user.id);
+    const events = owned.map(async event => {
+      await stringifyHashtagsAndMods(event)
+      const users = await eventModel.findUsersForEvent(event.id);
+      return {
+        ...event,
+        users: [...users]
+      }
+    })
     return {
       ...user,
-      Events_Owned: [...owned],
-      Events_Invited: [...invited],
-      Events_Attending: [...attending],
+      eventsOwned: [...events],
     };
   });
   const results = await Promise.all(allUserEvents);
@@ -38,15 +43,87 @@ const getUserById = async (_, args, context) => {
 
   const user = await userModel.findById(args.id);
   if (user) {
-    const owned = await eventModel.findBy({ user_id: args.id });
-    const invited = await eventModel.findInvitedEvents(args.id);
-    const attending = await eventModel.findEventsAttending(args.id);
+    const events = await eventModel.findBy({ user_id: args.id });
+    const data = events.map(async event => {
+      await stringifyHashtagsAndMods(event)
+      const users = await eventModel.findUsersForEvent(event.id);
+      return {
+        ...event,
+        users: [...users]
+      }
+    })
     return {
       ...user,
-      Events_Owned: [...owned],
-      Events_Invited: [...invited],
-      Events_Attending: [...attending],
+      eventsOwned: [...data]
     };
+  } else {
+    throw new Error("The specified user id does not exist");
+  }
+};
+
+
+const getAuthoredEvents = async (_, args, context) => {
+
+  const authenticated = await context.authenticated
+  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+
+  const user = await userModel.findById(args.id);
+  if (user) {
+    const events = await eventModel.findBy({ user_id: args.id });
+    const data = events.map(async (event) => {
+      const users = await eventModel.findUsersForEvent(event.id);
+      stringifyHashtagsAndMods(event);
+
+      return {
+        ...event,
+        users: [...users]
+      };
+    })
+    return data;
+  } else {
+    throw new Error("The specified user id does not exist");
+  }
+};
+
+const getInvitedEvents = async (_, args, context) => {
+
+ const authenticated = await context.authenticated
+ if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+
+  const user = await userModel.findById(args.id);
+  if (user) {
+    const events = await eventModel.findInvitedEvents(args.id);
+    const invited = events.map(async event => {
+      stringifyHashtagsAndMods(event);
+      const users = await eventModel.findUsersForEvent(event.id);
+      return {
+        ...event,
+        users: [...users]
+      }
+    });
+    return invited;
+  } else {
+    throw new Error("The specified user id does not exist")
+  }
+};
+
+const getAttendingEvents = async (_, args, context) => {
+
+  const authenticated = await context.authenticated
+  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+
+  const user = await userModel.findById(args.id);
+  if (user) {
+    const events = await eventModel.findAttendingEvents(args.id);
+    const attending = events.map(async event => {
+      stringifyHashtagsAndMods(event);
+      const users = await eventModel.findUsersForEvent(event.id);
+      return {
+        ...event,
+        users: [...users]
+      }
+    });
+    return attending;
   } else {
     throw new Error("The specified user id does not exist");
   }
@@ -54,10 +131,10 @@ const getUserById = async (_, args, context) => {
 
 const addUser = async (_, args, context) => {
 
-  const authenticated = await context.authenticated
-  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+ const authenticated = await context.authenticated
+ if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
-  const existing = await userModel.findBy({ Email: args.input.Email }).first();
+  const existing = await userModel.findBy({ email: args.input.email }).first();
   if (existing) {
     throw new Error("email already taken");
   } else {
@@ -96,6 +173,9 @@ module.exports = {
   status,
   getAllUsers,
   getUserById,
+  getAuthoredEvents,
+  getInvitedEvents,
+  getAttendingEvents,
   addUser,
   updateUser,
   removeUser,
