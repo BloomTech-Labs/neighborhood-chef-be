@@ -4,7 +4,6 @@ const typeDefs = gql`
   type User {
     id: ID!
     email: String!
-    password: String!
     firstName: String!
     lastName: String!
     gender: String
@@ -19,7 +18,6 @@ const typeDefs = gql`
   input NewUserInput {
     id: ID
     email: String!
-    password: String!
     firstName: String!
     lastName: String!
     gender: String
@@ -32,7 +30,6 @@ const typeDefs = gql`
   input UpdateUserInput {
     id: ID
     email: String
-    password: String
     firstName: String
     lastName: String
     gender: String

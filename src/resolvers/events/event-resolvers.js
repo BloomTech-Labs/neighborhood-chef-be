@@ -43,31 +43,6 @@ const getEventById = async (_, args, context) => {
   }
 };
 
-const getAuthoredEvents = async (_, args, context) => {
-  const authenticated = await context.authenticated;
-  if (!authenticated.success)
-    throw new AuthenticationError(
-      `AUTHENTICATION FAILED ${authenticated.error}`
-    );
-
-  const user = await userModel.findById(args.id);
-  if (user) {
-    const events = await eventModel.findBy({ user_id: args.id });
-    const data = events.map(async (event) => {
-      const users = await eventModel.findUsersForEvent(event.id);
-      stringifyHashtagsAndMods(event);
-
-      return {
-        ...event,
-        users: [...users],
-      };
-    });
-    return data;
-  } else {
-    throw new Error("The specified user id does not exist");
-  }
-};
-
 const addEvent = async (_, args, context) => {
   const authenticated = await context.authenticated;
   if (!authenticated.success)

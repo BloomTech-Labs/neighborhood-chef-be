@@ -1,9 +1,8 @@
-exports.seed = function(knex) {
+exports.seed = function (knex) {
   return knex('Users').insert([
     {
       //id: 1,
       email: 'LambdaLabsPT9NeighborhoodChef+SwedishChef@gmail.com',
-      password: bcrypt.hashSync('B0rkB0rkB0rk', passwordStrength),
       firstName: 'Swedish',
       lastName: 'Chef',
       gender: 'Male',
@@ -15,7 +14,6 @@ exports.seed = function(knex) {
     {
       //id: 2,
       email: 'LambdaLabsPT9NeighborhoodChef+GordonRamsay@gmail.com',
-      password: bcrypt.hashSync('F*ckOff!', passwordStrength),
       firstName: 'Gordon',
       lastName: 'Ramsay',
       gender: 'Male',

@@ -4,7 +4,6 @@ const db = require('../../../data/dbConfig.js');
 
 const newUser = {
   email: String(Math.random()),
-  password: 'secretpassword',
   firstName: 'John',
   lastName: 'Doe',
   address: '1234 New York St.',
