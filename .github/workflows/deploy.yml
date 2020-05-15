@@ -27,5 +27,5 @@ jobs:
         version_description: |
           SHA: ${{ github.SHA }}
           Branch: ${{ github.ref }}
-        region: us-west-2
+        region: us-east-1
         deployment_package: neighborhoodchefbe.zip
