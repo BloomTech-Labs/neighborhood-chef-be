@@ -115,7 +115,6 @@ If prompted for a password, input your currently logged-in user's password to pe
   type User {
     id: ID!
     email: String!
-    password: String!
     firstName: String!
     lastName: String!
     gender: String
@@ -132,7 +131,6 @@ If prompted for a password, input your currently logged-in user's password to pe
   input NewUserInput {
     id: ID
     email: String!
-    password: String!
     firstName: String!
     lastName: String!
     gender: String
@@ -147,7 +145,6 @@ If prompted for a password, input your currently logged-in user's password to pe
   input UpdateUserInput {
     id: ID
     email: String
-    password: String
     firstName: String
     lastName: String
     gender: String

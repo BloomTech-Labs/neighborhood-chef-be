@@ -15,7 +15,6 @@ const NEW_USER = {
   variables: {
     input: {
       email: String(Math.random()),
-      password: 'supersecret',
       firstName: 'John',
       lastName: 'Doe',
       gender: 'Male',
