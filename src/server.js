@@ -1,6 +1,7 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const depthLimit = require('graphql-depth-limit');
+const cors = require('cors');
 
 const authRouter = require('./routes/authrouter');
 
@@ -10,6 +11,7 @@ const mocks = require('./mocks');
 const authenticationRequired = require('./middleware/oktaAuthentication');
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use('/auth', authRouter);
 
