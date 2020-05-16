@@ -44,6 +44,7 @@ const typeDefs = gql`
     date: String!
     startTime: String!
     endTime: String
+    createDateTime: String!
     title: String!
     description: String!
     photo: String!
