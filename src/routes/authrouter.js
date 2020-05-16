@@ -15,7 +15,10 @@ const router = express.Router();
 router.post('/register', buildHTML, async (req ,res) => {
     try{
 
-        const { email } = req.body
+        const { email, firstName, lastName, latitude, longitude, gender, address } = req.body;
+
+        const databaseUserObject = {email, firstName, lastName, latitude, longitude, gender, address};
+            
 
         const transport = nodemailer.createTransport({
             service: process.env.EMAIL_SERVICE_PROVIDER,
@@ -41,7 +44,7 @@ router.post('/register', buildHTML, async (req ,res) => {
             }
         });
         await fs.unlinkSync(`./html/${req.hash}.html`);
-        const addedUser = await users.add(req.body);
+        const addedUser = await users.add(databaseUserObject);
         
         addedUser ? 
         res.status(201).json({success: true, message: "User created -- activation required"}) :
