@@ -1,7 +1,7 @@
 
 exports.up = function (knex) {
   return knex.schema.alterTable('Users', function (t) {
-    t.boolean('Activated')
+    t.boolean('activated')
       .notNullable()
       .defaultTo(false);
     t.dropColumn('password');
@@ -10,7 +10,7 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
   return knex.schema.alterTable('Users', function (t) {
-    t.dropColumn('Activated');
+    t.dropColumn('activated');
     t.string('password', 128)
   })
 };
