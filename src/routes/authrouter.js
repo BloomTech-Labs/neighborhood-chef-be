@@ -5,6 +5,7 @@ const nodemailer = require('nodemailer');
 const fetch = require('node-fetch');
 const fs = require('fs');
 const crypto = require('crypto');
+const okta = require('@okta/okta-sdk-nodejs');
 
 const users = require('../models/users/user-models');
 
@@ -143,5 +144,51 @@ router.get('/activate', async (req, res, next) => {
         res.status(500).json({success: false, message: err.message, staketrace: err.stack});
     }
 })
+
+router.post('/initialChangePassword', async (req, res, next) => {
+
+    try {
+
+        const { id, hash, password } = req.body;
+
+        const compareHash = crypto
+        .createHmac('sha256', process.env.EMAIL_HASH_SECRET)
+        .update(id)
+        .digest('base64')
+        .replace('/', "");
+
+        const formattedHash = hash.replace(/\s/g, '+');
+
+        console.log(id);
+        console.log(compareHash.toString());
+        console.log(hash);
+        
+        if(formattedHash === compareHash.toString()) {
+            const client = new okta.Client({
+                orgUrl: `${process.env.OKTA_BASE_URL}`,
+                token: `${process.env.OKTA_API_TOKEN}`
+            });
+
+            const user = await client.getUser(id);
+            
+            user.credentials.password.value = password; 
+
+            const updated = await user.update();
+            console.log(updated);
+
+            if(updated.status) {
+                res.status(203).json({success: true, message: "Password updated"});
+            } else {
+                res.status(403).json({success: false, message: "Password failed to update"});
+            }
+        } else {
+            res.status(400).json({succes: false, message: "Invalid authorization"});
+        }
+
+  } catch(err){
+      res.status(500).json({ message: err.message, success: false, });
+  }
+  
+});  
 
 module.exports = router;
