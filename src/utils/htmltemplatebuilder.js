@@ -48,7 +48,7 @@ const constructHTMLTemplate = (name, email, tempPassword, hash) => {
             <p>Your temporary pass is ${tempPassword}</p>
             <p>You will be redirected to change it after activation</p>
             <p>click on the button below to activate your account</p>
-            <button><a href="http://localhost:5100/auth/activate?id=${hash}&email=${email}&tempPass=${tempPassword}">ACTIVATE</a></button> 
+            <button><a href="${process.env.BACKEND_BASE_URL}/auth/activate?id=${hash}&email=${email}&tempPass=${tempPassword}">ACTIVATE</a></button> 
         </body>
     </html>
     `
@@ -67,14 +67,16 @@ async function buildHTML  (req , res, next) {
         const tempPassword = makeTempPassword(7);
         console.log('here', tempPassword);
         const template = constructHTMLTemplate(firstName, email, tempPassword, base64Hash);
-        
-        const file = await writeToFile(`./html/${base64Hash}.html`, 'w+', (err, file) => {
+       
+        const file = await writeToFile(`${base64Hash.replace("/", "")}.html`, 'w+', (err, file) => {
+ 
+
             return file
         });
         const write = await asyncWrite(file, template);
         const close = await asynclose(file);
         
-        req.hash = base64Hash;
+        req.hash = base64Hash.replace("/", "");
         console.log(template);
         next();   
     }catch(err){
