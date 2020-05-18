@@ -10,8 +10,9 @@ const makeTempPassword = (length) => {
     let result           = '';
     const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?$&*^';
     const charactersLength = characters.length;
-    const specialChars = "!#$^&*";
+    const specialChars = "!$";
     const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const lowercaseChars = "abcdefghijklmnopqrstuvwxyz"
     const numbers = "1234567890"
     for ( var i = 0; i < length; i++ ) {
        result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -19,7 +20,7 @@ const makeTempPassword = (length) => {
     result += specialChars.charAt(Math.floor(Math.random() * specialChars.length));
     result += uppercaseChars.charAt(Math.floor(Math.random() * uppercaseChars.length));
     result += numbers.charAt(Math.floor(Math.random() * numbers.length));
-
+    result += lowercaseChars.charAt(Math.floor(Math.random() * lowercaseChars.length));
     return result;
 }
 
