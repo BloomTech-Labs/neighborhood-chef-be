@@ -3,18 +3,18 @@ const eventModel = require("../../models/events/event-models.js");
 const { AuthenticationError } = require("apollo-server-express");
 const { stringifyHashtagsAndMods } = require('../events/event-resolvers.js')
 
-const status = async (_, __, context) => { 
+const status = async (_, __, context) => {
 
- const authenticated = await context.authenticated
- if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+  const authenticated = await context.authenticated
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
- return  "Apollo Server is Running!";
+  return "Apollo Server is Running!";
 }
 
 const getAllUsers = async (_, __, context) => {
 
   const authenticated = await context.authenticated
-  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
   const userList = await userModel.find();
   const allUserEvents = userList.map(async (user) => {
@@ -39,7 +39,7 @@ const getAllUsers = async (_, __, context) => {
 const getUserById = async (_, args, context) => {
 
   const authenticated = await context.authenticated
-  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
   const user = await userModel.findById(args.id);
   if (user) {
@@ -61,11 +61,22 @@ const getUserById = async (_, args, context) => {
   }
 };
 
+const getUserByEmail = async (_, args, context) => {
+  const authenticated = await context.authenticated
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+
+  const user = await userModel.findBy({ email: args.input.email }).first();
+  if (user) {
+    return user;
+  } else {
+    throw new Error("The specified user email does not exist");
+  }
+};
 
 const getAuthoredEvents = async (_, args, context) => {
 
   const authenticated = await context.authenticated
-  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
   const user = await userModel.findById(args.id);
   if (user) {
@@ -87,8 +98,8 @@ const getAuthoredEvents = async (_, args, context) => {
 
 const getInvitedEvents = async (_, args, context) => {
 
- const authenticated = await context.authenticated
- if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+  const authenticated = await context.authenticated
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
   const user = await userModel.findById(args.id);
   if (user) {
@@ -110,7 +121,7 @@ const getInvitedEvents = async (_, args, context) => {
 const getAttendingEvents = async (_, args, context) => {
 
   const authenticated = await context.authenticated
-  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
   const user = await userModel.findById(args.id);
   if (user) {
@@ -131,8 +142,8 @@ const getAttendingEvents = async (_, args, context) => {
 
 const addUser = async (_, args, context) => {
 
- const authenticated = await context.authenticated
- if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+  const authenticated = await context.authenticated
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
   const existing = await userModel.findBy({ email: args.input.email }).first();
   if (existing) {
@@ -145,7 +156,7 @@ const addUser = async (_, args, context) => {
 const updateUser = async (_, args, context) => {
 
   const authenticated = await context.authenticated
-  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
   const found = await userModel.findById(args.id);
   if (found) {
@@ -158,7 +169,7 @@ const updateUser = async (_, args, context) => {
 const removeUser = async (_, args, context) => {
 
   const authenticated = await context.authenticated
-  if(!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
   const user = await userModel.findById(args.id);
   if (!user) {
@@ -173,6 +184,7 @@ module.exports = {
   status,
   getAllUsers,
   getUserById,
+  getUserByEmail,
   getAuthoredEvents,
   getInvitedEvents,
   getAttendingEvents,

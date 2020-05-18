@@ -39,6 +39,10 @@ const typeDefs = gql`
     photo: String
   }
 
+  input UserEmailInput {
+    email: String!
+  }
+
   type Event {
     id: ID!
     date: String!
@@ -124,6 +128,7 @@ const typeDefs = gql`
     status: String!
     getAllUsers: [User]!
     getUserById(id: ID!): User!
+    getUserByEmail(input: UserEmailInput!): User!
     getAuthoredEvents(id: ID!): [Event]!
     getInvitedEvents(id: ID!): [Event]!
     getAttendingEvents(id: ID!): [Event]!
