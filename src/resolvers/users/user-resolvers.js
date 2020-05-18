@@ -61,7 +61,10 @@ const getUserById = async (_, args, context) => {
   }
 };
 
-const getUserByEmail = async (_, args) => {
+const getUserByEmail = async (_, args, context) => {
+  const authenticated = await context.authenticated
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+
   const user = await userModel.findBy({ email: args.input.email }).first();
   if (user) {
     return user;
