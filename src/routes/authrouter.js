@@ -57,10 +57,10 @@ router.post('/register', buildHTML, async (req ,res) => {
         await transport.sendMail(mailOptions, async (err, response) => {
             try{
                 
-                if(err) res.status(500).json({success: false, message: err.message}); 
+                if(err) res.status(500).json({success: false, trace: err.stack, message: err.message}); 
             }catch(err){
                 
-                res.status(500).json({success: false, message: err.message});
+                res.status(500).json({success: false, trace: err.stack, message: err.message});
                 
             }
         });
@@ -72,10 +72,10 @@ router.post('/register', buildHTML, async (req ,res) => {
         
         addedUser ? 
         res.status(201).json({ssuccess: true, message: "User created -- activation required"}) :
-        res.status(500).json({success: false, message: "There was an issue with registration"})
+        res.status(500).json({success: false, trace: err.stack, message: "There was an issue with registration"})
 
     }catch(err){
-        res.status(500).json(err.message);
+        res.status(500).json({ message: err.message, trace: err.stack});
     }
 });
 
