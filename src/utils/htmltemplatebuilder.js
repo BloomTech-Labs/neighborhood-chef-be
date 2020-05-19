@@ -81,8 +81,10 @@ async function buildHTML  (req , res, next) {
         console.log(template);
         next();   
     }catch(err){
-        res.status(500).json({where: "BuildHTML", success: false, message: err.message, err})
+        res.status(500).json({where: "BuildHTML", success: false, trace: err.stack, message: err.message, err})
     }
 }
+
+
 
 module.exports = buildHTML;
