@@ -1,4 +1,6 @@
 branch-defaults:
+  feature/backend_base_url-env-var:
+    environment: NeighborhoodChefBE-prod
   feature/database-setup_elastic-beanstalk:
     environment: NeighborhoodChefBE-prod
   feature/https-instance_config:
