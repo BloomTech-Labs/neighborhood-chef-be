@@ -39,6 +39,6 @@ const server = new ApolloServer({
     }
 });
 
-server.applyMiddleware({ app, path });
+server.applyMiddleware({ app, path, cors: false });
 
 module.exports = app;
