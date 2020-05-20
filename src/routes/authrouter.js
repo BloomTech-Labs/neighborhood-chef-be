@@ -6,19 +6,21 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 const crypto = require('crypto');
 const okta = require('@okta/okta-sdk-nodejs');
+const cors = require('cors');
 
 const users = require('../models/users/user-models');
 
 const readFile = promisify(fs.readFile);
 const router = express.Router();
 router.use(express.json());
+router.use(cors());
 
 router.get('/', (req, res) => {
     res.status(200).send("<h1>Working!</h1>")
 })
 
 
-router.post('/register', buildHTML, async (req ,res) => {
+router.post('/register', cors(), buildHTML, async (req ,res) => {
     try{
 
         const { email, firstName, lastName, latitude, longitude, gender, address } = req.body;
