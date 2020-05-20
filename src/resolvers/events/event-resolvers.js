@@ -172,6 +172,16 @@ const removeInvitation = async (_, args, context) => {
   }
 };
 
+const getUninvitedUsers = async (_, args, context) => {
+  const authenticated = await context.authenticated;
+  if (!authenticated.success)
+    throw new AuthenticationError(
+      `AUTHENTICATION FAILED ${authenticated.error}`
+    );
+
+  return await eventModel.findUninvitedUsersForEvent(args.id);
+};
+
 // helper functions
 function stringifyHashtagsAndMods(event) {
   event.hashtags = JSON.stringify(event.hashtags);
@@ -203,4 +213,5 @@ module.exports = {
   updateInvitation,
   removeInvitation,
   stringifyHashtagsAndMods,
+  getUninvitedUsers
 };
