@@ -10,7 +10,7 @@ const makeTempPassword = (length) => {
     let result           = '';
     const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?$&*^';
     const charactersLength = characters.length;
-    const specialChars = "!$";
+    const specialChars = "!";
     const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const lowercaseChars = "abcdefghijklmnopqrstuvwxyz"
     const numbers = "1234567890"
