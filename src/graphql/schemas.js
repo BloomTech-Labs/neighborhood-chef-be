@@ -130,6 +130,7 @@ const typeDefs = gql`
     getUserById(id: ID!): User!
     getUserByEmail(input: UserEmailInput!): User!
     getAuthoredEvents(id: ID!): [Event]!
+    getUninvitedUsers(id: ID!): [User]!
     getInvitedEvents(id: ID!): [Event]!
     getAttendingEvents(id: ID!): [Event]!
     getAllEvents: [Event]!

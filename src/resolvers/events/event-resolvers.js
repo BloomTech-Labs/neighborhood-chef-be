@@ -58,8 +58,12 @@ const addEvent = async (_, args, context) => {
     status: "Going",
   };
   const inviteOwner = await eventModel.inviteUserToEvent(invite);
+  const users = await eventModel.findUsersForEvent(inviteOwner.id);
   stringifyHashtagsAndMods(inviteOwner);
-  return inviteOwner;
+  return {
+    ...inviteOwner,
+    users: [...users],
+  };
 };
 
 const updateEvent = async (_, args, context) => {
@@ -172,6 +176,16 @@ const removeInvitation = async (_, args, context) => {
   }
 };
 
+const getUninvitedUsers = async (_, args, context) => {
+  const authenticated = await context.authenticated;
+  if (!authenticated.success)
+    throw new AuthenticationError(
+      `AUTHENTICATION FAILED ${authenticated.error}`
+    );
+
+  return await eventModel.findUninvitedUsersForEvent(args.id);
+};
+
 // helper functions
 function stringifyHashtagsAndMods(event) {
   event.hashtags = JSON.stringify(event.hashtags);
@@ -203,4 +217,5 @@ module.exports = {
   updateInvitation,
   removeInvitation,
   stringifyHashtagsAndMods,
+  getUninvitedUsers
 };
