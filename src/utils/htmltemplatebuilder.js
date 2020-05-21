@@ -1,16 +1,20 @@
 const fs = require('fs');
 const { promisify } = require('util');
 const crypto = require('crypto');
+const temp = require('temp');
+const os = require('os');
 
 const writeToFile = promisify(fs.open);
+const asyncTempOpen = promisify(temp.open);
 const asyncWrite = promisify(fs.write);
-const asynclose = promisify(fs.close);
+const asyncClose = promisify(fs.close);
+
 
 const makeTempPassword = (length) => {
     let result           = '';
     const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?$&*^';
     const charactersLength = characters.length;
-    const specialChars = "!$";
+    const specialChars = "!";
     const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const lowercaseChars = "abcdefghijklmnopqrstuvwxyz"
     const numbers = "1234567890"
@@ -69,17 +73,47 @@ async function buildHTML  (req , res, next) {
         console.log('here', tempPassword);
         const template = constructHTMLTemplate(firstName, email, tempPassword, base64Hash);
        
-        const file = await writeToFile(`${base64Hash.replace("/", "")}.html`, 'w+', (err, file) => {
+        // const file = await writeToFile(`${base64Hash.replace("/", "")}.html`, 'w+', (err, file) => {
  
 
-            return file
-        });
-        const write = await asyncWrite(file, template);
-        const close = await asynclose(file);
+        //     return file
+        // });
+
+        // const write = await asyncWrite(file, template);
+        // const close = await asynclose(file);
+
+        temp.track();
+        const formattedHash = base64Hash.replace("/", "");
+        await asyncTempOpen( {suffix: '.html', prefix: formattedHash}, async (err, info) => {
+            
+            try{
+                if(!err){
+                console.log(info, err);
+                req.tempPathName = info.path;
+                await asyncWrite(info.fd, template, async (err) => {
         
-        req.hash = base64Hash.replace("/", "");
-        console.log(template);
-        next();   
+                    if (err) res.status(500).json({where: "asyncTempOpen", message: err, success: false});
+
+                    await asyncClose(info.fd, (err) => {
+                        
+                        if (err) res.status(500).json({where: "asyncTempOpen", message: err, success: false});
+                        console.log("I got here");
+                        
+                        console.log(template);
+                        next();  
+                    });
+                });
+                
+                } else {
+                
+                    res.status(500).json({where: "asyncTempOpen", message: err.message, success: false});
+                }
+            }catch(err){
+                res.status(500).json({err, message: err.message, stack: err.stack});
+            }
+        });
+        
+         
     }catch(err){
         res.status(500).json({where: "BuildHTML", success: false, trace: err.stack, message: err.message, err})
     }

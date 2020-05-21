@@ -6,7 +6,9 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 const crypto = require('crypto');
 const okta = require('@okta/okta-sdk-nodejs');
+const temp = require("temp");
 const cors = require('cors');
+
 
 const users = require('../models/users/user-models');
 
@@ -44,7 +46,7 @@ router.post('/register', cors(), buildHTML, async (req ,res) => {
             }
         });
         
-        const htmlFile = await readFile(`${req.hash}.html`);
+        const htmlFile = await readFile(req.tempPathName);
 
         const mailOptions = {
             from: process.env.EMAIL_NAME,
@@ -69,7 +71,11 @@ router.post('/register', cors(), buildHTML, async (req ,res) => {
 
         }
 
-        fs.unlinkSync(`${req.hash}.html`);
+        temp.cleanup((err, stat) => {
+            console.log(stat);
+            if (err) console.log(err);
+        });
+
         const addedUser = await users.add(databaseUserObject);
         
         addedUser ? 
@@ -143,7 +149,7 @@ router.get('/activate', async (req, res, next) => {
             res.status(400).json({success: false, message: "Not authorized"});
         }
     }catch(err){
-        res.status(500).json({success: false, message: err.message, staketrace: err.stack});
+        res.status(500).json({success: false, message: err.message});
     }
 })
 
