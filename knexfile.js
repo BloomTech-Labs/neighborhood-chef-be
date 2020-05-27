@@ -8,6 +8,11 @@ module.exports = {
     pool: {
       min: 0,
       max: 2,
+      afterCreate: function (conn, done) {
+        conn.query('SET timezone="UTC";', function (err) {
+          done(err, conn);
+        });
+      }
     },
     migrations: {
       directory: './data/migrations',
