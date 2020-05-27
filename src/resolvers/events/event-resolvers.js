@@ -190,6 +190,7 @@ const getUninvitedUsers = async (_, args, context) => {
 function stringifyHashtagsAndMods(event) {
   event.hashtags = JSON.stringify(event.hashtags);
   event.modifiers = JSON.stringify(event.modifiers);
+  event.photo = String(event.photo)
   return event;
 }
 
