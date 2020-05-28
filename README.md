@@ -73,10 +73,12 @@ If prompted for a password, input your currently logged-in user's password to pe
 
 #### User
 
+
 | Type     | Name               | variables                          | Description                             |
 | -------- | ------------------ | ---------------------------------- | --------------------------------------- |
 | Query    | getAllUsers        | none                               | Returns all users                       |
 | Query    | getUserById        | (id: ID!)                          | Returns a single user                   |
+| Query    | getUserByEmail     | (input: UserEmailInput!)           | Returns a single user                   |
 | Query    | getAuthoredEvents  | (id: ID!)                          | Returns logged in user's events         |
 | Query    | getInvitedEvents   | (id: ID!)                          | Returns events that user is invited too |
 | Query    | getAttendingEvents | (id: ID!)                          | Returns events user is attending        |
@@ -90,6 +92,7 @@ If prompted for a password, input your currently logged-in user's password to pe
 | -------- | ----------------- | ----------------------------------- | --------------------------------------- |
 | Query    | getAllEvents      | none                                | Returns all events                      |
 | Query    | getEventById      | (id: ID!)                           | Returns a single event                  |
+| Query    | getUninvitedUsers | (id: ID!)                           | Returns users not invited to event      |
 | Mutation | addEvent          | (input: NewEventInput!)             | Adds a new event                        |
 | Mutation | updateEvent       | (id: ID!, input: UpdateEventInput!) | Updates an event                        |
 | Mutation | removeEvent       | (id: ID!)                           | Deletes an event                        |
@@ -155,6 +158,13 @@ If prompted for a password, input your currently logged-in user's password to pe
   }
 ```
 
+```graphql
+  input UserEmailInput {
+    email: String!
+  }
+
+```
+
 #### Event Type and Inputs
 
 ---
@@ -162,7 +172,6 @@ If prompted for a password, input your currently logged-in user's password to pe
 ```graphql
   type Event {
     id: ID!
-    date: String!
     startTime: String!
     endTime: String
     title: String!
@@ -182,7 +191,6 @@ If prompted for a password, input your currently logged-in user's password to pe
 ```graphql
   input NewEventInput {
     id: ID
-    date: String!
     startTime: String!
     endTime: String
     title: String!
@@ -201,7 +209,6 @@ If prompted for a password, input your currently logged-in user's password to pe
 ```graphql
   input UpdateEventInput {
     id: ID
-    date: String
     startTime: String
     endTime: String
     title: String

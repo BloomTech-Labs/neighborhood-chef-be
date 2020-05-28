@@ -2,9 +2,8 @@ const db = require('../../../data/dbConfig.js');
 const eventModels = require('./event-models.js');
 
 const newEvent = {
-  date: new Date(),
-  startTime: '6:00pm',
-  endTime: '9:30pm',
+  startTime: '2020-05-31T18:00:00.000Z',
+  endTime: '2020-05-31T22:00:00.000Z',
   title: 'Homemade Pho and Banh Mi Night',
   description:
     'Join us at our home for some homemade pho and banh mi sandwiches. Food will be provided, but please BYOB.',
