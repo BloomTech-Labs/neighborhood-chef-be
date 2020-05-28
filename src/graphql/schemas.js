@@ -45,7 +45,6 @@ const typeDefs = gql`
 
   type Event {
     id: ID!
-    date: String!
     startTime: String!
     endTime: String
     createDateTime: String!
@@ -64,7 +63,6 @@ const typeDefs = gql`
 
   input NewEventInput {
     id: ID
-    date: String!
     startTime: String!
     endTime: String
     title: String!
@@ -81,7 +79,6 @@ const typeDefs = gql`
 
   input UpdateEventInput {
     id: ID
-    date: String
     startTime: String
     endTime: String
     title: String

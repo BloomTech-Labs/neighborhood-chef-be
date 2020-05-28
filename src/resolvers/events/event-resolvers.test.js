@@ -26,8 +26,7 @@ const NEW_EVENT = {
   operationName: 'addEvent',
   variables: {
     input: {
-      date: new Date(),
-      startTime: '7:00pm',
+      startTime: '2020-05-31T18:00:00.000Z',
       title: 'Sushi and Sake Night',
       user_id: 1,
       description:
@@ -89,19 +88,19 @@ describe('event resolvers', () => {
             mutation updateEvent($id: ID!, $input: UpdateEventInput!) {
                 updateEvent(id: $id, input: $input){
                     id
-                    startTime
+                    title
                 }
             }
           `,
         operationName: 'updateEvent',
         variables: {
           id: `${testId}`,
-          input: { startTime: '6:00pm' },
+          input: { title: 'Sushi and Beer Night' },
         },
       });
     const parsed = JSON.parse(updated.text);
     expect(updated.status).toBe(200);
-    expect(parsed.data.updateEvent.startTime).toEqual('18:00:00');
+    expect(parsed.data.updateEvent.title).toEqual('Sushi and Beer Night');
   });
 
   test('created event is deleted', async () => {
