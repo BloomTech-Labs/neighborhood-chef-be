@@ -13,7 +13,8 @@ exports.seed = function (knex) {
       pets: {},
       allergens: {},
       dietaryRestrictions: {},
-      dietaryPreferences: {}
+      dietaryPreferences: {},
+      children: {}
     },
     {
       //id: 2,
@@ -28,7 +29,8 @@ exports.seed = function (knex) {
       pets: {},
       allergens: {},
       dietaryRestrictions: {},
-      dietaryPreferences: {}
+      dietaryPreferences: {},
+      children: {}
     },
   ]);
 };
