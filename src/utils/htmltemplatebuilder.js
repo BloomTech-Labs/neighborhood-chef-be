@@ -109,7 +109,7 @@ async function buildHTML  (req , res, next) {
                     res.status(500).json({where: "asyncTempOpen", message: err.message, success: false});
                 }
             }catch(err){
-                res.status(500).json({err, message: err.message, stack: err.stack});
+                res.status(500).json({err, message: err.message, stack: err.stack, pathname: formattedHash });
             }
         });
         
