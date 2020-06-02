@@ -83,7 +83,7 @@ async function buildHTML  (req , res, next) {
         // const close = await asynclose(file);
 
         temp.track();
-        const formattedHash = base64Hash.replace("/", "");
+        const formattedHash = base64Hash.replace(/\//g, "");
         await asyncTempOpen( {suffix: '.html', prefix: formattedHash}, async (err, info) => {
             
             try{
