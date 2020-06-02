@@ -1,7 +1,6 @@
 const userModel = require("../../models/users/user-models.js");
 const eventModel = require("../../models/events/event-models.js");
 const { AuthenticationError } = require("apollo-server-express");
-const { stringifyHashtagsAndMods } = require('../events/event-resolvers.js')
 
 const status = async (_, __, context) => {
 
@@ -20,13 +19,13 @@ const getAllUsers = async (_, __, context) => {
   const allUserEvents = userList.map(async (user) => {
     const owned = await eventModel.findBy({ user_id: user.id });
     const events = owned.map(async event => {
-      await stringifyHashtagsAndMods(event)
       const users = await eventModel.findUsersForEvent(event.id);
       return {
         ...event,
         users: [...users]
       }
     })
+
     return {
       ...user,
       eventsOwned: [...events],
@@ -45,13 +44,13 @@ const getUserById = async (_, args, context) => {
   if (user) {
     const events = await eventModel.findBy({ user_id: args.id });
     const data = events.map(async event => {
-      await stringifyHashtagsAndMods(event)
       const users = await eventModel.findUsersForEvent(event.id);
       return {
         ...event,
         users: [...users]
       }
     })
+
     return {
       ...user,
       eventsOwned: [...data]
@@ -83,7 +82,6 @@ const getAuthoredEvents = async (_, args, context) => {
     const events = await eventModel.findBy({ user_id: args.id });
     const data = events.map(async (event) => {
       const users = await eventModel.findUsersForEvent(event.id);
-      stringifyHashtagsAndMods(event);
 
       return {
         ...event,
@@ -105,7 +103,6 @@ const getInvitedEvents = async (_, args, context) => {
   if (user) {
     const events = await eventModel.findInvitedEvents(args.id);
     const invited = events.map(async event => {
-      stringifyHashtagsAndMods(event);
       const users = await eventModel.findUsersForEvent(event.id);
       return {
         ...event,
@@ -127,7 +124,6 @@ const getAttendingEvents = async (_, args, context) => {
   if (user) {
     const events = await eventModel.findAttendingEvents(args.id);
     const attending = events.map(async event => {
-      stringifyHashtagsAndMods(event);
       const users = await eventModel.findUsersForEvent(event.id);
       return {
         ...event,
@@ -149,7 +145,7 @@ const addUser = async (_, args, context) => {
   if (existing) {
     throw new Error("email already taken");
   } else {
-    return userModel.add(args.input);
+    return await userModel.add(args.input);
   }
 };
 

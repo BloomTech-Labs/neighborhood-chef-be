@@ -11,7 +11,7 @@ const getAllEvents = async (_, __, context) => {
   const eventList = await eventModel.find();
   const userList = eventList.map(async (event) => {
     const users = await eventModel.findUsersForEvent(event.id);
-    stringifyHashtagsAndMods(event);
+    stringifyPhoto(event);
 
     return {
       ...event,
@@ -32,7 +32,7 @@ const getEventById = async (_, args, context) => {
   const event = await eventModel.findById(args.id);
   if (event) {
     const users = await eventModel.findUsersForEvent(args.id);
-    stringifyHashtagsAndMods(event);
+    stringifyPhoto(event);
 
     return {
       ...event,
@@ -59,7 +59,7 @@ const addEvent = async (_, args, context) => {
   };
   const inviteOwner = await eventModel.inviteUserToEvent(invite);
   const users = await eventModel.findUsersForEvent(inviteOwner.id);
-  stringifyHashtagsAndMods(inviteOwner);
+  stringifyPhoto(inviteOwner);
   return {
     ...inviteOwner,
     users: [...users],
@@ -77,7 +77,8 @@ const updateEvent = async (_, args, context) => {
   if (event) {
     const updatedEvent = await eventModel.update(args.id, args.input);
     const users = await eventModel.findUsersForEvent(args.id);
-    stringifyHashtagsAndMods(updatedEvent);
+    stringifyPhoto(updatedEvent);
+
     return {
       ...updatedEvent,
       users: [...users],
@@ -97,7 +98,7 @@ const removeEvent = async (_, args, context) => {
   const event = await eventModel.findById(args.id);
   if (event) {
     await eventModel.remove(args.id);
-    stringifyHashtagsAndMods(event);
+    stringifyPhoto(event);
     return event;
   } else {
     throw new Error("The specified event id does not exist");
@@ -117,7 +118,7 @@ const inviteUserToEvent = async (_, args) => {
   } else {
     const invite = await eventModel.inviteUserToEvent(args.input);
     const users = await eventModel.findUsersForEvent(event.id);
-    stringifyHashtagsAndMods(invite);
+    stringifyPhoto(invite);
 
     return {
       ...invite,
@@ -138,7 +139,7 @@ const updateInvitation = async (_, args, context) => {
   if (invited) {
     const updated = await eventModel.updateInvite(args.input);
     const users = await eventModel.findUsersForEvent(args.input.event_id);
-    stringifyHashtagsAndMods(updated);
+    stringifyPhoto(updated);
 
     return {
       ...updated,
@@ -163,7 +164,7 @@ const removeInvitation = async (_, args, context) => {
     await eventModel.removeInvite(args.input);
     const event = await eventModel.findById(args.input.event_id);
     const users = await eventModel.findUsersForEvent(args.input.event_id);
-    stringifyHashtagsAndMods(event);
+    stringifyPhoto(event);
 
     return {
       ...event,
@@ -187,9 +188,7 @@ const getUninvitedUsers = async (_, args, context) => {
 };
 
 // helper functions
-function stringifyHashtagsAndMods(event) {
-  event.hashtags = JSON.stringify(event.hashtags);
-  event.modifiers = JSON.stringify(event.modifiers);
+function stringifyPhoto(event) {
   event.photo = String(event.photo)
   return event;
 }
@@ -217,6 +216,5 @@ module.exports = {
   inviteUserToEvent,
   updateInvitation,
   removeInvitation,
-  stringifyHashtagsAndMods,
   getUninvitedUsers
 };

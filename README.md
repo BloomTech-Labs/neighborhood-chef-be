@@ -127,6 +127,11 @@ If prompted for a password, input your currently logged-in user's password to pe
     photo: String
     eventsOwned: [Event]!
     status: String
+    allergens: JSON
+    dietaryRestrictions: JSON
+    dietaryPreferences: JSON
+    children: JSON
+    pets: JSON
   }
 ```
 
@@ -141,6 +146,11 @@ If prompted for a password, input your currently logged-in user's password to pe
     latitude: Float!
     longitude: Float!
     photo: String
+    allergens: JSON
+    dietaryRestrictions: JSON
+    dietaryPreferences: JSON
+    children: JSON
+    pets: JSON
   }
 ```
 
@@ -155,6 +165,11 @@ If prompted for a password, input your currently logged-in user's password to pe
     latitude: Float
     longitude: Float
     photo: String
+    allergens: JSON
+    dietaryRestrictions: JSON
+    dietaryPreferences: JSON
+    children: JSON
+    pets: JSON
   }
 ```
 
@@ -174,13 +189,14 @@ If prompted for a password, input your currently logged-in user's password to pe
     id: ID!
     startTime: String!
     endTime: String
+    createDateTime: String!
     title: String!
     description: String!
     photo: String!
     category_id: Int!
     user_id: Int!
-    modifiers: String!
-    hashtags: String!
+    modifiers: JSON
+    hashtags: JSON
     address: String!
     latitude: Float!
     longitude: Float!
@@ -198,8 +214,8 @@ If prompted for a password, input your currently logged-in user's password to pe
     user_id: Int!
     photo: String
     category_id: Int!
-    modifiers: String
-    hashtags: String
+    modifiers: JSON
+    hashtags: JSON
     address: String!
     latitude: Float!
     longitude: Float!
@@ -216,8 +232,8 @@ If prompted for a password, input your currently logged-in user's password to pe
     photo: String
     category_id: Int
     user_id: Int
-    modifiers: String
-    hashtags: String
+    modifiers: JSON
+    hashtags: JSON
     address: String
     latitude: Float
     longitude: Float
