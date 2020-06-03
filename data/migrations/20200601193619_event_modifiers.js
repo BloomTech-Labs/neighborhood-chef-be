@@ -27,7 +27,7 @@ exports.up = function(knex) {
         })
         .createTable('UnitsOfMeasure', tbl => {
             tbl.increments();
-            tbl.integer('type_id').notNullable().unsigned().references('MeasurementTypes.id').onUpdate('CASCADE').onDelete('CASCADE');
+            tbl.integer('measurementType_id').notNullable().unsigned().references('MeasurementTypes.id').onUpdate('CASCADE').onDelete('CASCADE');
             tbl.string('name', 64).notNullable().unique();
             tbl.string('description', 255);
         })
