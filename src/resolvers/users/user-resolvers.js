@@ -257,17 +257,21 @@ const getFavoriteEvents = async (_, args, context) => {
   const authenticated = await context.authenticated
   if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
-  const events = await userModel.findAllFavoriteEvents(args.id);
-  const userList = events.map(async (event) => {
-    const users = await eventModel.findUsersForEvent(event.id);
-    stringifyPhoto(event);
-    return {
-      ...event,
-      users: [...users],
-    }
-  });
-  const results = Promise.all(userList);
-  return results;
+  const user = await userModel.findById(args.id)
+  if (user) {
+    const favoriteEvents = await userModel.findAllFavoriteEvents(args.id);
+    const favoritesWithUsers = favoriteEvents.map(async (event) => {
+      const users = await eventModel.findUsersForEvent(event.id);
+      stringifyPhoto(event);
+      return {
+        ...event,
+        users: [...users],
+      }
+    });
+    return favoritesWithUsers;
+  } else {
+    throw new Error("Specified user id does not exist")
+  }
 };
 
 
