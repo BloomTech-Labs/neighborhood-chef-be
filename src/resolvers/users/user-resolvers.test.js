@@ -96,6 +96,51 @@ describe('user resolvers', () => {
     expect(parsed.data.updateUser.firstName).toEqual('Jane');
   });
 
+  test('created user has zero favorited events', async () => {
+    const favoriteEvents = await supertest(server)
+      .post('/graphql')
+      .send({
+        query: `
+        query getFavoriteEvents($id:ID!) {
+          getFavoriteEvents(id:$id) {
+            title
+            description
+          }
+        }
+      `,
+        operationName: 'getFavoriteEvents',
+        variables: { id: testId }
+      });
+    const parsed = JSON.parse(favoriteEvents.text);
+    expect(favoriteEvents.status).toBe(200);
+    expect(parsed.data.getFavoriteEvents.length).toEqual(0);
+  });
+
+  test('trying to favorite a non-existent event throws an error', async () => {
+    const addFavorite = await supertest(server)
+      .post('/graphql')
+      .send({
+        query: `
+        mutation addFavoriteEvent($input: NewFavoriteEventInput!) {
+          addFavoriteEvent(input: $input) {
+            title
+            description
+          }
+        }
+      `,
+        operationName: 'addFavoriteEvent',
+        variables: {
+          input: {
+            user_id: parseInt(testId),
+            event_id: 0
+          }
+        }
+      });
+    const parsed = JSON.parse(addFavorite.text);
+    expect(parsed.data).toBe(null)
+    expect(parsed.errors[0].message).toEqual('Specified user id or event id does not exist or event is already a favorite')
+  });
+
   test('created user is deleted', async () => {
     const removed = await supertest(server)
       .post('/graphql')

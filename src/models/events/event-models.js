@@ -14,7 +14,7 @@ module.exports = {
   findInvitedEvents,
   findAttendingEvents,
   updateInvite,
-  removeInvite
+  removeInvite,
 };
 
 function find() {
@@ -112,4 +112,5 @@ function findAttendingEvents(id) {
     .where("Events_Status.user_id", id)
     .andWhere("Events_Status.status", "Going")
 }
+
 

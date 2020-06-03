@@ -13,13 +13,14 @@ const typeDefs = gql`
     latitude: Float!
     longitude: Float!
     photo: String
-    eventsOwned: [Event]!
     status: String
     allergens: JSON
     dietaryRestrictions: JSON
     dietaryPreferences: JSON
     children: JSON
     pets: JSON
+    eventsOwned: [Event]!
+    favoriteEvents: [Event]!
   }
 
   input NewUserInput {
@@ -138,6 +139,16 @@ const typeDefs = gql`
     user_id: Int!
   }
 
+  input NewFavoriteEventInput {
+    event_id: Int!
+    user_id: Int!
+  }
+
+  input RemoveFavoriteEventInput {
+    event_id: Int!
+    user_id: Int!
+  }
+
   type Query {
     status: String!
     getAllUsers: [User]!
@@ -151,6 +162,7 @@ const typeDefs = gql`
     getEventById(id: ID!): Event!
     getCategories: [Category]!
     getCategoryById(id: ID!): Category!
+    getFavoriteEvents(id: ID!): [Event]!
   }
 
   type Mutation {
@@ -164,6 +176,8 @@ const typeDefs = gql`
     inviteUserToEvent(input: EventInviteInput!): Event!
     updateInvitation(input: UpdateInviteInput!): Event!
     removeInvitation(input: RemoveInviteInput!): Event!
+    addFavoriteEvent(input: NewFavoriteEventInput!): Event!
+    removeFavoriteEvent(input: RemoveFavoriteEventInput!): Event!
   }
 `;
 

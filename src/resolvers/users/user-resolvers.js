@@ -1,6 +1,7 @@
 const userModel = require("../../models/users/user-models.js");
 const eventModel = require("../../models/events/event-models.js");
 const { AuthenticationError } = require("apollo-server-express");
+const { stringifyPhoto } = require("../events/event-resolvers.js");
 
 const status = async (_, __, context) => {
 
@@ -42,18 +43,29 @@ const getUserById = async (_, args, context) => {
 
   const user = await userModel.findById(args.id);
   if (user) {
-    const events = await eventModel.findBy({ user_id: args.id });
-    const data = events.map(async event => {
+    // favorite events with users
+    const favorites = await userModel.findAllFavoriteEvents(args.id);
+    const favoritesWithUsers = favorites.map(async event => {
       const users = await eventModel.findUsersForEvent(event.id);
       return {
         ...event,
         users: [...users]
       }
     })
+    //events owned with users
+    const owned = await eventModel.findBy({ user_id: args.id });
+    const ownedWithUsers = owned.map(async event => {
+      const users = await eventModel.findUsersForEvent(event.id);
+      return {
+        ...event,
+        users: [...users]
+      }
+    });
 
     return {
       ...user,
-      eventsOwned: [...data]
+      eventsOwned: [...ownedWithUsers],
+      favoriteEvents: [...favoritesWithUsers]
     };
   } else {
     throw new Error("The specified user id does not exist");
@@ -66,7 +78,30 @@ const getUserByEmail = async (_, args, context) => {
 
   const user = await userModel.findBy({ email: args.input.email }).first();
   if (user) {
-    return user;
+    // favorite events with users
+    const favorites = await userModel.findAllFavoriteEvents(user.id);
+    const favoritesWithUsers = favorites.map(async event => {
+      const users = await eventModel.findUsersForEvent(event.id);
+      return {
+        ...event,
+        users: [...users]
+      }
+    })
+    //events owned with users
+    const owned = await eventModel.findBy({ user_id: user.id });
+    const ownedWithUsers = owned.map(async event => {
+      const users = await eventModel.findUsersForEvent(event.id);
+      return {
+        ...event,
+        users: [...users]
+      }
+    });
+
+    return {
+      ...user,
+      eventsOwned: [...ownedWithUsers],
+      favoriteEvents: [...favoritesWithUsers]
+    };
   } else {
     throw new Error("The specified user email does not exist");
   }
@@ -176,6 +211,65 @@ const removeUser = async (_, args, context) => {
   }
 };
 
+const addFavoriteEvent = async (_, args, context) => {
+  const authenticated = await context.authenticated
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+
+  const user = await userModel.findById(args.input.user_id);
+  const event = await eventModel.findById(args.input.event_id);
+  const duplicate = await userModel.findIfAlreadyFavorite(args.input);
+
+
+  if (user && event && !duplicate) {
+    const favorite = await userModel.addFavoriteEvent(args.input);
+    const users = await eventModel.findUsersForEvent(favorite.id);
+    return {
+      ...favorite,
+      users: [...users]
+    }
+  } else {
+    throw new Error("Specified user id or event id does not exist or event is already a favorite");
+  }
+};
+
+const removeFavoriteEvent = async (_, args, context) => {
+  const authenticated = await context.authenticated
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+
+  const isFavorite = await userModel.findIfAlreadyFavorite(args.input);
+  if (isFavorite) {
+    await userModel.removeFavoriteEvent(args.input);
+    const event = await eventModel.findById(isFavorite.event_id);
+    const users = await eventModel.findUsersForEvent(isFavorite.event_id);
+
+    return {
+      ...event,
+      users: [...users],
+    };
+  } else {
+    throw new Error("There is no favorite event for the specified user id and event id")
+  };
+};
+
+const getFavoriteEvents = async (_, args, context) => {
+  const authenticated = await context.authenticated
+  if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
+
+  const events = await userModel.findAllFavoriteEvents(args.id);
+  const userList = events.map(async (event) => {
+    const users = await eventModel.findUsersForEvent(event.id);
+    stringifyPhoto(event);
+    return {
+      ...event,
+      users: [...users],
+    }
+  });
+  const results = Promise.all(userList);
+  return results;
+};
+
+
+
 module.exports = {
   status,
   getAllUsers,
@@ -187,4 +281,7 @@ module.exports = {
   addUser,
   updateUser,
   removeUser,
+  addFavoriteEvent,
+  removeFavoriteEvent,
+  getFavoriteEvents
 };

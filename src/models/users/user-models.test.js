@@ -51,6 +51,16 @@ describe('user models', () => {
     expect(attending.length).toEqual(0);
   });
 
+  test('created user has no favorite events', async () => {
+    const favoriteEvents = await userModel.findAllFavoriteEvents(createdUserId);
+    expect(favoriteEvents.length).toEqual(0)
+  });
+
+  test('searching for favorite event is undefined', async () => {
+    const isFavorite = await userModel.findIfAlreadyFavorite({ user_id: createdUserId, event_id: 0 })
+    expect(isFavorite).toBeUndefined();
+  });
+
   test('created user is deleted', async () => {
     const deleted = await userModel.remove(createdUserId);
     const user = await db('Users').where({ id: createdUserId }).first();

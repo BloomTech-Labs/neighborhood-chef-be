@@ -216,5 +216,6 @@ module.exports = {
   inviteUserToEvent,
   updateInvitation,
   removeInvitation,
-  getUninvitedUsers
+  getUninvitedUsers,
+  stringifyPhoto
 };
