@@ -9,7 +9,7 @@ const status = async (_, __, context) => {
   if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
   return "Apollo Server is Running!";
-}
+};
 
 const getAllUsers = async (_, __, context) => {
 
@@ -37,7 +37,6 @@ const getAllUsers = async (_, __, context) => {
 };
 
 const getUserById = async (_, args, context) => {
-
   const authenticated = await context.authenticated
   if (!authenticated.success) throw new AuthenticationError(`AUTHENTICATION FAILED ${authenticated.error}`);
 
@@ -61,12 +60,13 @@ const getUserById = async (_, args, context) => {
         users: [...users]
       }
     });
-
+    // final object returned
     return {
       ...user,
       eventsOwned: [...ownedWithUsers],
       favoriteEvents: [...favoritesWithUsers]
     };
+
   } else {
     throw new Error("The specified user id does not exist");
   }
@@ -96,12 +96,13 @@ const getUserByEmail = async (_, args, context) => {
         users: [...users]
       }
     });
-
+    // final object returned
     return {
       ...user,
       eventsOwned: [...ownedWithUsers],
       favoriteEvents: [...favoritesWithUsers]
     };
+
   } else {
     throw new Error("The specified user email does not exist");
   }
@@ -223,6 +224,7 @@ const addFavoriteEvent = async (_, args, context) => {
   if (user && event && !duplicate) {
     const favorite = await userModel.addFavoriteEvent(args.input);
     const users = await eventModel.findUsersForEvent(favorite.id);
+    stringifyPhoto(favorite);
     return {
       ...favorite,
       users: [...users]
