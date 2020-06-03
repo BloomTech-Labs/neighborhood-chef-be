@@ -1,6 +1,8 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+  scalar JSON
+
   type User {
     id: ID!
     email: String!
@@ -13,6 +15,11 @@ const typeDefs = gql`
     photo: String
     eventsOwned: [Event]!
     status: String
+    allergens: JSON
+    dietaryRestrictions: JSON
+    dietaryPreferences: JSON
+    children: JSON
+    pets: JSON
   }
 
   input NewUserInput {
@@ -25,6 +32,11 @@ const typeDefs = gql`
     latitude: Float!
     longitude: Float!
     photo: String
+    allergens: JSON
+    dietaryRestrictions: JSON
+    dietaryPreferences: JSON
+    children: JSON
+    pets: JSON
   }
 
   input UpdateUserInput {
@@ -37,6 +49,11 @@ const typeDefs = gql`
     latitude: Float
     longitude: Float
     photo: String
+    allergens: JSON
+    dietaryRestrictions: JSON
+    dietaryPreferences: JSON
+    children: JSON
+    pets: JSON
   }
 
   input UserEmailInput {
@@ -53,8 +70,8 @@ const typeDefs = gql`
     photo: String!
     category_id: Int!
     user_id: Int!
-    modifiers: String!
-    hashtags: String!
+    modifiers: JSON
+    hashtags: JSON
     address: String!
     latitude: Float!
     longitude: Float!
@@ -70,8 +87,8 @@ const typeDefs = gql`
     user_id: Int!
     photo: String
     category_id: Int!
-    modifiers: String
-    hashtags: String
+    modifiers: JSON
+    hashtags: JSON
     address: String!
     latitude: Float!
     longitude: Float!
@@ -86,8 +103,8 @@ const typeDefs = gql`
     photo: String
     category_id: Int
     user_id: Int
-    modifiers: String
-    hashtags: String
+    modifiers: JSON
+    hashtags: JSON
     address: String
     latitude: Float
     longitude: Float

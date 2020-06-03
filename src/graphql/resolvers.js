@@ -1,3 +1,5 @@
+const { GraphQLJSON } = require("graphql-type-json");
+
 const {
   status,
   getAllUsers,
@@ -30,6 +32,7 @@ const {
 } = require("../resolvers/categories/category-resolvers.js");
 
 module.exports = {
+  JSON: GraphQLJSON,
   Query: {
     status,
     getAllUsers,
