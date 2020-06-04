@@ -3,8 +3,9 @@ exports.up = function(knex) {
         .createTable('Recipe_Ingredients', tbl => {
             tbl.integer('recipe_id').notNullable().unsigned().references('Recipes.id').onUpdate('CASCADE').onDelete('CASCADE');
             tbl.integer('ingredient_id').notNullable().unsigned().references('Ingredients.id').onUpdate('CASCADE').onDelete('CASCADE');
-            tbl.integer('unitOfMeasure_id').notNullable().unsigned().references('UnitsOfMeasure.id').onUpdate('CASCADE').onDelete('CASCADE');
             tbl.decimal('quantity', 5, 2).notNullable().unsigned();
+            tbl.integer('unitOfMeasure_id').notNullable().unsigned().references('UnitsOfMeasure.id').onUpdate('CASCADE').onDelete('CASCADE');
+            tbl.string('preparation', 128);
             tbl.primary(['recipe_id', 'ingredient_id']);
         })
         .createTable('Attendee_Ingredients', tbl => {
