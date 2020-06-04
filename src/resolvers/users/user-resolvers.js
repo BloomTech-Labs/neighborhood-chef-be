@@ -222,13 +222,18 @@ const addFavoriteEvent = async (_, args, context) => {
 
 
   if (user && event && !duplicate) {
-    const favorite = await userModel.addFavoriteEvent(args.input);
-    const users = await eventModel.findUsersForEvent(favorite.id);
-    stringifyPhoto(favorite);
-    return {
-      ...favorite,
-      users: [...users]
-    }
+    // add favorite event and return full array of favorite events with users
+    const favorites = await userModel.addFavoriteEvent(args.input);
+    const favoriteWithUsers = await favorites.map(async event => {
+      const users = await eventModel.findUsersForEvent(event.id);
+      stringifyPhoto(event);
+      return {
+        ...event,
+        users: [...users]
+      }
+    });
+
+    return favoriteWithUsers;
   } else {
     throw new Error("Specified user id or event id does not exist or event is already a favorite");
   }
@@ -240,14 +245,19 @@ const removeFavoriteEvent = async (_, args, context) => {
 
   const isFavorite = await userModel.findIfAlreadyFavorite(args.input);
   if (isFavorite) {
+    // remove event and return full array of favorite events with users
     await userModel.removeFavoriteEvent(args.input);
-    const event = await eventModel.findById(isFavorite.event_id);
-    const users = await eventModel.findUsersForEvent(isFavorite.event_id);
+    const favorites = await userModel.findAllFavoriteEvents(args.input.user_id);
+    const favoriteWithUsers = await favorites.map(async event => {
+      const users = await eventModel.findUsersForEvent(event.id);
+      stringifyPhoto(event);
+      return {
+        ...event,
+        users: [...users]
+      }
+    });
 
-    return {
-      ...event,
-      users: [...users],
-    };
+    return favoriteWithUsers;
   } else {
     throw new Error("There is no favorite event for the specified user id and event id")
   };

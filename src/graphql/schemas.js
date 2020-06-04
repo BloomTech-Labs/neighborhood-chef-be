@@ -176,8 +176,8 @@ const typeDefs = gql`
     inviteUserToEvent(input: EventInviteInput!): Event!
     updateInvitation(input: UpdateInviteInput!): Event!
     removeInvitation(input: RemoveInviteInput!): Event!
-    addFavoriteEvent(input: NewFavoriteEventInput!): Event!
-    removeFavoriteEvent(input: RemoveFavoriteEventInput!): Event!
+    addFavoriteEvent(input: NewFavoriteEventInput!): [Event]!
+    removeFavoriteEvent(input: RemoveFavoriteEventInput!): [Event]!
   }
 `;
 

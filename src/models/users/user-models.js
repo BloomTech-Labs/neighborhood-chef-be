@@ -53,7 +53,7 @@ function findIfAlreadyFavorite(favorite) {
 async function addFavoriteEvent(favoriteEvent) {
   const newFavorite = await db("User_Favorite_Events").insert(favoriteEvent);
 
-  return db("Events").where("id", favoriteEvent.event_id).first();
+  return await findAllFavoriteEvents(favoriteEvent.user_id)
 }
 
 function removeFavoriteEvent(favoriteEvent) {
