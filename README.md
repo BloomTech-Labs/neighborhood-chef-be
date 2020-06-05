@@ -82,9 +82,12 @@ If prompted for a password, input your currently logged-in user's password to pe
 | Query    | getAuthoredEvents  | (id: ID!)                          | Returns logged in user's events         |
 | Query    | getInvitedEvents   | (id: ID!)                          | Returns events that user is invited too |
 | Query    | getAttendingEvents | (id: ID!)                          | Returns events user is attending        |
+| Query    | getFavoriteEvents  | (id: ID!)                          | Returns user's favorite events          |
 | Mutation | addUser            | (input: NewUserInput!)             | Adds a user account                     |
 | Mutation | updateUser         | (id: ID!, input: UpdateUserInput!) | Updates a user account                  |
 | Mutation | removeUser         | (id: ID!)                          | Deletes a user account                  |
+| Mutation | addFavoriteEvent   | (input: NewFavoriteEventInput!)    | Adds an event to user's favorite list   |
+| Mutation | removeFavoriteEvent| (input: RemoveFavoriteEventInput!) | Removes event from user's favorite list |
 
 #### Event
 

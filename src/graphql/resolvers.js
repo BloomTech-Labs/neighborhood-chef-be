@@ -11,6 +11,9 @@ const {
   addUser,
   updateUser,
   removeUser,
+  addFavoriteEvent,
+  removeFavoriteEvent,
+  getFavoriteEvents
 } = require("../resolvers/users/user-resolvers.js");
 
 const {
@@ -46,6 +49,7 @@ module.exports = {
     getEventById,
     getCategories,
     getCategoryById,
+    getFavoriteEvents
   },
   Mutation: {
     addUser,
@@ -58,5 +62,7 @@ module.exports = {
     inviteUserToEvent,
     updateInvitation,
     removeInvitation,
+    addFavoriteEvent,
+    removeFavoriteEvent
   },
 };
