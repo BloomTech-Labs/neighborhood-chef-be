@@ -4,29 +4,24 @@ const DateTime = luxon.DateTime;
 const dt = DateTime.local();
 
 let dTodayPlus3DaysAt6pm = DateTime.fromObject({hour: 18, zone: 'UTC'}).plus({days: 4});
-console.log('dTodayPlus3DaysAt6pm: ', dTodayPlus3DaysAt6pm.toString());
+// console.log('dTodayPlus3DaysAt6pm: ', dTodayPlus3DaysAt6pm.toString());
 let dTodayPlus7DaysAt8pm = DateTime.fromObject({hour: 20, zone: 'UTC'}).plus({days: 7});
-console.log('dTodayPlus7DaysAt8pm: ', dTodayPlus7DaysAt8pm.toString());
+// console.log('dTodayPlus7DaysAt8pm: ', dTodayPlus7DaysAt8pm.toString());
 let dTodayPlus7DaysAt11pm = DateTime.fromObject({hour: 23, zone: 'UTC'}).plus({days: 7});
-console.log('dTodayPlus7DaysAt11pm: ', dTodayPlus7DaysAt11pm.toString());
+// console.log('dTodayPlus7DaysAt11pm: ', dTodayPlus7DaysAt11pm.toString());
 
-var TexasBBQimageData = null;
-fs.readFile('./data/TexasBBQ.jpg', (err, data) => {
-  if (err) {
-    console.log(err);
-  } else {
-    TexasBBQimageData = data;
-  }
-});
+var TexasBBQimageData = readImageFile('./data/images/TexasBBQ.jpg');
+var RamsayimageData = readImageFile('./data/images/Ramsay.jpg');
 
-var RamsayimageData = null;
-fs.readFile('./data/Ramsay.jpg', (err, data) => {
-  if (err) {
-    console.log(err);
-  } else {
-    RamsayimageData = data;
-  }
-});
+function readImageFile(path) {
+    fs.readFile(path, (err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            return data;
+        }
+    });
+};
 
 exports.seed = function(knex) {
   return knex('Events').insert([
