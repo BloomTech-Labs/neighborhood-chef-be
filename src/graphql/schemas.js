@@ -73,6 +73,8 @@ const typeDefs = gql`
     user_id: Int!
     modifiers: JSON
     hashtags: JSON
+    dietaryWarnings: JSON
+    allergenWarnings: JSON
     address: String!
     latitude: Float!
     longitude: Float!
@@ -90,6 +92,8 @@ const typeDefs = gql`
     category_id: Int!
     modifiers: JSON
     hashtags: JSON
+    dietaryWarnings: JSON
+    allergenWarnings: JSON
     address: String!
     latitude: Float!
     longitude: Float!
@@ -106,6 +110,8 @@ const typeDefs = gql`
     user_id: Int
     modifiers: JSON
     hashtags: JSON
+    dietaryWarnings: JSON
+    allergenWarnings: JSON
     address: String
     latitude: Float
     longitude: Float
