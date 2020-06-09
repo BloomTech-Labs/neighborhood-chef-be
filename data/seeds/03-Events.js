@@ -38,7 +38,8 @@ exports.seed = function(knex) {
       hashtags: {},
       address: 'Djupebäcksgatan 15, 461 32 Trollhättan, Sweden',
       latitude: 58.284325,
-      longitude: 12.295076
+      longitude: 12.295076,
+      published: true
     },
     {
       //id: 2,
@@ -54,7 +55,8 @@ exports.seed = function(knex) {
       hashtags: {},
       address: '68 Royal Hospital Rd, Chelsea, London SW3 4HP, United Kingdom',
       latitude: 51.4854801,
-      longitude: -0.1643167
+      longitude: -0.1643167,
+      published: true
     },
   ]);
 };
