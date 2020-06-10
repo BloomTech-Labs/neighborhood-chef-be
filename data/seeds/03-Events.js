@@ -1,7 +1,7 @@
 const fs = require('fs');
 const luxon = require('luxon');
 const DateTime = luxon.DateTime;
-const dt = DateTime.local();
+const dt = DateTime.utc();
 
 let dTodayPlus3DaysAt6pm = DateTime.fromObject({hour: 18, zone: 'UTC'}).plus({days: 4});
 // console.log('dTodayPlus3DaysAt6pm: ', dTodayPlus3DaysAt6pm.toString());
