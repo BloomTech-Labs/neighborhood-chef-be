@@ -200,6 +200,8 @@ If prompted for a password, input your currently logged-in user's password to pe
     user_id: Int!
     modifiers: JSON
     hashtags: JSON
+    dietaryWarnings: JSON
+    allergenWarnings: JSON
     address: String!
     latitude: Float!
     longitude: Float!
@@ -219,6 +221,8 @@ If prompted for a password, input your currently logged-in user's password to pe
     category_id: Int!
     modifiers: JSON
     hashtags: JSON
+    dietaryWarnings: JSON
+    allergenWarnings: JSON
     address: String!
     latitude: Float!
     longitude: Float!
@@ -237,6 +241,8 @@ If prompted for a password, input your currently logged-in user's password to pe
     user_id: Int
     modifiers: JSON
     hashtags: JSON
+    dietaryWarnings: JSON
+    allergenWarnings: JSON
     address: String
     latitude: Float
     longitude: Float
