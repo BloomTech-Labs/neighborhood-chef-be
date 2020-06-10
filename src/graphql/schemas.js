@@ -68,11 +68,13 @@ const typeDefs = gql`
     createDateTime: String!
     title: String!
     description: String!
-    photo: String!
+    photo: String
     category_id: Int!
     user_id: Int!
     modifiers: JSON
     hashtags: JSON
+    dietaryWarnings: JSON
+    allergenWarnings: JSON
     address: String!
     latitude: Float!
     longitude: Float!
@@ -91,6 +93,8 @@ const typeDefs = gql`
     category_id: Int!
     modifiers: JSON
     hashtags: JSON
+    dietaryWarnings: JSON
+    allergenWarnings: JSON
     address: String!
     latitude: Float!
     longitude: Float!
@@ -107,6 +111,8 @@ const typeDefs = gql`
     user_id: Int
     modifiers: JSON
     hashtags: JSON
+    dietaryWarnings: JSON
+    allergenWarnings: JSON
     address: String
     latitude: Float
     longitude: Float
