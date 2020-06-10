@@ -1,7 +1,7 @@
 const fs = require('fs');
 const luxon = require('luxon');
 const DateTime = luxon.DateTime;
-const dt = DateTime.local();
+const dt = DateTime.utc();
 
 let dTodayPlus3DaysAt6pm = DateTime.fromObject({ hour: 18, zone: 'UTC' }).plus({ days: 4 });
 // console.log('dTodayPlus3DaysAt6pm: ', dTodayPlus3DaysAt6pm.toString());
@@ -39,6 +39,7 @@ exports.seed = function (knex) {
       address: 'Djupebäcksgatan 15, 461 32 Trollhättan, Sweden',
       latitude: 58.284325,
       longitude: 12.295076,
+      published: true
       allergenWarnings: {},
       dietaryWarnings: {}
     },
@@ -57,6 +58,7 @@ exports.seed = function (knex) {
       address: '68 Royal Hospital Rd, Chelsea, London SW3 4HP, United Kingdom',
       latitude: 51.4854801,
       longitude: -0.1643167,
+      published: true
       allergenWarnings: {},
       dietaryWarnings: {}
     },
