@@ -68,7 +68,7 @@ const typeDefs = gql`
     createDateTime: String!
     title: String!
     description: String!
-    photo: String!
+    photo: String
     category_id: Int!
     user_id: Int!
     modifiers: JSON
