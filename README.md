@@ -210,6 +210,7 @@ If prompted for a password, input your currently logged-in user's password to pe
 ```graphql
   input NewEventInput {
     id: ID
+    createDateTime: String
     startTime: String!
     endTime: String
     title: String!

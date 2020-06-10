@@ -81,6 +81,7 @@ const typeDefs = gql`
 
   input NewEventInput {
     id: ID
+    createDateTime: String
     startTime: String!
     endTime: String
     title: String!
