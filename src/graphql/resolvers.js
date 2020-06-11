@@ -34,6 +34,13 @@ const {
   addCategory,
 } = require("../resolvers/categories/category-resolvers.js");
 
+const {
+  getIngredientsByEventId,
+  addEventIngredients,
+  EventIngredientUpdate,
+  removeEventIngredient
+} = require('../resolvers/event-ingredients/event-ingredients-resolver');
+
 module.exports = {
   JSON: GraphQLJSON,
   Query: {
@@ -49,7 +56,8 @@ module.exports = {
     getEventById,
     getCategories,
     getCategoryById,
-    getFavoriteEvents
+    getFavoriteEvents,
+    getIngredientsByEventId
   },
   Mutation: {
     addUser,
@@ -63,6 +71,9 @@ module.exports = {
     updateInvitation,
     removeInvitation,
     addFavoriteEvent,
-    removeFavoriteEvent
+    removeFavoriteEvent,
+    addEventIngredients,
+    EventIngredientUpdate,
+    removeEventIngredient
   },
 };
