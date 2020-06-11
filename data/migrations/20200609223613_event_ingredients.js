@@ -5,7 +5,7 @@ exports.up = function(knex) {
     tbl.integer('event_id').notNullable().unsigned().references('Events.id');
     tbl.string('description', 255).notNullable();
     tbl.boolean('requested').notNullable().defaultTo(false);
-    tbl.integer('user_id').notNullable().unsigned().references('Users.id');
+    tbl.integer('user_id').unsigned().references('Users.id');
   });
 };
 
