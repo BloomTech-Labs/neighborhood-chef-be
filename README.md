@@ -277,8 +277,6 @@ If prompted for a password, input your currently logged-in user's password to pe
 
 #### Category Type and Inputs
 
----
-
 ```graphql
   type Category {
     id: ID!
@@ -292,6 +290,36 @@ If prompted for a password, input your currently logged-in user's password to pe
     category: String!
   }
 ```
+
+#### Event Ingredient Type and Inputs
+
+
+```graphql
+  type EventIngredient {
+    id: ID!
+    event_id: Int!
+    description: String!
+    requested: Boolean! 
+    user_id: Int
+  }
+```
+
+```graphql
+ input EventIngredientsInput {
+    object: JSON!
+  }
+```
+
+```graphql
+  input EventIngredientUpdateInput {
+    id: ID
+    event_id: Int
+    description: String
+    requested: Boolean 
+    user_id: Int
+  }
+```
+---
 
 ## 3️⃣ Environment Variables
 
