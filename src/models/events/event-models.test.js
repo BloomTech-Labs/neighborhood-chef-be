@@ -2,6 +2,7 @@ const db = require('../../../data/dbConfig.js');
 const eventModels = require('./event-models.js');
 
 const newEvent = {
+  createDateTime: '2020-05-29T12:00:00.000Z',
   startTime: '2020-05-31T18:00:00.000Z',
   endTime: '2020-05-31T22:00:00.000Z',
   title: 'Homemade Pho and Banh Mi Night',

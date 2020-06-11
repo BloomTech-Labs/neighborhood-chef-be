@@ -68,7 +68,7 @@ const typeDefs = gql`
     createDateTime: String!
     title: String!
     description: String!
-    photo: String!
+    photo: String
     category_id: Int!
     user_id: Int!
     modifiers: JSON
@@ -83,6 +83,7 @@ const typeDefs = gql`
 
   input NewEventInput {
     id: ID
+    createDateTime: String
     startTime: String!
     endTime: String
     title: String!

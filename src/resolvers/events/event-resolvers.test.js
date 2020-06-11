@@ -26,6 +26,7 @@ const NEW_EVENT = {
   operationName: 'addEvent',
   variables: {
     input: {
+      createDateTime: '2020-05-29T12:00:00.000Z',
       startTime: '2020-05-31T18:00:00.000Z',
       title: 'Sushi and Sake Night',
       user_id: 1,
