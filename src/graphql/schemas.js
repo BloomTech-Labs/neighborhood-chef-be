@@ -155,6 +155,26 @@ const typeDefs = gql`
     user_id: Int!
   }
 
+  type EventIngredient {
+    id: ID!
+    event_id: Int!
+    description: String!
+    requested: Boolean! 
+    user_id: Int
+  }
+
+  input EventIngredientsInput {
+    object: JSON!
+  }
+
+  input EventIngredientUpdateInput {
+    id: ID
+    event_id: Int
+    description: String
+    requested: Boolean 
+    user_id: Int
+  }
+
   type Query {
     status: String!
     getAllUsers: [User]!
@@ -169,6 +189,7 @@ const typeDefs = gql`
     getCategories: [Category]!
     getCategoryById(id: ID!): Category!
     getFavoriteEvents(id: ID!): [Event]!
+    getIngredientsByEventId(event_id: Int!): [EventIngredient]!
   }
 
   type Mutation {
@@ -184,6 +205,9 @@ const typeDefs = gql`
     removeInvitation(input: RemoveInviteInput!): Event!
     addFavoriteEvent(input: NewFavoriteEventInput!): [Event]!
     removeFavoriteEvent(input: RemoveFavoriteEventInput!): [Event]!
+    addEventIngredients(input: EventIngredientsInput!): [EventIngredient]!
+    EventIngredientUpdate(input: EventIngredientUpdateInput ): EventIngredient
+    removeEventIngredient(id: ID!): EventIngredient!
   }
 `;
 
