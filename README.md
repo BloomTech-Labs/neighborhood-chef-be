@@ -304,10 +304,17 @@ If prompted for a password, input your currently logged-in user's password to pe
     user_id: Int
   }
 ```
-
 ```graphql
  input EventIngredientsInput {
-    object: JSON!
+    ingredients: [EventIngredientInput]
+  }
+```
+```graphql
+  input EventIngredientInput {
+    event_id: Int!
+    description: String!
+    requested: Boolean! 
+    user_id: Int
   }
 ```
 
