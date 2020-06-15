@@ -165,7 +165,14 @@ const typeDefs = gql`
   }
 
   input EventIngredientsInput {
-    object: JSON!
+    ingredients: [EventIngredientInput]
+  }
+
+  input EventIngredientInput {
+    event_id: Int!
+    description: String!
+    requested: Boolean! 
+    user_id: Int
   }
 
   input EventIngredientUpdateInput {

@@ -1,10 +1,11 @@
-const db = require("../../../../data/dbConfig");
+const db = require("../../../data/dbConfig.js");
 
 module.exports = {
     findByEventId,
     addEventIngredients,
     updateEventIngredient,
-    removeIngredient
+    removeIngredient,
+    findById
 }
 
 function findByEventId (event_id) {
@@ -21,7 +22,7 @@ async function addEventIngredients (eventIngredients) {
 
     for(let i = 0; i < eventIngredients.length; i++) {
         const createdEventIngredient = await addEventIngredient(eventIngredients[i]);
-        createdIngredientsList = [...createdIngredientsList, createdEventIngredient];
+        createdIngredientsList.push(createdEventIngredient)
     }
 
     return createdIngredientsList;
@@ -47,11 +48,8 @@ async function updateEventIngredient(eventIngredient){
 
 async function removeIngredient (id) {
   try { 
-        console.log(id);
         const deletedIngredient = await findById(Number(id)).first();
-        // console.log(deletedIngredient);
         const deleted = await db("Event_Ingredients").where({id}).del();
-        console.log(deleted);
         if(deleted) {
             return deletedIngredient; 
         }
