@@ -1,4 +1,4 @@
-const eventIngredientsModel = require('../../models/event-ingredients/event-ingredients-models/event-ingredient-models');
+const eventIngredientsModel = require('../../models/event-ingredients/event-ingredient-models');
 
 const getIngredientsByEventId = async (_, args, context) => {
 
@@ -10,7 +10,7 @@ const getIngredientsByEventId = async (_, args, context) => {
       );
   
     const eventIngredients = await eventIngredientsModel.findByEventId(args.event_id);
-    console.log(eventIngredients);
+  
     if (eventIngredients) {
       
   
@@ -28,7 +28,8 @@ const addEventIngredients = async (_, args, context) => {
       throw new AuthenticationError(
         `AUTHENTICATION FAILED ${authenticated.error}`
       );
-    const eventIngredients = JSON.parse(args.input.object).array;
+      console.log(args);
+    const eventIngredients = args.input.ingredients;
     const newEventIngredients = await eventIngredientsModel.addEventIngredients(eventIngredients);
     if (newEventIngredients) {
       
@@ -47,7 +48,7 @@ const addEventIngredients = async (_, args, context) => {
         `AUTHENTICATION FAILED ${authenticated.error}`
       );
 
-    console.log(args);
+
 
     const updatedIngredient = await eventIngredientsModel.updateEventIngredient(args.input);
 
