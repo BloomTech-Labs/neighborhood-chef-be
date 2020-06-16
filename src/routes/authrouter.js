@@ -31,6 +31,11 @@ router.post("/register", cors(), buildHTML, async (req, res) => {
       gender,
       address,
       photo,
+      allergens,
+      dietaryPreferences,
+      dietaryRestrictions,
+      pets,
+      children,
     } = req.body;
 
     const databaseUserObject = {
@@ -42,6 +47,11 @@ router.post("/register", cors(), buildHTML, async (req, res) => {
       gender: gender,
       address: address,
       photo: photo,
+      allergens: allergens,
+      dietaryPreferences: dietaryPreferences,
+      dietaryRestrictions: dietaryRestrictions,
+      pets: pets,
+      children: children,
     };
 
     const transport = nodemailer.createTransport({
@@ -86,18 +96,18 @@ router.post("/register", cors(), buildHTML, async (req, res) => {
 
     addedUser
       ? res
-          .status(201)
-          .json({
-            ssuccess: true,
-            message: "User created -- activation required",
-          })
+        .status(201)
+        .json({
+          ssuccess: true,
+          message: "User created -- activation required",
+        })
       : res
-          .status(500)
-          .json({
-            success: false,
-            trace: err.stack,
-            message: "There was an issue with registration",
-          });
+        .status(500)
+        .json({
+          success: false,
+          trace: err.stack,
+          message: "There was an issue with registration",
+        });
   } catch (err) {
     res.status(500).json({ message: err.message, trace: err.stack });
   }
