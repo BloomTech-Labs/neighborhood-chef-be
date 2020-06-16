@@ -15,7 +15,7 @@ const getAllEvents = async (_, __, context) => {
 
     return {
       ...event,
-      users: [...users],
+      users: [...users.map((user) => stringifyPhoto(user))],
     };
   });
   const results = Promise.all(userList);
@@ -36,7 +36,7 @@ const getEventById = async (_, args, context) => {
 
     return {
       ...event,
-      users: [...users],
+      users: [...users.map((user) => stringifyPhoto(user))],
     };
   } else {
     throw new Error("The specified event id does not exist");
@@ -62,7 +62,7 @@ const addEvent = async (_, args, context) => {
   stringifyPhoto(inviteOwner);
   return {
     ...inviteOwner,
-    users: [...users],
+    users: [...users.map((user) => stringifyPhoto(user))],
   };
 };
 
@@ -81,7 +81,7 @@ const updateEvent = async (_, args, context) => {
 
     return {
       ...updatedEvent,
-      users: [...users],
+      users: [...users.map((user) => stringifyPhoto(user))],
     };
   } else {
     throw new Error("The specified event id does not exist");
@@ -122,7 +122,7 @@ const inviteUserToEvent = async (_, args) => {
 
     return {
       ...invite,
-      users: [...users],
+      users: [...users.map((user) => stringifyPhoto(user))],
     };
   }
 };
@@ -143,7 +143,7 @@ const updateInvitation = async (_, args, context) => {
 
     return {
       ...updated,
-      users: [...users],
+      users: [...users.map((user) => stringifyPhoto(user))],
     };
   } else {
     throw new Error(
@@ -168,7 +168,7 @@ const removeInvitation = async (_, args, context) => {
 
     return {
       ...event,
-      users: [...users],
+      users: [...users.map((user) => stringifyPhoto(user))],
     };
   } else {
     throw new Error(
@@ -184,13 +184,14 @@ const getUninvitedUsers = async (_, args, context) => {
       `AUTHENTICATION FAILED ${authenticated.error}`
     );
 
-  return await eventModel.findUninvitedUsersForEvent(args.id);
+  const userList = await eventModel.findUninvitedUsersForEvent(args.id);
+  return userList.map((user) => stringifyPhoto(user));
 };
 
 // helper functions
-function stringifyPhoto(event) {
-  event.photo = String(event.photo)
-  return event;
+function stringifyPhoto(item) {
+  item.photo = String(item.photo);
+  return item;
 }
 
 function isStatusValid(status) {
@@ -217,5 +218,5 @@ module.exports = {
   updateInvitation,
   removeInvitation,
   getUninvitedUsers,
-  stringifyPhoto
+  stringifyPhoto,
 };

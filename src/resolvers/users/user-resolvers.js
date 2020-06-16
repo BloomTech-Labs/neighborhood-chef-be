@@ -31,6 +31,7 @@ const getAllUsers = async (_, __, context) => {
       };
     });
 
+    stringifyPhoto(user);
     return {
       ...user,
       eventsOwned: [...events],
@@ -67,6 +68,7 @@ const getUserById = async (_, args, context) => {
         users: [...users],
       };
     });
+    stringifyPhoto(user);
     // final object returned
     return {
       ...user,
@@ -105,6 +107,7 @@ const getUserByEmail = async (_, args, context) => {
         users: [...users],
       };
     });
+    stringifyPhoto(user);
     // final object returned
     return {
       ...user,
