@@ -54,6 +54,7 @@ const getUserById = async (_, args, context) => {
     const favorites = await userModel.findAllFavoriteEvents(args.id);
     const favoritesWithUsers = favorites.map(async (event) => {
       const users = await eventModel.findUsersForEvent(event.id);
+      stringifyPhoto(event);
       return {
         ...event,
         users: [...users],
@@ -63,6 +64,7 @@ const getUserById = async (_, args, context) => {
     const owned = await eventModel.findBy({ user_id: args.id });
     const ownedWithUsers = owned.map(async (event) => {
       const users = await eventModel.findUsersForEvent(event.id);
+      stringifyPhoto(event);
       return {
         ...event,
         users: [...users],
@@ -131,7 +133,7 @@ const getAuthoredEvents = async (_, args, context) => {
     const events = await eventModel.findBy({ user_id: args.id });
     const data = events.map(async (event) => {
       const users = await eventModel.findUsersForEvent(event.id);
-
+      stringifyPhoto(event);
       return {
         ...event,
         users: [...users],
