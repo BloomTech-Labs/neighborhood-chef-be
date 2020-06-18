@@ -1,5 +1,12 @@
 # Neighborhood Chef
 
+The back-end is deployed on AWS RDS at [be.ourneighborhoodchef.com](https://be.ourneighborhoodchef.com)
+
+![build](https://github.com/Lambda-School-Labs/neighborhood-chef-be/workflows/build/badge.svg)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e704a7d41bbcb50a6783/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/e704a7d41bbcb50a6783/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/test_coverage)
+![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
+
 ## Contributors
 
 |                                                          [Kyle Richardson](https://github.com/kyle-richardson)                                                           |                                                       [Paul Edwards](https://github.com/PaulMEdwards)                                                        |                                                      [Aaron Merrifield-Lucier](https://github.com/Aaroneld)                                                       |                                                       [Brennan Neilson](https://github.com/bvneilson)                                                        |                                                      [Patrick Replogle](https://github.com/patrick-replogle)                                                       |                                                          [Miguel Leal](https://twitter.com/lealitos)                                                           |
@@ -8,17 +15,7 @@
 |                                       [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/kyle-richardson)                                       |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/PaulMEdwards)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Aaroneld)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/bvneilson)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/patrick-replogle)                            |  [<img src="https://twitter.com/favicon.ico" width="15"> ](https://twitter.com/lealitos)                            |
 |                      [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://linkedin.com/in/kyle-m-richardson)                       |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/paulmedwards/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/aaron-merrifield-234477195/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/brennanneilson/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/patrick-replogle-409a92193/)                |               [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/miguel-leal-6b6905168/)            |
 
-<br>
-
-
 # API Documentation
-
-#### 1️⃣ Backend deployed to [AWS RDS](https://be.ourneighborhoodchef.com/) <br>
-
-![build](https://github.com/Lambda-School-Labs/neighborhood-chef-be/workflows/build/badge.svg)
-[![Maintainability](https://api.codeclimate.com/v1/badges/e704a7d41bbcb50a6783/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/e704a7d41bbcb50a6783/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/neighborhood-chef-be/test_coverage)
-![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 
 ## 1️⃣ Getting started
 
@@ -35,7 +32,7 @@ Testing:
 - **yarn test:watch** to continuously use testing environment
 - **yarn test:watchTroubleshoot** to debug while using testing environment
 - **yarn test:watchWithLogs** to view logs while using testing environment
-- **yarn test:coverage** to view test coverage
+- **yarn coverage** to view test coverage
 
 ### Install Postgres Docker
 
