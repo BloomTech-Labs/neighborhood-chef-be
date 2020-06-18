@@ -11,7 +11,7 @@ on:
 # The jobs that will be run, usually in parallel
 jobs:
   tests:
-    name: Test and publish test coverage
+    name: Test and publish coverage
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
