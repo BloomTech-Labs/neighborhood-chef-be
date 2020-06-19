@@ -17,7 +17,7 @@ The back-end is deployed on AWS RDS at [be.ourneighborhoodchef.com](https://be.o
 
 # API Documentation
 
-## 1️⃣ Getting started
+## Getting started
 
 To get the server running locally:
 
@@ -66,7 +66,7 @@ If prompted for a password, input your currently logged-in user's password to pe
 - AWS RDS
 - PostgreSQL
 
-## 2️⃣ Graphql Queries and Mutations
+## Graphql Queries and Mutations
 
 #### User
 
@@ -110,7 +110,7 @@ If prompted for a password, input your currently logged-in user's password to pe
 
 # Data Model
 
-#### 2️⃣ User Type and Inputs
+#### User Type and Inputs
 
 ---
 
@@ -326,7 +326,7 @@ If prompted for a password, input your currently logged-in user's password to pe
 ```
 ---
 
-## 3️⃣ Environment Variables
+## Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables. Please refer to the .env.example file contained within the src folder for a list of up to date environment variables with examples.
 
