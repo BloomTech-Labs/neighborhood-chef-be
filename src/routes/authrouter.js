@@ -11,16 +11,19 @@ const cors = require("cors");
 
 const users = require("../models/users/user-models");
 
+const { isEmailUnique } = require("../middleware/isEmailUnique.js")
+
 const readFile = promisify(fs.readFile);
 const router = express.Router();
 router.use(express.json());
 router.use(cors());
 
+
 router.get("/", (req, res) => {
   res.status(200).send("<h1>Working!</h1>");
 });
 
-router.post("/register", cors(), buildHTML, async (req, res) => {
+router.post("/register", cors(), isEmailUnique, buildHTML, async (req, res) => {
   try {
     const {
       email,
