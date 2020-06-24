@@ -4,10 +4,10 @@ exports.up = function (knex) {
             tbl.increments();
             tbl.integer('event_id').notNullable().unsigned().references('Events.id').onUpdate('CASCADE').onDelete('CASCADE');
             tbl.integer('user_id').notNullable().unsigned().references('Users.id').onUpdate('CASCADE').onDelete('CASCADE');
-            tbl.integer('parent_id');
-            tbl.integer('root_id');
-            tbl.string('dateCreated');
-            tbl.text('content');
+            tbl.integer('parent_id').notNullable();
+            tbl.integer('root_id').notNullable();
+            tbl.string('dateCreated').notNullable();
+            tbl.text('description').notNullable();
         })
 };
 
