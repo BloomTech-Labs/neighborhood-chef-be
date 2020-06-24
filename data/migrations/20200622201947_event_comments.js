@@ -6,8 +6,8 @@ exports.up = function (knex) {
             tbl.integer('user_id').notNullable().unsigned().references('Users.id').onUpdate('CASCADE').onDelete('CASCADE');
             tbl.integer('parent_id').notNullable();
             tbl.integer('root_id').notNullable();
-            tbl.string('dateCreated').notNullable();
-            tbl.text('description').notNullable();
+            tbl.datetime('dateCreated').notNullable().defaultTo(knex.fn.now());
+            tbl.text('description', 500).notNullable();
         })
 };
 
