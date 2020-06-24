@@ -6,7 +6,7 @@ const newComment = {
     user_id: 2,
     parent_id: -1,
     root_id: -1,
-    dateCreated: "today",
+    dateCreated: "2020-06-24 01:35:27.37+00",
     description: "new comment"
 };
 
@@ -41,7 +41,7 @@ describe('comment models', () => {
 
     test('comment is deleted', async () => {
         const removed = await commentModel.remove(createdCommentId);
-        const deleted = await db('Events').where({ id: createdCommentId }).first();
+        const deleted = await db('Comments').where({ id: createdCommentId }).first();
         expect(deleted).toBeUndefined();
     });
 });

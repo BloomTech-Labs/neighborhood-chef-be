@@ -31,7 +31,7 @@ const NEW_COMMENT = {
             user_id: 2,
             parent_id: -1,
             root_id: -1,
-            dateCreated: "today",
+            dateCreated: "2020-06-24 01:35:27.37+00",
             description: "new comment"
         },
     },
@@ -73,7 +73,6 @@ describe('comment resolvers', () => {
                 variables: {
                     id: `${testId}`,
                     input: {
-                        user_id: 1,
                         description: 'updated comment'
                     },
                 },

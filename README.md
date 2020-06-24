@@ -108,11 +108,27 @@ If prompted for a password, input your currently logged-in user's password to pe
 | Query    | getCategoryById | (id: ID!)                  | Returns a single category |
 | Mutation | addCategory     | (input: NewCategoryInput!) | Adds a new category       |
 
+#### Comments
+
+| Type     | Name                  | variables                          | Description               |
+| -------- | --------------------- | ---------------------------------- | ------------------------- |
+| Query    | getEventComments      | (id: ID!)                          | Returns all event comments|
+| Mutation | addComment | (id: ID!)| (input: !NewCommentInput)          | Returns create comment    |
+| Mutation | updateComment         | (id: ID!, input: !NewCommentInput) | Returns updated comment   |
+| Mutation | removeComment         |(id: ID!) | Returns deleted comment | Returns deleted comment   |
+
+#### Event Ingredients
+
+| Type     | Name                    | variables                           | Description                  |  
+| -------- | ----------------------- | ----------------------------------- | ---------------------------- |
+| Query    | getIngredientsByEventId | (event_id: Int!)                    | Returns all event ingredients|
+| Mutation | addEventIngredients     | (input: EventIngredientsInput!)     | Adds event ingredients       |
+| Mutation | EventIngredientUpdate   | (input: EventIngredientUpdateInput )| Updates event ingredients    |
+| Mutation | removeEventIngredient   | (id: ID!) | Returns deleted comment | Deletes event ingredient     |
+
 # Data Model
 
 #### User Type and Inputs
-
----
 
 ```graphql
   type User {
@@ -181,8 +197,6 @@ If prompted for a password, input your currently logged-in user's password to pe
 ```
 
 #### Event Type and Inputs
-
----
 
 ```graphql
   type Event {
@@ -324,7 +338,45 @@ If prompted for a password, input your currently logged-in user's password to pe
     user_id: Int
   }
 ```
----
+#### comment Type and Inputs
+
+```graphql
+  type Comment {
+    id: ID!
+    event_id: Int!
+    user_id: Int!
+    parent_id: Int!
+    root_id: Int!
+    dateCreated: String!
+    description: String!
+    user: User!
+  }
+```
+
+```graphql
+  input NewCommentInput {
+    id: ID
+    event_id: Int!
+    user_id: Int!
+    parent_id: Int!
+    root_id: Int!
+    dateCreated: String!
+    description: String!
+  }
+```
+
+```graphql
+  input UpdateCommentInput {
+    id: ID
+    event_id: Int
+    user_id: Int!
+    parent_id: Int
+    root_id: Int
+    dateCreated: String
+    description: String
+  }
+```
+
 
 ## Environment Variables
 
