@@ -7,7 +7,7 @@ const newComment = {
     parent_id: -1,
     root_id: -1,
     dateCreated: "2020-06-24 01:35:27.37+00",
-    description: "new comment"
+    comment: "new comment"
 };
 
 describe('comment models', () => {
@@ -29,14 +29,14 @@ describe('comment models', () => {
     test('finds comment by id', async () => {
         const comment = await commentModel.findById(createdCommentId);
         expect(comment).toBeDefined();
-        expect(comment.description).toEqual('new comment');
+        expect(comment.comment).toEqual('new comment');
     });
 
     test('comment is updated', async () => {
         const updated = await commentModel.update(createdCommentId, {
-            description: "updated description"
+            comment: "updated comment"
         });
-        expect(updated.description).toEqual('updated description');
+        expect(updated.comment).toEqual('updated comment');
     });
 
     test('comment is deleted', async () => {

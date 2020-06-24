@@ -7,7 +7,7 @@ exports.up = function (knex) {
             tbl.integer('parent_id').notNullable();
             tbl.integer('root_id').notNullable();
             tbl.datetime('dateCreated').notNullable().defaultTo(knex.fn.now());
-            tbl.text('description', 500).notNullable();
+            tbl.text('comment', 500).notNullable();
         })
 };
 

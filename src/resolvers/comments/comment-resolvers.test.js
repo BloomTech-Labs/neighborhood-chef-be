@@ -7,7 +7,7 @@ const ALL_EVENT_COMMENTS = {
         query getEventComments($id: ID!) {
             getEventComments(id: $id) {
                 id
-                description
+                comment
             }
         }
     `,
@@ -20,7 +20,7 @@ const NEW_COMMENT = {
         mutation addComment($input: NewCommentInput!) {
             addComment(input: $input) {
                 id,
-                description
+                comment
             }
         }
     `,
@@ -32,7 +32,7 @@ const NEW_COMMENT = {
             parent_id: -1,
             root_id: -1,
             dateCreated: "2020-06-24 01:35:27.37+00",
-            description: "new comment"
+            comment: "new comment"
         },
     },
 };
@@ -46,7 +46,7 @@ describe('comment resolvers', () => {
         testId = parsed.data.addComment.id;
         expect(created.status).toBe(200);
         expect(created.type).toBe('application/json');
-        expect(parsed.data.addComment.description).toEqual('new comment');
+        expect(parsed.data.addComment.comment).toEqual('new comment');
     });
 
     test('gets all event comments', async () => {
@@ -65,7 +65,7 @@ describe('comment resolvers', () => {
                 mutation updateComment($id:ID!, $input: UpdateCommentInput!) {
                     updateComment(id: $id, input:$input) {
                       id
-                      description
+                      comment
                     }
                 }
             `,
@@ -73,13 +73,13 @@ describe('comment resolvers', () => {
                 variables: {
                     id: `${testId}`,
                     input: {
-                        description: 'updated comment'
+                        comment: 'updated comment'
                     },
                 },
             });
         const parsed = JSON.parse(updated.text);
         expect(updated.status).toBe(200);
-        expect(parsed.data.updateComment.description).toEqual('updated comment');
+        expect(parsed.data.updateComment.comment).toEqual('updated comment');
     });
 
     test('created comment is deleted', async () => {

@@ -348,7 +348,7 @@ If prompted for a password, input your currently logged-in user's password to pe
     parent_id: Int!
     root_id: Int!
     dateCreated: String!
-    description: String!
+    comment: String!
     user: User!
   }
 ```
@@ -361,7 +361,7 @@ If prompted for a password, input your currently logged-in user's password to pe
     parent_id: Int!
     root_id: Int!
     dateCreated: String!
-    description: String!
+    comment: String!
   }
 ```
 
@@ -373,7 +373,7 @@ If prompted for a password, input your currently logged-in user's password to pe
     parent_id: Int
     root_id: Int
     dateCreated: String
-    description: String
+    comment: String
   }
 ```
 

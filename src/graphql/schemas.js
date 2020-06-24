@@ -190,7 +190,7 @@ const typeDefs = gql`
     parent_id: Int!
     root_id: Int!
     dateCreated: String!
-    description: String!
+    comment: String!
     user: User!
   }
 
@@ -201,7 +201,7 @@ const typeDefs = gql`
     parent_id: Int!
     root_id: Int!
     dateCreated: String!
-    description: String!
+    comment: String!
   }
 
   input UpdateCommentInput {
@@ -211,7 +211,7 @@ const typeDefs = gql`
     parent_id: Int
     root_id: Int
     dateCreated: String
-    description: String
+    comment: String
   }
 
   type Query {
