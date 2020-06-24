@@ -38,8 +38,15 @@ const {
   getIngredientsByEventId,
   addEventIngredients,
   EventIngredientUpdate,
-  removeEventIngredient
+  removeEventIngredient,
 } = require('../resolvers/event-ingredients/event-ingredients-resolver');
+
+const {
+  getEventComments,
+  addComment,
+  updateComment,
+  removeComment,
+} = require("../resolvers/comments/comment-resolvers.js");
 
 module.exports = {
   JSON: GraphQLJSON,
@@ -57,7 +64,9 @@ module.exports = {
     getCategories,
     getCategoryById,
     getFavoriteEvents,
-    getIngredientsByEventId
+    getIngredientsByEventId,
+    getEventComments,
+
   },
   Mutation: {
     addUser,
@@ -74,6 +83,9 @@ module.exports = {
     removeFavoriteEvent,
     addEventIngredients,
     EventIngredientUpdate,
-    removeEventIngredient
+    removeEventIngredient,
+    addComment,
+    updateComment,
+    removeComment,
   },
 };
