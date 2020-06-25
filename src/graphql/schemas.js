@@ -183,6 +183,37 @@ const typeDefs = gql`
     user_id: Int
   }
 
+  type Comment {
+    id: ID!
+    event_id: Int!
+    user_id: Int!
+    parent_id: Int!
+    root_id: Int!
+    dateCreated: String!
+    comment: String!
+    user: User!
+  }
+
+  input NewCommentInput {
+    id: ID
+    event_id: Int!
+    user_id: Int!
+    parent_id: Int!
+    root_id: Int!
+    dateCreated: String!
+    comment: String!
+  }
+
+  input UpdateCommentInput {
+    id: ID
+    event_id: Int
+    user_id: Int
+    parent_id: Int
+    root_id: Int
+    dateCreated: String
+    comment: String
+  }
+
   type Query {
     status: String!
     getAllUsers: [User]!
@@ -198,6 +229,7 @@ const typeDefs = gql`
     getCategoryById(id: ID!): Category!
     getFavoriteEvents(id: ID!): [Event]!
     getIngredientsByEventId(event_id: Int!): [EventIngredient]!
+    getEventComments(id: ID!): [Comment]!
   }
 
   type Mutation {
@@ -216,6 +248,9 @@ const typeDefs = gql`
     addEventIngredients(input: EventIngredientsInput!): [EventIngredient]!
     EventIngredientUpdate(input: EventIngredientUpdateInput ): EventIngredient
     removeEventIngredient(id: ID!): EventIngredient!
+    addComment(input: NewCommentInput!): Comment!
+    updateComment(id: ID!, input: UpdateCommentInput!): Comment!
+    removeComment(id: ID!): Comment!
   }
 `;
 
