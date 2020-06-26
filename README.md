@@ -110,12 +110,14 @@ If prompted for a password, input your currently logged-in user's password to pe
 
 #### Comments
 
-| Type     | Name                  | variables                          | Description               |
-| -------- | --------------------- | ---------------------------------- | ------------------------- |
-| Query    | getEventComments      | (id: ID!)                          | Returns all event comments|
-| Mutation | addComment | (id: ID!)| (input: !NewCommentInput)          | Returns create comment    |
-| Mutation | updateComment         | (id: ID!, input: !NewCommentInput) | Returns updated comment   |
-| Mutation | removeComment         |(id: ID!) | Returns deleted comment | Returns deleted comment   |
+| Type     | Name                  | variables                          | Description                                    |
+| -------- | --------------------- | ---------------------------------- | ---------------------------------------------- |
+| Query    | getEventComments      | (id: ID!)                          | Returns all event comments                     |
+| Query    | getCommentReactions   | (id: ID!)                          | Returns all comment reactions                  |
+| Mutation | addComment | (id: ID!)| (input: !NewCommentInput)          | Returns create comment                         |
+| Mutation | updateComment         | (id: ID!, input: !NewCommentInput) | Returns updated comment                        |
+| Mutation | removeComment         | (id: ID!)                          | Returns deleted comment                        |
+| Mutation | handleReaction        | (input: ReactionInput!)            | Dynamically adds, updates, or deletes reaction |
 
 #### Event Ingredients
 
@@ -338,7 +340,7 @@ If prompted for a password, input your currently logged-in user's password to pe
     user_id: Int
   }
 ```
-#### comment Type and Inputs
+#### comment/reactions Type and Inputs
 
 ```graphql
   type Comment {
@@ -369,7 +371,7 @@ If prompted for a password, input your currently logged-in user's password to pe
   input UpdateCommentInput {
     id: ID
     event_id: Int
-    user_id: Int!
+    user_id: Int
     parent_id: Int
     root_id: Int
     dateCreated: String
@@ -377,6 +379,21 @@ If prompted for a password, input your currently logged-in user's password to pe
   }
 ```
 
+```graphql
+type Reaction {
+    comment_id: Int!
+    user_id: Int!
+    reaction: String!
+  }
+```
+
+```graphql
+  input ReactionInput {
+    comment_id: Int!
+    user_id: Int!
+    reaction: String!
+  }
+```
 
 ## Environment Variables
 

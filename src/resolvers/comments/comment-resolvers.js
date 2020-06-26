@@ -1,6 +1,7 @@
 const commentModel = require("../../models/comments/comment-models.js");
 const eventModel = require("../../models/events/event-models.js");
 const userModel = require("../../models/users/user-models.js");
+const reactionModel = require("../../models/comment-reactions/reaction-models.js")
 const { stringifyPhoto } = require("../events/event-resolvers.js");
 
 const getEventComments = async (_, args, context) => {
@@ -91,11 +92,44 @@ const removeComment = async (_, args, context) => {
     }
 };
 
+const getCommentReactions = async (_, args, context) => {
+    const authenticated = await context.authenticated;
+    if (!authenticated.success)
+        throw new AuthenticationError(
+            `AUTHENTICATION FAILED ${authenticated.error}`
+        );
+    const comment = await commentModel.findById(args.id);
+    if (comment) {
+        return await reactionModel.findAllCommentReactions(args.id);
+    } else {
+        throw new Error("The specified comment id does not exist");
+    }
+};
 
+const handleReaction = async (_, args, context) => {
+    const authenticated = await context.authenticated;
+    if (!authenticated.success)
+        throw new AuthenticationError(
+            `AUTHENTICATION FAILED ${authenticated.error}`
+        );
+    const reaction = await reactionModel.findBy(args.input).first();
+
+    if (!reaction && args.input.reaction) {
+        return await reactionModel.add(args.input)
+    }
+    if (reaction && args.input.reaction === reaction.reaction) {
+        return await reactionModel.remove(args.input);
+    }
+    if (reaction && args.input.reaction) {
+        return await reactionModel.update(args.input);
+    }
+};
 
 module.exports = {
     getEventComments,
     addComment,
     updateComment,
     removeComment,
+    handleReaction,
+    getCommentReactions,
 };

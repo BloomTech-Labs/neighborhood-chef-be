@@ -214,6 +214,18 @@ const typeDefs = gql`
     comment: String
   }
 
+  type Reaction {
+    comment_id: Int!
+    user_id: Int!
+    reaction: String!
+  }
+
+  input ReactionInput {
+    comment_id: Int!
+    user_id: Int!
+    reaction: String!
+  }
+
   type Query {
     status: String!
     getAllUsers: [User]!
@@ -230,6 +242,7 @@ const typeDefs = gql`
     getFavoriteEvents(id: ID!): [Event]!
     getIngredientsByEventId(event_id: Int!): [EventIngredient]!
     getEventComments(id: ID!): [Comment]!
+    getCommentReactions(id: ID!): [Reaction]!
   }
 
   type Mutation {
@@ -251,6 +264,7 @@ const typeDefs = gql`
     addComment(input: NewCommentInput!): Comment!
     updateComment(id: ID!, input: UpdateCommentInput!): Comment!
     removeComment(id: ID!): Comment!
+    handleReaction(input: ReactionInput!): [Reaction]!
   }
 `;
 
