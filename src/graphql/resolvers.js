@@ -46,6 +46,8 @@ const {
   addComment,
   updateComment,
   removeComment,
+  handleReaction,
+  getCommentReactions,
 } = require("../resolvers/comments/comment-resolvers.js");
 
 module.exports = {
@@ -66,6 +68,7 @@ module.exports = {
     getFavoriteEvents,
     getIngredientsByEventId,
     getEventComments,
+    getCommentReactions,
 
   },
   Mutation: {
@@ -87,5 +90,6 @@ module.exports = {
     addComment,
     updateComment,
     removeComment,
+    handleReaction,
   },
 };
